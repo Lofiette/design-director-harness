@@ -36,8 +36,7 @@ jobs:
           $source = Join-Path $env:RUNNER_TEMP 'ddh-full-source'
           git archive --format=zip --prefix=design-director-harness-full/ --output=$archive HEAD
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m zipfile -e $archive $source
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          [IO.Compression.ZipFile]::ExtractToDirectory($archive, $source)
           Set-Location -LiteralPath (Join-Path $source 'design-director-harness-full')
           python -B product-os/tools/validate_distribution.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
