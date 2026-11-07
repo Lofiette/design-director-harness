@@ -1,0 +1,10 @@
+- id: ddh-figma-console
+  name: '@deepseek-ai/dsh-mcp-client'
+  config:
+    serverName: figma-console
+    transport: stdio
+    command: npx
+    args: ['-y', 'figma-console-mcp@1.46.0']
+    toolCallTimeoutMs: 300000
+    env:
+      FIGMA_ACCESS_TOKEN: !!js process.env.FIGMA_ACCESS_TOKEN

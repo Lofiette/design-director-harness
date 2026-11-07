@@ -1,0 +1,131 @@
+{
+  "schema": "ddh-sources-v1",
+  "reviewedOn": "2026-11-03",
+  "notes": "Public sources and observed upstream commits for the practices and integrations in DDH. Pins are review references. Private project practices informed the design without redistribution of their files.",
+  "entries": [
+    {
+      "id": "product-os",
+      "url": "https://github.com/Lofiette/design-director-harness/tree/v4.1.0",
+      "license": "unverified in reviewed tree",
+      "use": "practice",
+      "reason": "Task scope, checkpoint continuity, design acceptance and release evidence.",
+      "pin": "1870f6fc200638a200348762004d24c2803f93b1"
+    },
+    {
+      "id": "decision-audit",
+      "url": "https://github.com/Lofiette/skill-decision-audit",
+      "license": "MIT",
+      "use": "practice",
+      "reason": "Separate fit from evidence, challenge risky decisions, observe and record outcomes.",
+      "pin": "97092452174833435b83c8344e8e395c9614ffcf",
+      "observedBlob": "c8f75e75f24853f54f6c2ba4dcfdadbeb8b2da2a"
+    },
+    {
+      "id": "mattpocock",
+      "url": "https://github.com/mattpocock/skills",
+      "license": "MIT",
+      "use": "practice",
+      "reason": "Focused clarification, debugging before fixes, repository vocabulary, ADRs and handoff.",
+      "pin": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+      "observedBlob": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+    },
+    {
+      "id": "elaya",
+      "url": "https://github.com/elayadesign/ai-design-skills",
+      "license": "MIT",
+      "use": "practice",
+      "reason": "Distinct craft references for landing pages and motion, available upstream.",
+      "pin": "5e578402da175cdc539c900e4b09ceecfadcb37c",
+      "observedBlob": "9ff21c8c5b2e713c357d3e15e641172a211eac21"
+    },
+    {
+      "id": "owl-designer",
+      "url": "https://github.com/Owl-Listener/designer-skills",
+      "license": "MIT",
+      "use": "reference",
+      "reason": "Use the catalog selectively when an existing DDH design workflow needs more depth.",
+      "observedBlob": "eb0f5816077ef8023a5f42ecf07dfb8a98b93b74"
+    },
+    {
+      "id": "rea",
+      "url": "https://github.com/morluto/rea",
+      "license": "MIT",
+      "use": "integration",
+      "reason": "Use the CLI for authorized reverse engineering when the task requires it.",
+      "pin": "5508b2affd8bdd0788aed9d2246c373fd1b01bb7",
+      "observedBlob": "2d476d24fa5a9ae2ab35e5fd121494049eb2ee5d"
+    },
+    {
+      "id": "replica",
+      "url": "https://github.com/Jakeschincariol/replica-skill",
+      "license": "MIT",
+      "use": "integration",
+      "reason": "Activate an individual stage for an authorized replica task.",
+      "pin": "77c9436fb3d18c3d58169efb8caf4fe906b0dc51",
+      "observedBlob": "ac31f09aba721de8d139c7bef3d5024421426472"
+    },
+    {
+      "id": "pixelprism",
+      "url": "https://github.com/divulture/PixelPrism",
+      "license": "MIT per GitHub metadata",
+      "use": "integration",
+      "reason": "Accept viewport, state and selector evidence from a user-provided visual handoff.",
+      "observedBlob": "d42cd8c5048bce638b6a8541a3e87a69e28c4ac5"
+    },
+    {
+      "id": "dodo-motion",
+      "url": "https://github.com/goroh3018/dodo-feature-motion",
+      "license": "unverified",
+      "use": "reference",
+      "reason": "Storyboard, preview and final-render sequence. Keep the brand kit upstream.",
+      "observedBlob": "b53ee3dbc31d1891e420ad5732e8d0fb4a4a73b3"
+    },
+    {
+      "id": "dsh",
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "license": "MIT per GitHub metadata",
+      "use": "host",
+      "reason": "Filesystem skill provider, native profile and agent lifecycle."
+    },
+    {
+      "id": "planning-with-files",
+      "url": "https://github.com/OthmanAdi/planning-with-files",
+      "license": "reported MIT in DSH research",
+      "use": "reference",
+      "reason": "Candidate for native DSH interruption handling. Keep optional pending profile verification."
+    },
+    {
+      "id": "superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "license": "reported MIT in DSH research",
+      "use": "reference",
+      "reason": "Candidate methods for review, verification and worktree isolation. Avoid duplicate routing."
+    },
+    {
+      "id": "addy-agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "license": "reported MIT in DSH research",
+      "use": "reference",
+      "reason": "Candidate methods for constraints, ADRs and migration. Review individual skills when needed."
+    },
+    {
+      "id": "design-ui-ux",
+      "url": "https://github.com/seltrac/design-ui-ux",
+      "license": "unverified",
+      "use": "reference",
+      "reason": "Reading list only. Review individual source rights before reusing material."
+    },
+    {
+      "id": "figma-console",
+      "url": "https://github.com/southleft/figma-console-mcp",
+      "license": "MIT",
+      "use": "integration",
+      "reason": "Optional pinned Figma executor with provider identity, read-back after mutations and retry reconciliation.",
+      "pin": "5ef4df3791606b8e1f877557ec0dde4796250b44",
+      "observedBlob": "739801ac1c62873fe4661b3ae4bd2af00b2a532f",
+      "reviewedOn": "2026-11-05",
+      "npmVersion": "1.46.0",
+      "npmIntegrity": "sha512-gOzHXHYa/4yYIddjW1CSbU8JCUqkfcSnA8uBz8Q1SjLDt3yeLwYEik4Rs0rtK9PtFxZd0uFFeRMEf5NuLwM57Q=="
+    }
+  ]
+}

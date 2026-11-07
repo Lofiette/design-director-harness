@@ -1,0 +1,26 @@
+{
+  "name": "design-director-harness",
+  "displayName": "Design Director Harness",
+  "version": "5.0.0",
+  "channel": "stable",
+  "description": "Evidence-based product design, engineering decisions and recovery for Codex and DeepSeek Harness.",
+  "hosts": [
+    "codex",
+    "dsh"
+  ],
+  "optionalIntegrations": ["figma-console"],
+  "defaultSkills": [
+    "ddh-direct",
+    "ddh-decision-audit",
+    "ddh-design",
+    "ddh-verify",
+    "ddh-recover"
+  ],
+  "dshLimits": {
+    "description": 500,
+    "bodyWithWrapper": 7900,
+    "wrapperReserve": 640,
+    "referenceWithWrapper": 7900,
+    "referenceReserve": 1200
+  }
+}

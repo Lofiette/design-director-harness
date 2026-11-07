@@ -1,9 +1,0 @@
-interface:
-  display_name: CPT Knowledge Lifecycle
-  short_description: Use to create, validate, refresh, sanitize, and update typed
-    Product Knowledge.
-  brand_color: '#3B82F6'
-  default_prompt: Use $cpt-knowledge-lifecycle for this workflow and return its defined
-    output contract.
-policy:
-  allow_implicit_invocation: true

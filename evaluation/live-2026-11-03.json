@@ -1,0 +1,174 @@
+{
+  "schema": "ddh-benchmark-report-v1",
+  "runs": [
+    {
+      "id": "codex-plain-copy",
+      "profile": "codex-plain",
+      "caseId": "copy",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 61820,
+        "attempts": 1,
+        "inputTokens": 69675,
+        "cachedInputTokens": 41600,
+        "outputTokens": 472
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": null
+    },
+    {
+      "id": "codex-plain-ux",
+      "profile": "codex-plain",
+      "caseId": "ux",
+      "status": "FAIL",
+      "metrics": {
+        "elapsedMs": 194173,
+        "attempts": 1,
+        "inputTokens": 143383,
+        "cachedInputTokens": 84864,
+        "outputTokens": 5676
+      },
+      "failures": [
+        "consequentialQuestion",
+        "product changed before clarification",
+        "no first question recorded"
+      ],
+      "serviceFilesChanged": 0,
+      "question": null
+    },
+    {
+      "id": "codex-plain-recovery",
+      "profile": "codex-plain",
+      "caseId": "recovery",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 123158,
+        "attempts": 1,
+        "inputTokens": 141852,
+        "cachedInputTokens": 103936,
+        "outputTokens": 1409
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": null
+    },
+    {
+      "id": "product-os-4.1-copy",
+      "profile": "product-os-4.1",
+      "caseId": "copy",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 62540,
+        "attempts": 1,
+        "inputTokens": 67300,
+        "cachedInputTokens": 47360,
+        "outputTokens": 698
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": null
+    },
+    {
+      "id": "product-os-4.1-ux",
+      "profile": "product-os-4.1",
+      "caseId": "ux",
+      "status": "FAIL",
+      "metrics": {
+        "elapsedMs": 420102,
+        "attempts": 1,
+        "inputTokens": 887260,
+        "cachedInputTokens": 857216,
+        "outputTokens": 15519
+      },
+      "failures": [
+        "consequentialQuestion",
+        "product changed before clarification",
+        "no first question recorded"
+      ],
+      "serviceFilesChanged": 12,
+      "question": null
+    },
+    {
+      "id": "product-os-4.1-recovery",
+      "profile": "product-os-4.1",
+      "caseId": "recovery",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 168138,
+        "attempts": 1,
+        "inputTokens": 468325,
+        "cachedInputTokens": 424832,
+        "outputTokens": 4484
+      },
+      "failures": [],
+      "serviceFilesChanged": 9,
+      "question": null
+    },
+    {
+      "id": "ddh-5.0-copy",
+      "profile": "ddh-5.0",
+      "caseId": "copy",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 52155,
+        "attempts": 1,
+        "inputTokens": 44138,
+        "cachedInputTokens": 40576,
+        "outputTokens": 783
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": null
+    },
+    {
+      "id": "ddh-5.0-ux",
+      "profile": "ddh-5.0",
+      "caseId": "ux",
+      "status": "FAIL",
+      "metrics": {
+        "elapsedMs": 313966,
+        "attempts": 1,
+        "inputTokens": 239366,
+        "cachedInputTokens": 190848,
+        "outputTokens": 9087
+      },
+      "failures": [
+        "product changed before clarification"
+      ],
+      "serviceFilesChanged": 0,
+      "question": "Кто и какую заявку подаёт через эту форму, и что должно происходить после отправки?"
+    },
+    {
+      "id": "ddh-5.0-recovery",
+      "profile": "ddh-5.0",
+      "caseId": "recovery",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 117107,
+        "attempts": 1,
+        "inputTokens": 155998,
+        "cachedInputTokens": 125056,
+        "outputTokens": 2278
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": null
+    }
+  ],
+  "settings": {
+    "date": "2026-11-03",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "medium",
+    "codexCli": "0.166.0-alpha.5.1",
+    "subscription": "ChatGPT",
+    "sandbox": "workspace-write",
+    "approvalPolicy": "never",
+    "cptHookExecution": "unverified",
+    "plannedRuns": 9,
+    "completedRuns": 9,
+    "authorizedTurns": 15,
+    "completedTurns": 15
+  },
+  "usageAccounting": "Use the last cumulative session counter for resumed UX turns. Sum counters only across distinct session IDs. Uncached input equals input minus cached input."
+}
