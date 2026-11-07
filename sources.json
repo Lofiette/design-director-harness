@@ -16,9 +16,11 @@
       "url": "https://github.com/Lofiette/skill-decision-audit",
       "license": "MIT",
       "use": "practice",
-      "reason": "Separate fit from evidence, challenge risky decisions, observe and record outcomes.",
+      "reason": "Separate fit from evidence, score candidates, put a check between the verdict and the action, keep a decision log, and delegate or run as a worker. Ported into DDH with the full procedure: settled bases a-d, Light/Auto/Confirm/Escalate ladder, margin rule, decision log and brief.",
       "pin": "97092452174833435b83c8344e8e395c9614ffcf",
-      "observedBlob": "c8f75e75f24853f54f6c2ba4dcfdadbeb8b2da2a"
+      "observedBlob": "c8f75e75f24853f54f6c2ba4dcfdadbeb8b2da2a",
+      "portedOn": "2026-11-07",
+      "portNotes": "Body and references kept under the manifest dshLimits budgets; review.md split into review.md and review-brief.md to fit referenceWithWrapper."
     },
     {
       "id": "mattpocock",
