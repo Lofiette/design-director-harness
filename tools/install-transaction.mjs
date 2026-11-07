@@ -9,8 +9,16 @@ const lockPath = ".ddh-install.lock";
 const journalPath = ".ddh-install.transaction.json";
 const recoveryPath = ".ddh-install.recovery.lock";
 const uuid = /^[a-f0-9-]{36}$/;
-export const managedSkillPath = /^\.agents\/skills\/ddh-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|references\/[a-z0-9-]+\.md)$/;
-const allowed = path => path === "AGENTS.md" || path === ".agents/ddh-install.json" || managedSkillPath.test(path);
+export const managedSkillPath = /^\.agents\/skills\/(?:ddh-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|references\/[a-z0-9-]+\.md)|cpt-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|agents\/openai\.yaml|references\/(?:adapters\/)?[A-Za-z0-9_-]+\.(?:md|yaml|json)|scripts\/[a-z0-9_-]+\.mjs))$/;
+export const cptSeedPaths = new Set([
+  ".cpt/runtime.yaml", ".cpt/current.yaml", ".cpt/task-index.yaml", ".cpt/runtime-summary.md",
+  ".cpt/enforcement.yaml", ".cpt/bin/cpt_runtime.py", ".cpt/bin/cpt_orchestration.py",
+  ".cpt/schema-bundle.json", ".cpt/worker-archetypes.json", ".cpt/OPERATIONS.md", ".cpt/install.json",
+]);
+const allowedPath = path => path === "AGENTS.md" || path === ".gitignore" ||
+  path === ".agents/ddh-install.json" || managedSkillPath.test(path) || cptSeedPaths.has(path);
+const allowed = entry => allowedPath(entry.path) &&
+  (!cptSeedPaths.has(entry.path) || entry.before === null && entry.after !== null);
 
 export function check(condition, message) {
   if (!condition) throw new Error(message);
@@ -45,7 +53,7 @@ function writeNew(path, contents) {
 }
 
 function replace(root, path, contents, id) {
-  check(allowed(path) || path === journalPath, "Invalid transaction path: " + path);
+  check(allowedPath(path) || path === journalPath, "Invalid transaction path: " + path);
   inspectPath(root, path);
   const file = join(root, path);
   if (contents === null) {
@@ -117,10 +125,12 @@ function readJournal(bytes, root) {
     journal.entries.length > 0 && journal.entries.length <= 1000, "Invalid install journal");
   const seen = new Set();
   journal.entries = journal.entries.map(entry => {
-    check(typeof entry.path === "string" && allowed(entry.path) && !seen.has(entry.path),
+    check(typeof entry.path === "string" && allowedPath(entry.path) && !seen.has(entry.path),
       "Invalid or duplicate journal path");
+    const decoded = { path: entry.path, before: decode(entry.before), after: decode(entry.after) };
+    check(allowed(decoded), "Invalid initial CPT journal entry");
     seen.add(entry.path);
-    return { path: entry.path, before: decode(entry.before), after: decode(entry.after) };
+    return decoded;
   });
   return journal;
 }
@@ -162,7 +172,7 @@ export function installTransaction(root, build) {
     const { changes, result } = build();
     const entries = changes.filter(entry => !same(entry.before, entry.after));
     if (entries.length === 0) return result;
-    check(entries.every(entry => allowed(entry.path)), "Invalid planned install path");
+    check(entries.every(allowed), "Invalid planned install path");
     journal = { schema: "ddh-install-transaction-v1", id: owner.id, root, state: "prepared",
       entries: entries.map(entry => ({path: entry.path, before: encode(entry.before), after: encode(entry.after)})) };
     replace(root, journalPath, serializeJournal(journal), owner.id);

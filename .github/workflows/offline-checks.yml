@@ -22,5 +22,10 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r product-os/requirements.txt
+      - run: python -B product-os/tools/validate_distribution.py
       - run: node tools/ddh.mjs doctor
-      - run: node --test test/ddh.test.mjs test/bench.test.mjs test/install-recovery.test.mjs
+      - run: node --test test/ddh.test.mjs test/bench.test.mjs test/install-recovery.test.mjs test/full-install.test.mjs

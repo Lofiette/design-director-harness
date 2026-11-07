@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-const [packages] = process.argv.slice(2);
+const [packages, fullProject] = process.argv.slice(2);
 assert.ok(packages, "Pass the installed DSH node_modules/@deepseek-ai directory");
 const installed = resolve(packages);
 const load = name => import(pathToFileURL(join(installed, name, "lib/index.js")));
@@ -44,6 +44,29 @@ try {
       skills.push({ name: skill.name, renderedChars: chars });
     }
     results[source] = skills;
+  }
+
+  if (fullProject) {
+    const cwd = resolve(fullProject);
+    const install = JSON.parse(readFileSync(join(cwd, ".agents/ddh-install.json")));
+    const expected = Object.keys(install.files)
+      .filter(path => path.endsWith("/SKILL.md"))
+      .map(path => path.split("/")[2])
+      .sort();
+    const options = { cwd, signal: controller.signal };
+    const candidates = await provider.list(options);
+    assert.ok(Array.isArray(candidates), "Full provider discovery is incomplete");
+    assert.deepEqual(candidates.map(item => item.name).sort(), expected);
+    let maxRenderedChars = 0;
+    for (const candidate of candidates) {
+      assert.equal(candidate.source, "project-agents");
+      const skill = await provider.get(candidate, options);
+      assert.equal(skill.name, candidate.name);
+      const chars = [...renderSkillContent(skill)].length;
+      assert.ok(chars < 7900, skill.name + " rendered over DSH budget");
+      maxRenderedChars = Math.max(maxRenderedChars, chars);
+    }
+    results.full = { skills: expected.length, maxRenderedChars };
   }
   console.log(JSON.stringify({ providerVersion: version, results }, null, 2));
 } finally {

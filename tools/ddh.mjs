@@ -261,9 +261,9 @@ function resume(workspace, input, expectedWorkspace) {
     : record;
 }
 
-function options(args, keys) {
+function options(args, keys, optional = []) {
   const { values } = parseArgs({
-    args, options: Object.fromEntries(keys.map(key => [key, { type: "string" }])),
+    args, options: Object.fromEntries([...keys, ...optional].map(key => [key, { type: "string" }])),
   });
   for (const key of keys) requireThat(nonempty(values[key]), "Missing --" + key);
   return values;
@@ -286,11 +286,19 @@ try {
       break;
     }
     case "install":
-    case "update": {
-      const { project } = options(args, ["project"]);
+    case "update":
+    case "install-full":
+    case "update-full": {
+      const full = command.endsWith("-full");
+      const { project, python, packs } = options(args, ["project"], full ? ["python", "packs"] : []);
       const { manifest, skills } = inspect();
       const bootstrap = readFileSync(join(home, "adapters/AGENTS.ddh.md"), "utf8");
-      result = installProject(project, manifest, skills, bootstrap, command === "update");
+      const productOS = full ? {
+        source: join(home, "product-os"),
+        python: python ?? "python",
+        packs: packs === undefined ? undefined : packs === "" ? [] : packs.split(",").map(pack => pack.trim()),
+      } : undefined;
+      result = installProject(project, manifest, skills, bootstrap, command.startsWith("update"), productOS);
       break;
     }
     case "checkpoint": {
@@ -309,7 +317,7 @@ try {
       break;
     }
     default:
-      throw new Error("Usage: ddh.mjs doctor | pack | install | update | repair-install | checkpoint | resume");
+      throw new Error("Usage: ddh.mjs doctor | pack | install | update | install-full | update-full | repair-install | checkpoint | resume");
   }
   process.stdout.write(json(result));
 } catch (error) {

@@ -26,6 +26,8 @@ On the next message, apply the answer to the pending choice and continue from th
 
 ## Choose the workflow
 
+In a project with an active CPT kernel, use the CPT Micro Change or Standard Task workflow after intake. Reuse the clarified outcome and acceptance in the CPT record. Run bounded CPT planning for scope, impact, and any required lease. Route newly discovered material gaps back through this intake. For standalone DDH, use the paths below.
+
 1. A clear, local, reversible edit with a known check can go directly from inspection to edit to verification. Skip task files and reviewer setup for this path. Escalate when the target is shared, behavior crosses boundaries or a consequential choice remains open.
 2. For meaningful design or implementation, record a short brief with the outcome, constraints, allowed changes, named verification and open decisions. Consult existing ADRs and components. Record a durable domain term or ADR when the decision will affect future work.
 3. Use ddh-decision-audit for unresolved consequential choices, ddh-design for user-facing design, ddh-verify for acceptance and ddh-recover for a handoff or interruption. Load only the relevant skill. Use the host's current tool catalog.

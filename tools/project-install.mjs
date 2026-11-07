@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { lstatSync, realpathSync } from "node:fs";
 import { join } from "node:path";
+import { prepareProductOS, readProductOSPacks } from "./product-os-install.mjs";
 import { check, inspectPath, installTransaction, managedSkillPath, same } from "./install-transaction.mjs";
 
 const receiptPath = ".agents/ddh-install.json";
@@ -31,7 +32,7 @@ function mergeAgents(previous, template, expectedHash) {
   return { contents: Buffer.from(source + separator + block + eol), blockHash: digest(block) };
 }
 
-export function installProject(project, manifest, skills, bootstrap, updateOnly) {
+export function installProject(project, manifest, skills, bootstrap, updateOnly, productOS) {
   const root = realpathSync(project);
   check(stat(root)?.isDirectory(), "Project must be an existing directory");
   check(!stat(join(root, "AGENTS.override.md")), "Resolve AGENTS.override.md before enabling DDH intake");
@@ -44,8 +45,11 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly)
         !Array.isArray(old.files) && /^[0-9a-f]{64}$/.test(old.blockHash), "Invalid DDH installation receipt");
     }
 
+    check(productOS || !old?.productOS, "Use update-full for the full DDH profile");
+    const packs = productOS ? productOS.packs ?? old?.productOS?.packs ?? [] : [];
+    const domainSkills = productOS ? readProductOSPacks(productOS.source, packs) : new Map();
     const next = new Map();
-    for (const [id, bundle] of skills) {
+    for (const [id, bundle] of [...skills, ...domainSkills]) {
       for (const [path, data] of bundle) next.set(".agents/skills/" + id + "/" + path, Buffer.from(data));
     }
     const paths = new Set([...next.keys(), ...Object.keys(old?.files ?? {})]);
@@ -63,17 +67,26 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly)
     }
 
     const agents = inspectPath(root, "AGENTS.md");
-    const { contents, blockHash } = mergeAgents(agents, bootstrap, old?.blockHash);
+    const cpt = productOS && prepareProductOS(root, agents, productOS.source, productOS.python);
+    const { contents, blockHash } = mergeAgents(cpt ? cpt.agents : agents, bootstrap, old?.blockHash);
+    if (cpt) changes.unshift(...cpt.changes);
     changes.push({ path: "AGENTS.md", before: agents, after: contents });
+    if (cpt?.receipt) {
+      cpt.receipt.agents.sha256 = digest(contents);
+      changes.push({ path: ".cpt/install.json", before: null,
+        after: Buffer.from(JSON.stringify(cpt.receipt, null, 2) + "\n") });
+    }
     const receipt = {
       schema: "ddh-install-v1", version: manifest.version, blockHash,
+      ...(cpt ? { productOS: { packs } } : {}),
       files: Object.fromEntries([...next].map(([path, data]) => [path, digest(data)])),
     };
     const receiptBytes = Buffer.from(JSON.stringify(receipt, null, 2) + "\n");
     changes.push({ path: receiptPath, before: oldReceiptBytes, after: receiptBytes });
 
     return {changes, result: {
-      project: root, version: manifest.version, skills: skills.size,
+      project: root, version: manifest.version, skills: skills.size + domainSkills.size,
+      ...(cpt ? { productOS: cpt.status, packs } : {}),
       status: changes.every(change => same(change.before, change.after)) ? "unchanged" : old ? "updated" : "installed",
     }};
   });

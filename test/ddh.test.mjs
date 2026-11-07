@@ -18,6 +18,7 @@ const codexSkills = join(codex, "plugins/design-director-harness/skills");
 const dshSkills = join(dsh, ".dsh/skills");
 const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
+const version = JSON.parse(readFileSync(new URL("../manifest.json", import.meta.url), "utf8")).version;
 
 function invoke(...args) {
   const result = spawnSync(process.execPath, [cli, ...args], { encoding: "utf8", cwd: scratch });
@@ -52,7 +53,7 @@ after(() => {
 test("doctor reports both hosts, five canonical skills and source provenance", () => {
   const result = ok("doctor");
   assert.deepEqual(result.hosts, ["codex", "dsh"]);
-  assert.equal(result.version, "5.0.0");
+  assert.equal(result.version, version);
   assert.equal(result.skills.length, 5);
   assert.ok(result.sources >= 10);
 });
@@ -62,7 +63,7 @@ test("exports are byte-equivalent, hash-verified and use valid host layouts", ()
   const marketplace = json(join(codex, ".agents/plugins/marketplace.json"));
   assert.equal(marketplace.plugins[0].source.path, "./plugins/design-director-harness");
   assert.equal(plugin.skills, "./skills/");
-  assert.equal(plugin.version, "5.0.0");
+  assert.equal(plugin.version, version);
   for (const [root, host] of [[codex, "codex"], [dsh, "dsh"]]) {
     const receipt = json(join(root, "ddh-pack.json"));
     assert.equal(receipt.host, host);
@@ -102,6 +103,33 @@ test("design, decision audit and recovery route consequential questions through 
   assert.match(skill("ddh-design"), /ddh-direct intake before writing dependent design/);
   assert.match(skill("ddh-decision-audit"), /ddh-direct intake before choosing or acting/);
   assert.match(skill("ddh-recover"), /If a saved question is still open, return to the waiting step in ddh-direct/);
+});
+
+test("DDH adopts CPT intake coordination without rewriting the kernel or runtime state", () => {
+  const project = join(scratch, "cpt-project");
+  mkdirSync(join(project, ".cpt"), { recursive: true });
+  const agents = "# Project rules\r\n\r\n<!-- CPT-OS KERNEL BEGIN -->\r\nUse CPT startup.\r\n<!-- CPT-OS KERNEL END -->\r\n";
+  const runtime = "schema_version: 4.0-alpha8\r\n";
+  const checkpoint = "latest_checkpoint: CP-existing\r\n";
+  writeFileSync(join(project, "AGENTS.md"), agents);
+  writeFileSync(join(project, ".cpt/runtime.yaml"), runtime);
+  writeFileSync(join(project, ".cpt/current.yaml"), checkpoint);
+
+  assert.equal(ok("install", "--project", project).status, "installed");
+  assert.equal(ok("update", "--project", project).status, "unchanged");
+  const guidance = read(join(project, "AGENTS.md"));
+  assert.equal(guidance.slice(0, agents.length), agents);
+  assert.equal(guidance.split("<!-- DDH MANAGED BEGIN -->").length, 2);
+  assert.match(guidance, /DDH owns intake\. CPT owns the task record, lease, checkpoint, and workflow policy\./);
+  assert.equal(read(join(project, ".cpt/runtime.yaml")), runtime);
+  assert.equal(read(join(project, ".cpt/current.yaml")), checkpoint);
+  for (const host of [codex, dsh]) {
+    assert.match(read(join(host, "AGENTS.md")), /Reuse the settled intake in CPT planning/);
+  }
+  for (const hostSkills of [codexSkills, dshSkills]) {
+    assert.match(read(join(hostSkills, "ddh-direct/SKILL.md")), /For standalone DDH, use the paths below/);
+    assert.match(read(join(hostSkills, "ddh-recover/SKILL.md")), /recover --checkpoint <id> --verify-only/);
+  }
 });
 
 test("complex UX exports carry the same acceptance criteria", () => {
@@ -235,7 +263,7 @@ test("one-command update migrates alpha 1 to 5.0 and preserves project guidance"
   assert.equal(ok("update", "--project", project).status, "updated");
   assert.equal(ok("install", "--project", project).status, "unchanged");
   assert.equal(ok("update", "--project", project).status, "unchanged");
-  assert.equal(json(join(project, ".agents/ddh-install.json")).version, "5.0.0");
+  assert.equal(json(join(project, ".agents/ddh-install.json")).version, version);
   assert.equal(read(join(project, ".agents/skills", name)), read(join(codexSkills, name)));
   assert.ok(read(agents).startsWith(before));
   assert.match(read(agents), /pause all dependent work until the answer arrives/);

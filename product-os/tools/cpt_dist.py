@@ -605,6 +605,7 @@ def core_scaffold_files() -> list[tuple[str, bool]]:
         (".cpt/current.yaml", True),
         (".cpt/task-index.yaml", True),
         (".cpt/runtime-summary.md", True),
+        (".cpt/OPERATIONS.md", False),
         (".cpt/enforcement.yaml", True),
         (".cpt/bin/cpt_runtime.py", False),
         (".cpt/bin/cpt_orchestration.py", False),
@@ -1419,7 +1420,25 @@ def worker_pack_data() -> dict[str, Any]:
 
 
 def personal_workers_receipt() -> Path:
-    return user_home() / ".cpt-os" / "worker-packs" / "cpt-workers.json"
+    relative = Path(".cpt-os") / "worker-packs" / "cpt-workers.json"
+    home = codex_home()
+    scoped = home / relative
+    if scoped.exists():
+        return scoped
+
+    legacy = user_home() / relative
+    default_home = (user_home() / ".codex").resolve()
+    if not legacy.exists():
+        return legacy if home == default_home else scoped
+    try:
+        data = read_json(legacy)
+        target = data.get("target_dir") if isinstance(data, dict) else None
+        if isinstance(target, str) and target:
+            return legacy if Path(target).resolve() == (home / "agents").resolve() else scoped
+    except (OSError, ValueError):
+        # Keep the default profile's malformed receipt visible to its validator.
+        pass
+    return legacy if home == default_home else scoped
 
 
 def worker_target(scope: str, project: Path | None) -> tuple[Path, Path]:

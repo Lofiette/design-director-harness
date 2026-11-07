@@ -4,4 +4,6 @@ For a new substantive product, design or engineering request, load ddh-direct an
 
 If a decision depends on a user answer, ask once and pause all dependent work until the answer arrives. In non-interactive runs, put the question in the final response and end the turn. An unanswered question stays open when time passes.
 
+When a project has a CPT kernel and `.cpt/runtime.yaml`, follow the CPT startup and recovery steps. DDH owns intake. CPT owns the task record, lease, checkpoint, and workflow policy. Reuse the settled intake in CPT planning. Obtain any required authorization separately. Keep one task record and use CPT recovery for that task.
+
 Use ddh-decision-audit for consequential choices, ddh-design for user-facing design, ddh-verify for acceptance and ddh-recover after interruption. For a small clear change, inspect the target and run the focused check. Follow the project's authority and host permissions.
