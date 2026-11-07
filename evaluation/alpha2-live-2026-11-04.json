@@ -1,0 +1,53 @@
+{
+  "schema": "ddh-alpha2-regression-report-v1",
+  "date": "2026-11-04",
+  "version": "5.0.0-alpha.2",
+  "model": "gpt-6.1-sol",
+  "effort": "medium",
+  "codexCli": "0.166.0-alpha.5.1",
+  "sandbox": "workspace-write",
+  "authorizedTurns": 3,
+  "completedTurns": 3,
+  "runs": [
+    {
+      "id": "ddh-5.0-copy",
+      "profile": "ddh-5.0",
+      "caseId": "copy",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 65453,
+        "attempts": 1,
+        "inputTokens": 79623,
+        "cachedInputTokens": 62080,
+        "outputTokens": 786
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": null
+    },
+    {
+      "id": "ddh-5.0-ux",
+      "profile": "ddh-5.0",
+      "caseId": "ux",
+      "status": "PASS",
+      "metrics": {
+        "elapsedMs": 154819,
+        "attempts": 1,
+        "inputTokens": 139778,
+        "cachedInputTokens": 133120,
+        "outputTokens": 4857
+      },
+      "failures": [],
+      "serviceFilesChanged": 0,
+      "question": "Для какой заявки используется форма, кто её заполняет и какую основную проблему нужно решить?"
+    }
+  ],
+  "uxEvidence": {
+    "firstTurnMs": 40395,
+    "secondTurnMs": 114424,
+    "sameSession": true,
+    "identicalInitialAndFirstSnapshot": true,
+    "noAsyncQuestionOrSleepCalls": true,
+    "designCreatedAfterReply": true
+  }
+}

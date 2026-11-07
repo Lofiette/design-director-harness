@@ -1,5 +1,0 @@
-{
-  "schema_version": "cpt-eval-fixture-v1",
-  "id": "runtime-lab",
-  "description": "Synthetic fixture repository for runtime-lab evaluation cases."
-}

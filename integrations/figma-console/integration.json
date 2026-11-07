@@ -1,0 +1,15 @@
+{
+  "id": "figma-console",
+  "package": "figma-console-mcp",
+  "version": "1.46.0",
+  "npmIntegrity": "sha512-gOzHXHYa/4yYIddjW1CSbU8JCUqkfcSnA8uBz8Q1SjLDt3yeLwYEik4Rs0rtK9PtFxZd0uFFeRMEf5NuLwM57Q==",
+  "source": "https://github.com/southleft/figma-console-mcp",
+  "commit": "5ef4df3791606b8e1f877557ec0dde4796250b44",
+  "license": "MIT",
+  "enabledByDefault": false,
+  "transport": "stdio",
+  "requiredEnvironment": ["FIGMA_ACCESS_TOKEN"],
+  "requires": ["Figma Desktop", "Figma Desktop Bridge"],
+  "templates": ["codex.toml", "dsh.yml"],
+  "verification": "Source, npm version and integrity, and local configuration contracts reviewed. Server, credentials and Bridge connection require an operator smoke test."
+}

@@ -1,1 +1,0 @@
-# Runtime Lab Fixture

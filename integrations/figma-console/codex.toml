@@ -1,0 +1,6 @@
+[mcp_servers.figma-console]
+command = "npx"
+args = ["-y", "figma-console-mcp@1.46.0"]
+env_vars = ["FIGMA_ACCESS_TOKEN"]
+startup_timeout_sec = 60
+tool_timeout_sec = 300
