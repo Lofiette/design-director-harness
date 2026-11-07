@@ -760,8 +760,8 @@
     },
     {
       "path": "domain-packs/cpt-design-ui/skills/cpt-screen-module-design/SKILL.md",
-      "size": 6796,
-      "sha256": "88640ac7a28e061d2c38b87a829addf701df40a39125b7b9eace4339a7b2816d"
+      "size": 7135,
+      "sha256": "21be597352a41f7605908f8fe7f385d9effbe75a856dc9f687869830ee9e54d2"
     },
     {
       "path": "domain-packs/cpt-design-ui/skills/cpt-screen-module-design/agents/openai.yaml",

@@ -123,6 +123,10 @@ Produce a compact but complete `UI Design Decision` containing:
 - adversarial critique and changes made;
 - validation, gates, handoff criteria, falsification, and stop condition.
 
+## Evidence standard
+
+Ground product and visual claims in observed evidence. Record hypotheses explicitly. Use the claim-specific checks in `references/DESIGN_STRESS_REVIEW.md`.
+
 ## Stop and escalate
 
 - Product outcome, object model, page/workflow type, or key behavior is unresolved.
@@ -130,3 +134,7 @@ Produce a compact but complete `UI Design Decision` containing:
 - A component or pattern decision changes product/design-system scope without an owner.
 - Form, selection, permission, metric, draft/publish, or partial-success semantics are undefined.
 - Required execution capability, source, approval, or rendering evidence is unavailable.
+
+## Failure modes to avoid
+
+Use the [design stress review](references/DESIGN_STRESS_REVIEW.md) to catch shallow alternatives and unsupported visual acceptance.
