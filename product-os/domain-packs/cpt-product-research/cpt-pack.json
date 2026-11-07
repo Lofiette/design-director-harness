@@ -1,0 +1,42 @@
+{
+  "schema_version": "cpt-pack-v2",
+  "name": "cpt-product-research",
+  "kind": "domain",
+  "version": "4.1.0",
+  "requires_core": ">=4.0.0-alpha.6",
+  "domains": [
+    "product-research"
+  ],
+  "canonical_state_owner": false,
+  "optional": true,
+  "skill_count": 10,
+  "skill_ids": [
+    "cpt-analytics-measurement",
+    "cpt-customer-journey",
+    "cpt-evidence-research-plan",
+    "cpt-experiment-design",
+    "cpt-growth-activation",
+    "cpt-information-architecture",
+    "cpt-market-research",
+    "cpt-opportunity-ideation",
+    "cpt-product-scope",
+    "cpt-ux-research"
+  ],
+  "legacy_source": {
+    "package": "codex-product-team-3.0-ultra-beta2",
+    "skill_count": 19
+  },
+  "role_count": 9,
+  "role_ids": [
+    "business_analyst",
+    "customer_support_analyst",
+    "cx_researcher",
+    "domain_expert",
+    "experimentation_specialist",
+    "growth_activation_strategist",
+    "market_researcher",
+    "product_strategist",
+    "ux_researcher"
+  ],
+  "role_model": "logical_lenses_in_cpt_core_references"
+}
