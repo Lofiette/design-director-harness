@@ -6,12 +6,12 @@ import { check, cptSeedPaths, inspectPath, managedSkillPath } from "./install-tr
 
 const cptReceipt = ".cpt/install.json";
 
-const packNames = new Set([
+export const productOSPackNames = Object.freeze([
   "cpt-design-ui", "cpt-product-research", "cpt-engineering", "cpt-risk-operations", "cpt-ai-agentic",
 ]);
 
 export function readProductOSPacks(source, packs) {
-  check(Array.isArray(packs) && packs.every(pack => packNames.has(pack)) &&
+  check(Array.isArray(packs) && packs.every(pack => productOSPackNames.includes(pack)) &&
     new Set(packs).size === packs.length, "Choose distinct known Product OS domain packs");
   const skills = new Map();
   for (const pack of packs) {

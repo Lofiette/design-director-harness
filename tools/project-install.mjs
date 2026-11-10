@@ -39,13 +39,15 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
   return installTransaction(root, () => {
     const oldReceiptBytes = inspectPath(root, receiptPath);
     const old = oldReceiptBytes && JSON.parse(oldReceiptBytes.toString("utf8"));
-    check(!updateOnly || old, "No DDH installation in this project");
+    if (updateOnly && !old) {
+      check(productOS && inspectPath(root, ".cpt/runtime.yaml"), "No DDH or Product OS installation in this project");
+    }
     if (old) {
       check(old.schema === "ddh-install-v1" && old.files && typeof old.files === "object" &&
         !Array.isArray(old.files) && /^[0-9a-f]{64}$/.test(old.blockHash), "Invalid DDH installation receipt");
     }
 
-    check(productOS || !old?.productOS, "Use update-full for the full DDH profile");
+    check(productOS || !old?.productOS, "Use the DDH CLI to update this installation");
     const packs = productOS ? productOS.packs ?? old?.productOS?.packs ?? [] : [];
     const domainSkills = productOS ? readProductOSPacks(productOS.source, packs) : new Map();
     const next = new Map();
@@ -87,7 +89,8 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
     return {changes, result: {
       project: root, version: manifest.version, skills: skills.size + domainSkills.size,
       ...(cpt ? { productOS: cpt.status, packs } : {}),
-      status: changes.every(change => same(change.before, change.after)) ? "unchanged" : old ? "updated" : "installed",
+      status: changes.every(change => same(change.before, change.after)) ? "unchanged" :
+        old || updateOnly ? "updated" : "installed",
     }};
   });
 }

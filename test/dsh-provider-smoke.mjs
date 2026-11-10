@@ -27,7 +27,7 @@ try {
   });
   const shared = join(scratch, "shared-project");
   mkdirSync(shared);
-  execFileSync(process.execPath, [cli, "install", "--project", shared]);
+  execFileSync(process.execPath, [cli, "install", "--project", shared, "--python", process.env.DDH_TEST_PYTHON ?? "python"]);
   const results = {};
   for (const [cwd, source] of [[project, "project-dsh"], [shared, "project-agents"]]) {
     const options = { cwd, signal: controller.signal };

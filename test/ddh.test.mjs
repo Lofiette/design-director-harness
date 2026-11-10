@@ -2,12 +2,13 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync,
+  existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 import { after, before, test } from "node:test";
 import { fileURLToPath } from "node:url";
+import { installProject } from "../tools/project-install.mjs";
 
 const cli = fileURLToPath(new URL("../tools/ddh.mjs", import.meta.url));
 const scratchParent = realpathSync(tmpdir());
@@ -21,6 +22,7 @@ const json = path => JSON.parse(read(path));
 const version = JSON.parse(readFileSync(new URL("../manifest.json", import.meta.url), "utf8")).version;
 
 function invoke(...args) {
+  if (["install", "update"].includes(args[0])) args.push("--python", process.env.DDH_TEST_PYTHON ?? "python");
   const result = spawnSync(process.execPath, [cli, ...args], { encoding: "utf8", cwd: scratch });
   assert.ifError(result.error);
   return result;
@@ -56,6 +58,8 @@ test("doctor reports both hosts, five canonical skills and source provenance", (
   assert.equal(result.version, version);
   assert.equal(result.skills.length, 5);
   assert.ok(result.sources >= 10);
+  assert.deepEqual(result.runtime, { id: "cpt", upstreamVersion: "4.1.0" });
+  assert.equal(result.optionalPacks.length, 5);
 });
 
 test("exports are byte-equivalent, hash-verified and use valid host layouts", () => {
@@ -83,6 +87,7 @@ test("both bootstraps wait on consequential intake and preserve a micro path", (
   assert.match(bootstrap, /new substantive.*load ddh-direct/);
   assert.match(bootstrap, /Start work directly when the required inputs are clear/);
   assert.match(bootstrap, /pause all dependent work until the answer arrives/);
+  assert.match(bootstrap, /DDH owns intake\. CPT owns the task record/);
   assert.match(bootstrap, /non-interactive runs, put the question in the final response and end the turn/i);
   const route = read(join(codexSkills, "ddh-direct/SKILL.md"));
   assert.match(route, /Do not create or edit a dependent artifact, including a draft/);
@@ -103,33 +108,6 @@ test("design, decision audit and recovery route consequential questions through 
   assert.match(skill("ddh-design"), /ddh-direct intake before writing dependent design/);
   assert.match(skill("ddh-decision-audit"), /ddh-direct intake before choosing or acting/);
   assert.match(skill("ddh-recover"), /If a saved question is still open, return to the waiting step in ddh-direct/);
-});
-
-test("DDH adopts CPT intake coordination without rewriting the kernel or runtime state", () => {
-  const project = join(scratch, "cpt-project");
-  mkdirSync(join(project, ".cpt"), { recursive: true });
-  const agents = "# Project rules\r\n\r\n<!-- CPT-OS KERNEL BEGIN -->\r\nUse CPT startup.\r\n<!-- CPT-OS KERNEL END -->\r\n";
-  const runtime = "schema_version: 4.0-alpha8\r\n";
-  const checkpoint = "latest_checkpoint: CP-existing\r\n";
-  writeFileSync(join(project, "AGENTS.md"), agents);
-  writeFileSync(join(project, ".cpt/runtime.yaml"), runtime);
-  writeFileSync(join(project, ".cpt/current.yaml"), checkpoint);
-
-  assert.equal(ok("install", "--project", project).status, "installed");
-  assert.equal(ok("update", "--project", project).status, "unchanged");
-  const guidance = read(join(project, "AGENTS.md"));
-  assert.equal(guidance.slice(0, agents.length), agents);
-  assert.equal(guidance.split("<!-- DDH MANAGED BEGIN -->").length, 2);
-  assert.match(guidance, /DDH owns intake\. CPT owns the task record, lease, checkpoint, and workflow policy\./);
-  assert.equal(read(join(project, ".cpt/runtime.yaml")), runtime);
-  assert.equal(read(join(project, ".cpt/current.yaml")), checkpoint);
-  for (const host of [codex, dsh]) {
-    assert.match(read(join(host, "AGENTS.md")), /Reuse the settled intake in CPT planning/);
-  }
-  for (const hostSkills of [codexSkills, dshSkills]) {
-    assert.match(read(join(hostSkills, "ddh-direct/SKILL.md")), /For standalone DDH, use the paths below/);
-    assert.match(read(join(hostSkills, "ddh-recover/SKILL.md")), /recover --checkpoint <id> --verify-only/);
-  }
 });
 
 test("complex UX exports carry the same acceptance criteria", () => {
@@ -231,36 +209,21 @@ test("checkpoints retain pending input or review instead of becoming ready on re
   assert.equal(existsSync(join(scratch, "invalid-wait-saved.json")), false);
 });
 
-test("one-command update migrates alpha 1 to 5.0 and preserves project guidance", () => {
+test("standard update adopts an earlier DDH install and preserves project guidance", () => {
   const project = join(scratch, "install-project");
   mkdirSync(project);
   const agents = join(project, "AGENTS.md");
   const before = "# Existing project\r\n\r\nKeep original instructions.\r\n";
   writeFileSync(agents, before);
-  const legacySource = join(scratch, "alpha-1-source");
-  mkdirSync(legacySource);
-  const original = dirname(dirname(cli));
-  for (const path of ["tools", "adapters", "skills", "integrations", "manifest.json", "sources.json"]) {
-    cpSync(join(original, path), join(legacySource, path), { recursive: true });
-  }
-  const manifestPath = join(legacySource, "manifest.json");
-  const manifest = json(manifestPath);
-  manifest.version = "5.0.0";
-  manifest.channel = "local-preview";
-  writeFileSync(manifestPath, JSON.stringify(manifest));
   const name = "ddh-direct/SKILL.md";
-  const source = join(legacySource, "skills", name);
-  writeFileSync(source, read(source) + "\nLegacy intake fixture.\n");
-  const bootstrap = join(legacySource, "adapters/AGENTS.ddh.md");
-  writeFileSync(bootstrap, "# Design Director Harness 5.0\n\nLegacy intake fixture.\n");
-  const install = spawnSync(process.execPath, [join(legacySource, "tools/ddh.mjs"), "install", "--project", project],
-    { encoding: "utf8", cwd: scratch });
-  assert.equal(install.status, 0, install.stderr);
+  const skills = new Map([["ddh-direct", new Map([["SKILL.md", read(join(codexSkills, name)) + "\nLegacy intake fixture.\n"]])]]);
+  installProject(project, { version: "5.0.0" }, skills, "# Design Director Harness 5.0\n\nLegacy intake fixture.\n", false);
   assert.equal(json(join(project, ".agents/ddh-install.json")).version, "5.0.0");
   const userAppend = "\r\nOwner's later guidance.\r\n";
   writeFileSync(agents, read(agents) + userAppend);
 
   assert.equal(ok("update", "--project", project).status, "updated");
+  assert.ok(existsSync(join(project, ".cpt", "runtime.yaml")));
   assert.equal(ok("install", "--project", project).status, "unchanged");
   assert.equal(ok("update", "--project", project).status, "unchanged");
   assert.equal(json(join(project, ".agents/ddh-install.json")).version, version);
@@ -268,7 +231,7 @@ test("one-command update migrates alpha 1 to 5.0 and preserves project guidance"
   assert.ok(read(agents).startsWith(before));
   assert.match(read(agents), /pause all dependent work until the answer arrives/);
   assert.doesNotMatch(read(agents), /Legacy intake fixture/);
-  assert.ok(read(agents).endsWith(userAppend));
+  assert.equal(read(agents).split(userAppend).length, 2);
 });
 
 test("installer rejects an unmanaged collision and an edited managed file without overwriting either", () => {
@@ -277,7 +240,7 @@ test("installer rejects an unmanaged collision and an edited managed file withou
   mkdirSync(folder, { recursive: true });
   const path = join(folder, "SKILL.md");
   writeFileSync(path, "local copy");
-  rejects(/No DDH installation/, "update", "--project", project);
+  rejects(/No DDH or Product OS installation/, "update", "--project", project);
   rejects(/Skill path already exists/, "install", "--project", project);
   assert.equal(read(path), "local copy");
   assert.equal(existsSync(join(project, "AGENTS.md")), false);

@@ -19,24 +19,24 @@ DDH развивается из Product OS 4.1. Полная поставка в
 
 79 исторических идентификаторов навыков уже сопоставлены с каноническими методами в `product-os/migration/SKILL_MIGRATION.csv`. Для них используем существующие реализации и отдельно проверяем уникальные отличия. Узкоспециализированные проектные практики проверяем на отдельный пакет или адаптер. Общие инварианты проверки, восстановления и обращения с артефактами рассматриваем для основного маршрута. Реестр приватных источников и закреплённых файлов хранится локально.
 
-## Прототип полной установки
+## Установка DDH
 
 Из корня рабочей копии DDH с Node.js 22+, Python 3.10+ и зависимостями из `product-os/requirements.txt`:
 
 ```powershell
-node tools/ddh.mjs install-full --project "C:/path/to/project" --packs cpt-design-ui
-node tools/ddh.mjs update-full --project "C:/path/to/project"
+node tools/ddh.mjs install --project "C:/path/to/project" --packs cpt-design-ui
+node tools/ddh.mjs update --project "C:/path/to/project"
 ```
 
 Если установлен `uv`, он может подготовить изолированную среду одной командой.
 
 ```powershell
-uv run --no-project --with-requirements product-os/requirements.txt node tools/ddh.mjs install-full --project "C:/path/to/project" --packs cpt-design-ui
+uv run --no-project --with-requirements product-os/requirements.txt node tools/ddh.mjs install --project "C:/path/to/project" --packs cpt-design-ui
 ```
 
 Параметр `--python` задаёт путь к подготовленному Python. Параметр `--packs` принимает список через запятую. При обновлении без него используется предыдущий выбор. Доступны `cpt-design-ui`, `cpt-product-research`, `cpt-engineering`, `cpt-risk-operations` и `cpt-ai-agentic`.
 
-При первой установке локальное состояние CPT добавляется в игнорирование Git, а существующие инструкции проекта сохраняются. Старый CPT 4.1 должен иметь рабочий runtime, receipt и один активный CPT-блок в `AGENTS.md`. Подключённые пакеты записываются в receipt DDH. Для восстановления прерванной установки используется `repair-install`. Для нативных плагинов и средств миграции доступны исходные инструменты в `product-os/`.
+При первой установке локальное состояние CPT добавляется в игнорирование Git, а существующие инструкции проекта сохраняются. Обычный `update` также подхватывает установленную Product OS 4.1. Для этого нужны рабочий runtime, receipt и один активный CPT-блок в `AGENTS.md`. Подключённые пакеты записываются в receipt DDH. Для восстановления прерванной установки используется `repair-install`. Для нативных плагинов и средств миграции доступны исходные инструменты в `product-os/`.
 
 ## Проверено в локальном кандидате
 

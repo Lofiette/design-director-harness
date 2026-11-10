@@ -7,9 +7,11 @@ import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "nod
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { installProject } from "./project-install.mjs";
+import { productOSPackNames } from "./product-os-install.mjs";
 import { repairInstallation } from "./install-transaction.mjs";
 
 const home = fileURLToPath(new URL("../", import.meta.url));
+const productOSSource = join(home, "product-os");
 const json = value => JSON.stringify(value, null, 2) + "\n";
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const hash = data => createHash("sha256").update(data).digest("hex");
@@ -101,6 +103,10 @@ function inspect() {
       "Incomplete source record: " + source.id);
     requireThat(!source.pin || /^[0-9a-f]{40}$/.test(source.pin), "Invalid commit pin: " + source.id);
     requireThat(!source.observedBlob || /^[0-9a-f]{40}$/.test(source.observedBlob), "Invalid blob ID: " + source.id);
+    if (source.use === "bundled") {
+      requireThat(source.pin && typeof source.bundlePath === "string", "Bundled source requires a pin and local path: " + source.id);
+      fileBelow(home, source.bundlePath + "/MANIFEST.json");
+    }
     ids.add(source.id);
   }
   const integrations = new Map();
@@ -277,7 +283,9 @@ try {
       options(args, []);
       const { manifest, skills, sources, integrations } = inspect();
       result = { version: manifest.version, hosts: manifest.hosts, skills: [...skills.keys()],
-        sources: sources.entries.length, optionalIntegrations: [...integrations.keys()] };
+        runtime: { id: "cpt", upstreamVersion: readFileSync(fileBelow(productOSSource, "VERSION"), "utf8").trim() },
+        optionalPacks: productOSPackNames, sources: sources.entries.length,
+        optionalIntegrations: [...integrations.keys()] };
       break;
     }
     case "pack": {
@@ -289,15 +297,14 @@ try {
     case "update":
     case "install-full":
     case "update-full": {
-      const full = command.endsWith("-full");
-      const { project, python, packs } = options(args, ["project"], full ? ["python", "packs"] : []);
+      const { project, python, packs } = options(args, ["project"], ["python", "packs"]);
       const { manifest, skills } = inspect();
       const bootstrap = readFileSync(join(home, "adapters/AGENTS.ddh.md"), "utf8");
-      const productOS = full ? {
-        source: join(home, "product-os"),
+      const productOS = {
+        source: productOSSource,
         python: python ?? "python",
         packs: packs === undefined ? undefined : packs === "" ? [] : packs.split(",").map(pack => pack.trim()),
-      } : undefined;
+      };
       result = installProject(project, manifest, skills, bootstrap, command.startsWith("update"), productOS);
       break;
     }
@@ -317,7 +324,7 @@ try {
       break;
     }
     default:
-      throw new Error("Usage: ddh.mjs doctor | pack | install | update | install-full | update-full | repair-install | checkpoint | resume");
+      throw new Error("Usage: ddh.mjs doctor | pack | install | update | repair-install | checkpoint | resume");
   }
   process.stdout.write(json(result));
 } catch (error) {

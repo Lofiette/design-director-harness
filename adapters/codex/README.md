@@ -1,8 +1,8 @@
 # Codex adapter
 
-The shared project installer is the short path. It writes the skills under .agents/skills and adds the intake guidance to AGENTS.md. Open a fresh Codex chat in that project.
+Install DDH into the project with `node tools/ddh.mjs install --project <project>` from the shared distribution. It adds the CPT runtime, writes the skills under `.agents/skills` and adds intake guidance to `AGENTS.md`. Open a fresh Codex chat in that project.
 
-For a local marketplace instead, run the following commands from the parent directory of the generated `ddh-codex-5` folder in a test Codex profile.
+For a marketplace adapter test, run the following commands from the parent directory of the exported `ddh-codex-5` folder in a test Codex profile.
 
 ```powershell
 codex plugin marketplace add ./ddh-codex-5

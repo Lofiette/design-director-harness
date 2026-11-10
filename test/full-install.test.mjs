@@ -57,9 +57,9 @@ after(() => {
   rmSync(target, { recursive: true });
 });
 
-test("the full profile installs both layers and keeps an active CPT checkpoint through update", () => {
+test("the standard commands install both layers and keep an active CPT checkpoint through update", () => {
   const root = fixture("fresh");
-  assert.equal(install("install-full", root).productOS, "installed");
+  assert.equal(install("install", root).productOS, "installed");
   assert.match(runtime(root, "validate"), /RUNTIME VALIDATION PASSED/);
   const agents = readFileSync(join(root, "AGENTS.md"), "utf8");
   assert.ok(agents.startsWith(originalAgents));
@@ -71,7 +71,7 @@ test("the full profile installs both layers and keeps an active CPT checkpoint t
   const checkpoint = runtime(root, "checkpoint", "--source", "phase_handoff", "--reason", "Fixture");
   const cpt = join(root, ".cpt");
   const before = files(cpt);
-  const update = install("update-full", root);
+  const update = install("update", root);
   assert.equal(update.productOS, "preserved");
   assert.equal(update.status, "unchanged");
   assert.deepEqual(files(cpt), before);
@@ -83,7 +83,7 @@ test("a partially initialized CPT tree fails closed", () => {
   mkdirSync(join(root, ".cpt"));
   writeFileSync(join(root, ".cpt", "notes.md"), "User notes");
   const before = files(root);
-  const result = run(process.execPath, [cli, "install-full", "--project", root, "--python", python]);
+  const result = run(process.execPath, [cli, "install", "--project", root, "--python", python]);
   assert.equal(result.status, 1, result.stderr);
   assert.match(result.stderr, /Existing files under .cpt require explicit adoption/);
   assert.deepEqual(files(root), before);
@@ -102,7 +102,7 @@ test("the full install journal rolls back a stopped CPT seed and permits a retry
     '};',
     'syncBuiltinESMExports();',
     'const cli = process.argv[1];',
-    'process.argv = [process.execPath, cli, "install-full", "--project", process.argv[2], "--python", process.argv[3]];',
+    'process.argv = [process.execPath, cli, "install", "--project", process.argv[2], "--python", process.argv[3]];',
     'await import("node:url").then(({ pathToFileURL }) => import(pathToFileURL(cli)));',
   ].join("\n");
   const stopped = run(process.execPath, ["--input-type=module", "-e", worker, cli, root, python]);
@@ -111,12 +111,12 @@ test("the full install journal rolls back a stopped CPT seed and permits a retry
   const repaired = success(run(process.execPath, [cli, "repair-install", "--project", root]));
   assert.equal(JSON.parse(repaired).status, "rolled-back");
   assert.deepEqual(files(root), before);
-  assert.equal(install("install-full", root).productOS, "installed");
+  assert.equal(install("install", root).productOS, "installed");
 });
 
 test("CPT personal worker receipts are isolated by Codex profile", () => {
   const root = fixture("worker-status");
-  install("install-full", root);
+  install("install", root);
   const first = join(root, "codex-first");
   const second = join(root, "codex-second");
   const profile = path => ({ env: { ...process.env, CODEX_HOME: path } });
@@ -130,16 +130,33 @@ test("CPT personal worker receipts are isolated by Codex profile", () => {
 
 test("full installation selects portable domain packs and retains the selection on update", () => {
   const root = fixture("design-pack");
-  const result = install("install-full", root, "--packs", "cpt-design-ui,cpt-engineering");
+  const result = install("install", root, "--packs", "cpt-design-ui,cpt-engineering");
   assert.equal(result.skills, 33);
   assert.deepEqual(result.packs, ["cpt-design-ui", "cpt-engineering"]);
   assert.ok(existsSync(join(root, ".agents/skills/cpt-screen-module-design/references/DESIGN_STRESS_REVIEW.md")));
   const cpt = files(join(root, ".cpt"));
+  assert.equal(install("update", root).status, "unchanged");
+  assert.equal(install("install-full", root).status, "unchanged");
   assert.equal(install("update-full", root).status, "unchanged");
-  const standalone = run(process.execPath, [cli, "update", "--project", root]);
-  assert.equal(standalone.status, 1);
-  assert.match(standalone.stderr, /Use update-full/);
-  assert.equal(install("update-full", root, "--packs", "").skills, 5);
+  assert.equal(install("update", root, "--packs", "").skills, 5);
   assert.ok(!existsSync(join(root, ".agents/skills/cpt-screen-module-design/SKILL.md")));
   assert.deepEqual(files(join(root, ".cpt")), cpt);
+});
+
+test("standard update adopts a CPT 4.1 project without changing its checkpoint", () => {
+  const root = fixture("legacy-cpt");
+  success(run(python, ["-B", dist, "install", "--project", root, "--mode", "local", "--plugin-scope", "none"]));
+  const task = runtime(root, "create-task", "--title", "Existing work", "--objective", "Keep state", "--activate");
+  runtime(root, "lease-create", "--task", task, "--read", "fixture", "--write", "notes.md", "--verify", "fixture");
+  const checkpoint = runtime(root, "checkpoint", "--source", "phase_handoff", "--reason", "Before adopting DDH");
+  const cpt = join(root, ".cpt");
+  const before = files(cpt);
+  const agents = readFileSync(join(root, "AGENTS.md"), "utf8");
+  const result = install("update", root, "--packs", "cpt-design-ui");
+  assert.equal(result.productOS, "preserved");
+  assert.equal(result.status, "updated");
+  assert.equal(result.skills, 21);
+  assert.ok(readFileSync(join(root, "AGENTS.md"), "utf8").startsWith(agents));
+  assert.deepEqual(files(cpt), before);
+  assert.match(runtime(root, "recover", "--checkpoint", checkpoint, "--verify-only"), /CHECKPOINT MATCH/);
 });

@@ -29,12 +29,12 @@ jobs:
       - run: python -m pip install -r product-os/requirements.txt
       - run: node tools/ddh.mjs doctor
       - run: node --test test/ddh.test.mjs test/bench.test.mjs test/install-recovery.test.mjs
-      - name: Verify the full profile from the source ZIP
+      - name: Verify DDH from the distribution ZIP
         shell: pwsh
         run: |
-          $archive = Join-Path $env:RUNNER_TEMP 'ddh-full-source.zip'
-          $source = Join-Path $env:RUNNER_TEMP 'ddh-full-source'
-          git archive --format=zip --prefix=design-director-harness-full/ --output=$archive HEAD
+          $archive = Join-Path $env:RUNNER_TEMP 'ddh-source.zip'
+          $source = Join-Path $env:RUNNER_TEMP 'ddh-source'
+          git archive --format=zip --prefix=design-director-harness/ --output=$archive HEAD
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           [IO.Compression.ZipFile]::ExtractToDirectory($archive, $source)
           Set-Location -LiteralPath (Join-Path $source 'design-director-harness-full')
@@ -43,14 +43,14 @@ jobs:
           node --test test/full-install.test.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $hash = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
-          Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'SHA256SUMS.txt') -Value "$hash  ddh-full-source.zip" -Encoding ascii
+          Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'SHA256SUMS.txt') -Value "$hash  ddh-source.zip" -Encoding ascii
       - name: Upload the verified candidate
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: ddh-full-candidate
+          name: ddh-candidate
           path: |
-            ${{ runner.temp }}/ddh-full-source.zip
+            ${{ runner.temp }}/ddh-source.zip
             ${{ runner.temp }}/SHA256SUMS.txt
           if-no-files-found: error
           retention-days: 14

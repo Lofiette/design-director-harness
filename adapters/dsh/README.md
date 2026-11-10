@@ -1,6 +1,8 @@
 # DeepSeek Harness adapter
 
-The shared project installer writes to .agents/skills. The separate DSH bundle uses .dsh/skills. Both use one directory per skill. Use a scratch project and confirm the active preset exposes the filesystem skill provider. Open a fresh session and inspect the skill catalog. If the active preset mounts its own provider, check the discovered catalog for shadowing before adding a global provider.
+Install DDH into the project with `node tools/ddh.mjs install --project <project>` from the shared distribution. It adds the CPT runtime, intake guidance and skills under `.agents/skills`. Open a fresh DSH session in the project and confirm that the active preset exposes the filesystem skill provider.
+
+The adapter export uses `.dsh/skills` for isolated provider tests. Check the discovered catalog for shadowing when the active preset mounts its own provider.
 
 For an authorized independent review, use the host's fresh-context child tool. If the host returns the result on a later turn, checkpoint the review brief and wait for that event. Verify the active pruning configuration and reload any instruction marked as pruned before a consequential action.
 
