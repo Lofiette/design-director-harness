@@ -34,10 +34,11 @@ jobs:
         run: |
           $archive = Join-Path $env:RUNNER_TEMP 'ddh-source.zip'
           $source = Join-Path $env:RUNNER_TEMP 'ddh-source'
-          git archive --format=zip --prefix=design-director-harness/ --output=$archive HEAD
+          $archiveRoot = 'design-director-harness'
+          git archive --format=zip "--prefix=$archiveRoot/" --output=$archive HEAD
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           [IO.Compression.ZipFile]::ExtractToDirectory($archive, $source)
-          Set-Location -LiteralPath (Join-Path $source 'design-director-harness-full')
+          Set-Location -LiteralPath (Join-Path $source $archiveRoot)
           python -B product-os/tools/validate_distribution.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --test test/full-install.test.mjs
