@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import {
-  existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync,
+  existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, unlinkSync, writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
@@ -170,6 +170,9 @@ test("full installation selects portable domain packs and retains the selection 
 test("standard update adopts a CPT 4.1 project without changing its checkpoint", () => {
   const root = fixture("legacy-cpt");
   success(run(python, ["-B", dist, "install", "--project", root, "--mode", "local", "--plugin-scope", "none"]));
+  const guide = join(root, ".cpt", "OPERATIONS.md");
+  const bundledGuide = readFileSync(guide);
+  unlinkSync(guide); // Released Product OS 4.1 omitted this file.
   const task = runtime(root, "create-task", "--title", "Existing work", "--objective", "Keep state", "--activate");
   runtime(root, "lease-create", "--task", task, "--read", "fixture", "--write", "notes.md", "--verify", "fixture");
   const checkpoint = runtime(root, "checkpoint", "--source", "phase_handoff", "--reason", "Before adopting DDH");
@@ -181,6 +184,9 @@ test("standard update adopts a CPT 4.1 project without changing its checkpoint",
   assert.equal(result.status, "updated");
   assert.equal(result.skills, 21);
   assert.ok(readFileSync(join(root, "AGENTS.md"), "utf8").startsWith(agents));
-  assert.deepEqual(files(cpt), before);
+  assert.deepEqual(files(cpt), { ...before, "OPERATIONS.md": bundledGuide.toString("base64") });
   assert.match(runtime(root, "recover", "--checkpoint", checkpoint, "--verify-only"), /CHECKPOINT MATCH/);
+  writeFileSync(guide, "Project CPT operations");
+  assert.equal(install("update", root).status, "unchanged");
+  assert.equal(readFileSync(guide, "utf8"), "Project CPT operations");
 });

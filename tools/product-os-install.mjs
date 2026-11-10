@@ -65,7 +65,14 @@ export function prepareProductOS(root, agents, source, python) {
     check(bytes && JSON.parse(bytes.toString("utf8")).version === "4.1.0",
       "Adopt a valid Product OS 4.1 installation before enabling the full DDH profile");
     runPython(python, [join(scaffold, ".cpt/bin/cpt_runtime.py"), "--root", root, "validate"]);
-    return { agents, changes: [], status: "preserved", receipt: null };
+    const operations = ".cpt/OPERATIONS.md";
+    const changes = [];
+    if (!inspectPath(root, operations)) {
+      const after = inspectPath(scaffold, operations);
+      check(after, "Product OS scaffold is missing " + operations);
+      changes.push({ path: operations, before: null, after });
+    }
+    return { agents, changes, status: "preserved", receipt: null };
   }
 
   const cpt = join(root, ".cpt");
