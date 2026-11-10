@@ -1,6 +1,6 @@
 # Delegation
 
-Read this before delegating a state change, and when you are a delegated worker. A subagent cannot spawn its own reviewer: the harness allows direct children only.
+Read this before delegating a state change, and when you are a delegated worker. Check the project delegation policy and native permissions before dispatch. A worker returns unresolved decisions to its parent.
 
 ## When you delegate a state change
 

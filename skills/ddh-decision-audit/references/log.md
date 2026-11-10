@@ -19,9 +19,11 @@ Read this at step 3, and before writing or updating a decision log.
 
 ## Where
 
-The log folder is `<project>/.dsh/decisions/`; each decision is a file `YYYY-MM-DD-<slug>.md`. `<project>` is the nearest folder at or above the working directory that holds `.git`; with no `.git`, the working directory itself. If the file name is taken, append `-2`, `-3`.
+Write only in locations authorized by the project. In CPT, keep the task and pending step in the existing runtime record and link any separate decision log from it. If no log write is authorized, carry the evidence and pending step in the handoff.
 
-**Git.** If `.dsh/decisions/` is not yet listed in the file that `git rev-parse --git-path info/exclude` prints, add it there. In a worktree or submodule, `.git` is a file, not a folder. Without git, say in the report that the log folder is untracked.
+The default standalone log folder is `<project>/.dsh/decisions/`; each decision is a file `YYYY-MM-DD-<slug>.md`. `<project>` is the nearest folder at or above the working directory that holds `.git`; with no `.git`, the working directory itself. If the file name is taken, append `-2`, `-3`.
+
+**Git.** Follow the project ignore policy. A change to repository metadata, including the path returned by `git rev-parse --git-path info/exclude`, needs its own authorization.
 
 ## Rules
 

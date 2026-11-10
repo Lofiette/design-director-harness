@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
@@ -22,5 +22,35 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r product-os/requirements.txt
       - run: node tools/ddh.mjs doctor
       - run: node --test test/ddh.test.mjs test/bench.test.mjs test/install-recovery.test.mjs
+      - name: Verify DDH from the distribution ZIP
+        shell: pwsh
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'ddh-source.zip'
+          $source = Join-Path $env:RUNNER_TEMP 'ddh-source'
+          $archiveRoot = 'design-director-harness'
+          git archive --format=zip "--prefix=$archiveRoot/" --output=$archive HEAD
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          [IO.Compression.ZipFile]::ExtractToDirectory($archive, $source)
+          Set-Location -LiteralPath (Join-Path $source $archiveRoot)
+          python -B product-os/tools/validate_distribution.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --test test/full-install.test.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $hash = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'SHA256SUMS.txt') -Value "$hash  ddh-source.zip" -Encoding ascii
+      - name: Upload the verified candidate
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ddh-candidate
+          path: |
+            ${{ runner.temp }}/ddh-source.zip
+            ${{ runner.temp }}/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14

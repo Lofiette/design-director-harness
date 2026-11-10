@@ -7,8 +7,9 @@
       "id": "product-os",
       "url": "https://github.com/Lofiette/design-director-harness/tree/v4.1.0",
       "license": "unverified in reviewed tree",
-      "use": "practice",
-      "reason": "Task scope, checkpoint continuity, design acceptance and release evidence.",
+      "use": "bundled",
+      "bundlePath": "product-os",
+      "reason": "Bundled runtime and domain packs derived from Product OS 4.1. The DDH integration tracks project continuity, installation, and host compatibility separately.",
       "pin": "1870f6fc200638a200348762004d24c2803f93b1"
     },
     {

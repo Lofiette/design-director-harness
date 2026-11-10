@@ -1,7 +1,7 @@
 {
   "name": "design-director-harness",
   "displayName": "Design Director Harness",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "channel": "stable",
   "description": "Evidence-based product design, engineering decisions and recovery for Codex and DeepSeek Harness.",
   "hosts": [

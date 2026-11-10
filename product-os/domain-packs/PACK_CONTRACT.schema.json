@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CPT Pack Contract v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "name",
+    "kind",
+    "version",
+    "requires_core",
+    "domains",
+    "canonical_state_owner",
+    "optional",
+    "skill_count",
+    "skill_ids",
+    "legacy_source",
+    "role_count",
+    "role_ids",
+    "role_model"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpt-pack-v2"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "kind": {
+      "enum": [
+        "core",
+        "domain",
+        "integration",
+        "worker"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "requires_core": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "canonical_state_owner": {
+      "const": false
+    },
+    "optional": {
+      "type": "boolean"
+    },
+    "skill_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^cpt-[a-z0-9-]+$"
+      },
+      "uniqueItems": true
+    },
+    "legacy_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "skill_count"
+      ],
+      "properties": {
+        "package": {
+          "type": "string"
+        },
+        "skill_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "role_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "role_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "uniqueItems": true
+    },
+    "role_model": {
+      "const": "logical_lenses_in_cpt_core_references"
+    }
+  }
+}

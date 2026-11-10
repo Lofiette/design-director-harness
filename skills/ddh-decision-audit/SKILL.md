@@ -1,6 +1,6 @@
 ---
 name: ddh-decision-audit
-description: "Choose an approach, dependency, config or fix by proof, before any state change. Use when alternatives stay open, before editing an unread file, and before every delete, move, process kill, write-API call or shared-surface change, even when ordered; also when the user corrects, rejects or answers a handed-over decision. Proves the answer with facts, scores candidates, and puts a check between the verdict and the action."
+description: "Audit consequential product and engineering decisions, including unresolved approaches, shared or irreversible changes, and revisions to handed-over choices. Research alternatives, score evidence, and check the decision before acting."
 ---
 
 # Decision audit
@@ -9,7 +9,7 @@ The failure this prevents: stopping research once an answer looks plausible. Dig
 
 **Terms.** A *fact* is observed here and now: command output, file contents, a response, a primary-source quote, the user's own words. A *shared surface* is a corporate system, another person's data, a running service, or the harness you run in (its config files, installed plugins, UI). *Observing a result* means seeing the effect where it happens; a written file or a passing build is only a probe. The reviewer's [brief](references/review-brief.md) has the exact shape.
 
-**Consequential choices need ddh-direct intake before choosing or acting.** This skill owns the evidence, the candidates and the check, not the intake question.
+**Use ddh-direct for intake and the host question path.** Use its direct path for a clear, reversible edit with a known check. Follow project policy for authorization and delegation.
 
 ## Scores
 
@@ -47,7 +47,7 @@ Two to four, including the strongest alternative; one only when facts refuted th
 Read [the review procedure](references/review.md): every state change chosen here gets one check (not a preference-only choice between reversible, local candidates).
 
 - **Light**, when all hold: only files change, prior state committed or copied aside first; local, no shared surface; no delete or move; no open Preference; you can observe the result; one undo command works even if the change breaks what it touches. Self-check per that file.
-- **Review** otherwise: brief, log draft, then one `subagent` spawn as your last tool call. The brief skeleton is in [the review procedure](references/review.md). Then one line with no tool call ends the turn; the verdict starts the next. Until then: no state change, `list_agents` or job polling, sleep, or asking the user to choose.
+- **Review** otherwise: check that independent review is available and authorized before dispatch. Follow [the review procedure](references/review.md) for the brief, wait and unavailable path.
 
 ## 5. Ladder (the most restrictive match wins)
 
@@ -62,7 +62,7 @@ A reviewed gap under 2 is not evidence: the user separates close candidates, eve
 
 ## 6. Act or hand over
 
-Confirm or Escalate: log first, then present every candidate with each rater's scores, the discarded ones and the reasoning, also in a question tool. Advice only: the answer is the result; a pick is not a request to act. The user's pick settles it; an answer outside the candidates is a follow-up. Observe the result: cheapest channel first (DOM or accessibility text before pixels), in the state that exercises the change, within an attempt budget set beforehand (default 3). Driving the user's live app (keys, clicks, reload) needs their yes each time, naming the inputs. Unobserved is not done: say what would confirm it. A failure: stop and report; reverting is a new decision, unless Light stated the undo.
+Confirm or Escalate: log within scope, present the candidates, available scores and reasoning. If a user decision is needed, ask and wait through ddh-direct, including its non-interactive fallback. If review is required but unavailable, report the unmet check and keep the action pending. Advice is not authorization; an answer outside the candidates is a follow-up. Observe the result: cheapest channel first (DOM or accessibility text before pixels), in the state that exercises the change, within an attempt budget set beforehand (default 3). Driving the user's live app (keys, clicks, reload) needs their yes each time, naming the inputs. Unobserved is not done: say what would confirm it. A failure: stop and report; reverting is a new decision, unless Light stated the undo.
 
 ## 7. Log
 
