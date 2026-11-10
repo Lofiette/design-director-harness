@@ -1,4 +1,4 @@
-# Design Director Harness
+# Design Director Harness 5.0
 
 **Рабочая среда для продуктовых и инженерных задач в Codex и DeepSeek Harness.** DDH продолжает Product OS 4.1. В одной установке есть процесс ведения задачи, runtime проекта, чекпоинты и выбираемые экспертные пакеты.
 
@@ -32,7 +32,7 @@
 
 ## Установить и обновить
 
-Распакуйте общий ZIP DDH. Архив `ddh-candidate` для кандидата в релиз доступен в [проверках ветки интеграции](https://github.com/Lofiette/design-director-harness/pull/6/checks). Нужен Node.js 22 или новее. С `uv` подготовка зависимостей Python и установка выполняются одной командой из распакованной папки.
+Распакуйте [полный ZIP DDH](https://github.com/Lofiette/design-director-harness/releases/latest/download/design-director-harness-full.zip). Внутри один установщик для Codex и DeepSeek Harness. Нужны Node.js 22 или новее и `uv`. Запустите команду из распакованной папки.
 
 ```powershell
 uv run --no-project --with-requirements product-os/requirements.txt node tools/ddh.mjs install --project "C:/path/to/project" --packs cpt-design-ui
