@@ -2,7 +2,9 @@ import { createHash } from "node:crypto";
 import { lstatSync, realpathSync } from "node:fs";
 import { join } from "node:path";
 import { prepareProductOS, readProductOSPacks } from "./product-os-install.mjs";
-import { check, inspectPath, installTransaction, managedSkillPath, same } from "./install-transaction.mjs";
+import {
+  check, inspectPath, installTransaction, managedSkillPath, runtimeRequirementsPath, same,
+} from "./install-transaction.mjs";
 
 const receiptPath = ".agents/ddh-install.json";
 const digest = data => createHash("sha256").update(data).digest("hex");
@@ -54,16 +56,22 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
     for (const [id, bundle] of [...skills, ...domainSkills]) {
       for (const [path, data] of bundle) next.set(".agents/skills/" + id + "/" + path, Buffer.from(data));
     }
+    if (productOS) {
+      const requirements = inspectPath(productOS.source, "requirements.txt");
+      check(requirements, "Bundled Product OS runtime requirements are missing");
+      next.set(runtimeRequirementsPath, requirements);
+    }
     const paths = new Set([...next.keys(), ...Object.keys(old?.files ?? {})]);
     const changes = [];
     for (const path of paths) {
-      check(managedSkillPath.test(path), "Invalid managed skill path: " + path);
+      const label = path === runtimeRequirementsPath ? "Runtime requirements" : "Skill";
+      check(path === runtimeRequirementsPath || managedSkillPath.test(path), "Invalid managed path: " + path);
       const before = inspectPath(root, path);
       const expected = old?.files[path];
       if (expected === undefined) {
-        check(!before, "Skill path already exists outside this installation: " + path);
+        check(!before, label + " path already exists outside this installation: " + path);
       } else {
-        check(before && digest(before) === expected, "Managed skill was edited or removed: " + path);
+        check(before && digest(before) === expected, "Managed " + label.toLowerCase() + " was edited or removed: " + path);
       }
       changes.push({ path, before, after: next.get(path) ?? null });
     }

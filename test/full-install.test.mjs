@@ -16,6 +16,7 @@ const dist = join(source, "tools", "cpt_dist.py");
 const python = process.env.DDH_TEST_PYTHON ?? "python";
 const originalAgents = "# Project guidance\r\nKeep these rules.\r\n";
 const originalIgnore = "private.txt\r\n";
+const projectRequirements = ".agents/ddh-runtime-requirements.txt";
 const run = (command, args, options = {}) => spawnSync(command, args, { encoding: "utf8", ...options });
 
 function success(result) {
@@ -67,6 +68,8 @@ test("the standard commands install both layers and keep an active CPT checkpoin
   assert.equal(agents.split("<!-- DDH MANAGED BEGIN -->").length, 2);
   assert.equal(readFileSync(join(root, ".gitignore"), "utf8"), originalIgnore + "\r\n/.cpt/\r\n");
   assert.ok(existsSync(join(root, ".cpt/OPERATIONS.md")));
+  assert.deepEqual(readFileSync(join(root, projectRequirements)), readFileSync(join(source, "requirements.txt")));
+  assert.ok(agents.includes(`--with-requirements ${projectRequirements}`));
   runtime(root, "create-task", "--title", "Fixture", "--objective", "Preserve state", "--activate");
   const checkpoint = runtime(root, "checkpoint", "--source", "phase_handoff", "--reason", "Fixture");
   const cpt = join(root, ".cpt");
@@ -76,6 +79,27 @@ test("the standard commands install both layers and keep an active CPT checkpoin
   assert.equal(update.status, "unchanged");
   assert.deepEqual(files(cpt), before);
   assert.match(runtime(root, "recover", "--checkpoint", checkpoint, "--verify-only"), /CHECKPOINT MATCH/);
+});
+
+test("runtime requirements collisions and edits leave project files intact", () => {
+  const root = fixture("requirements-protection");
+  const requirements = join(root, projectRequirements);
+  mkdirSync(dirname(requirements));
+  writeFileSync(requirements, "User requirements");
+  const beforeInstall = files(root);
+  const rejected = run(process.execPath, [cli, "install", "--project", root, "--python", python]);
+  assert.equal(rejected.status, 1, rejected.stderr);
+  assert.match(rejected.stderr, /Runtime requirements path already exists/);
+  assert.deepEqual(files(root), beforeInstall);
+
+  const installed = fixture("requirements-managed");
+  install("install", installed);
+  writeFileSync(join(installed, projectRequirements), "Modified requirements");
+  const before = files(installed);
+  const result = run(process.execPath, [cli, "update", "--project", installed, "--python", python]);
+  assert.equal(result.status, 1, result.stderr);
+  assert.match(result.stderr, /Managed runtime requirements was edited/);
+  assert.deepEqual(files(installed), before);
 });
 
 test("a partially initialized CPT tree fails closed", () => {

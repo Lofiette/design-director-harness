@@ -106,7 +106,12 @@ test("both bootstraps wait on consequential intake and preserve a micro path", (
 test("design, decision audit and recovery route consequential questions through intake", () => {
   const skill = id => read(join(codexSkills, id, "SKILL.md"));
   assert.match(skill("ddh-design"), /ddh-direct intake before writing dependent design/);
-  assert.match(skill("ddh-decision-audit"), /ddh-direct intake before choosing or acting/);
+  const audit = skill("ddh-decision-audit");
+  const review = read(join(codexSkills, "ddh-decision-audit/references/review.md"));
+  assert.match(audit, /ask and wait through ddh-direct, including its non-interactive fallback/);
+  assert.match(review, /Before dispatch, check the host has an independent reviewer tool/);
+  assert.match(review, /active Standard Task, a scoped lease allowing this reviewer, a bounded worker contract/);
+  assert.match(review, /mark the decision unreviewed, and keep the action pending/);
   assert.match(skill("ddh-recover"), /If a saved question is still open, return to the waiting step in ddh-direct/);
 });
 

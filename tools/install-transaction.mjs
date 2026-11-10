@@ -9,6 +9,7 @@ const lockPath = ".ddh-install.lock";
 const journalPath = ".ddh-install.transaction.json";
 const recoveryPath = ".ddh-install.recovery.lock";
 const uuid = /^[a-f0-9-]{36}$/;
+export const runtimeRequirementsPath = ".agents/ddh-runtime-requirements.txt";
 export const managedSkillPath = /^\.agents\/skills\/(?:ddh-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|references\/[a-z0-9-]+\.md)|cpt-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|agents\/openai\.yaml|references\/(?:adapters\/)?[A-Za-z0-9_-]+\.(?:md|yaml|json)|scripts\/[a-z0-9_-]+\.mjs))$/;
 export const cptSeedPaths = new Set([
   ".cpt/runtime.yaml", ".cpt/current.yaml", ".cpt/task-index.yaml", ".cpt/runtime-summary.md",
@@ -16,7 +17,8 @@ export const cptSeedPaths = new Set([
   ".cpt/schema-bundle.json", ".cpt/worker-archetypes.json", ".cpt/OPERATIONS.md", ".cpt/install.json",
 ]);
 const allowedPath = path => path === "AGENTS.md" || path === ".gitignore" ||
-  path === ".agents/ddh-install.json" || managedSkillPath.test(path) || cptSeedPaths.has(path);
+  path === ".agents/ddh-install.json" || path === runtimeRequirementsPath ||
+  managedSkillPath.test(path) || cptSeedPaths.has(path);
 const allowed = entry => allowedPath(entry.path) &&
   (!cptSeedPaths.has(entry.path) || entry.before === null && entry.after !== null);
 

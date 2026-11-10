@@ -32,7 +32,7 @@
 
 ## Установить и обновить
 
-Распакуйте общий ZIP DDH. В ветке интеграции проверенный архив `ddh-candidate` доступен в [проверках PR](https://github.com/Lofiette/design-director-harness/pull/6/checks). Нужен Node.js 22 или новее. С `uv` подготовка зависимостей Python и установка выполняются одной командой из распакованной папки.
+Распакуйте общий ZIP DDH. Архив `ddh-candidate` для кандидата в релиз доступен в [проверках ветки интеграции](https://github.com/Lofiette/design-director-harness/pull/6/checks). Нужен Node.js 22 или новее. С `uv` подготовка зависимостей Python и установка выполняются одной командой из распакованной папки.
 
 ```powershell
 uv run --no-project --with-requirements product-os/requirements.txt node tools/ddh.mjs install --project "C:/path/to/project" --packs cpt-design-ui
@@ -41,6 +41,16 @@ uv run --no-project --with-requirements product-os/requirements.txt node tools/d
 `--packs` принимает имена экспертных пакетов через запятую. Без него первая установка включает ядро и пять навыков DDH. После установки откройте проект в новой сессии Codex или DeepSeek Harness. Оба хоста находят навыки через `.agents/skills/`, а инструкции задачи читают из `AGENTS.md`.
 
 Для обновления запустите из новой версии DDH ту же команду с `update` и путём к проекту. При обновлении без `--packs` используется сохранённый выбор. Установщик проверяет управляемые файлы и сохраняет инструкции владельца проекта. С уже подготовленным Python 3.10+ и зависимостями из `product-os/requirements.txt` можно вызвать `node tools/ddh.mjs install` или `node tools/ddh.mjs update` напрямую. Путь к Python задаётся параметром `--python`.
+
+### Проверить runtime в проекте
+
+Из корня установленного проекта запустите:
+
+```powershell
+uv run --no-project --with-requirements .agents/ddh-runtime-requirements.txt python -B .cpt/bin/cpt_runtime.py validate
+```
+
+Тем же способом запускайте `status`, `checkpoint` и `recover`. Для этих команд достаточно файлов установленного проекта. С подготовленным Python можно опустить `uv run --no-project --with-requirements .agents/ddh-runtime-requirements.txt`.
 
 ## Восстановить прерванное обновление
 
