@@ -1,0 +1,35 @@
+{
+  "id": "design-intelligence-system",
+  "version": "0.3.0",
+  "kind": "generic_analytics_contract",
+  "status": "specification_not_executed_analytics",
+  "metric_count": 43,
+  "recommended_core_candidates": [
+    "DP01",
+    "DP02",
+    "DP03",
+    "DS01",
+    "DS02",
+    "DO01",
+    "DO02",
+    "DO03"
+  ],
+  "entrypoint": "README.md",
+  "files": {
+    "specification": "DIS_v0.3.md",
+    "catalog": "metric_catalog.json",
+    "dictionary": "metric_dictionary.md",
+    "data_contract": "data_contract.json"
+  },
+  "data_location": "external_instance_repository",
+  "contains_client_inventory": false,
+  "contains_actual_measurements": false,
+  "formula_changes_from_0_2": false,
+  "interface_changes_from_0_2": [
+    "source_inventory becomes source_types",
+    "metric state becomes readiness_requirements",
+    "actuals and targets move to instance",
+    "report_timezone becomes required instance parameter",
+    "future role becomes source_dependent"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "ddh-host-capability-report/v0.1-draft",
+  "example_only": true,
+  "run_id": null,
+  "observed_at": null,
+  "composition_id": null,
+  "host": {
+    "kind": null,
+    "version": null,
+    "operating_system": null,
+    "profile_reference": null,
+    "model_id": null,
+    "provider_id": null,
+    "workspace_identity": null
+  },
+  "verification": {
+    "static_bundle_validation": { "status": "not_run", "evidence": [] },
+    "installation_validation": { "status": "not_run", "evidence": [] },
+    "provider_discovery": { "status": "not_run", "evidence": [] },
+    "live_workflow": { "status": "not_run", "evidence": [] },
+    "user_acceptance": { "status": "not_run", "evidence": [] }
+  },
+  "skill_catalog": {
+    "scope": "unknown",
+    "complete": null,
+    "entries": [],
+    "shadowing_checked": false
+  },
+  "capabilities": [
+    {
+      "id": "filesystem_read",
+      "availability": "unknown",
+      "native_tool": null,
+      "authorization": "unknown",
+      "probe": null,
+      "evidence": []
+    },
+    {
+      "id": "process_execution",
+      "availability": "unknown",
+      "native_tool": null,
+      "authorization": "unknown",
+      "probe": null,
+      "evidence": []
+    },
+    {
+      "id": "durable_checkpoint",
+      "availability": "unknown",
+      "native_tool": null,
+      "authorization": "unknown",
+      "probe": null,
+      "evidence": []
+    }
+  ],
+  "context_policy": {
+    "reported_window_tokens": null,
+    "effective_input_limit_tokens": null,
+    "compaction_policy": "unknown",
+    "pruning_policy": "unknown",
+    "evidence": []
+  },
+  "usage": {
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "elapsed_seconds": null,
+    "cost": null,
+    "currency": null
+  },
+  "limitations": ["Template only; no host session or model has been tested."]
+}

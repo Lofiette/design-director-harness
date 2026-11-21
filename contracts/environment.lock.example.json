@@ -1,0 +1,53 @@
+{
+  "schema_version": "ddh-environment-composition/v0.1-draft",
+  "example_only": true,
+  "readiness": "not_ready",
+  "composition_id": null,
+  "created_at": null,
+  "layers": {
+    "owner_and_project_context": {
+      "source_uri": null,
+      "immutable_revision": null,
+      "entrypoint": null,
+      "visibility": "private",
+      "authority": "facts_history_evidence_and_instance_results"
+    },
+    "methods": {
+      "source_uri": "https://github.com/Lofiette/design-director-harness",
+      "immutable_revision": null,
+      "version": "5.0.1",
+      "entrypoint": "manifest.json",
+      "selected_packs": [],
+      "authority": "generic_methods_contracts_and_adapters"
+    },
+    "assistant_construct": {
+      "source_uri": null,
+      "immutable_revision": null,
+      "entrypoint": null,
+      "visibility": "private",
+      "authority": "identity_decision_principles_and_assistant_history"
+    }
+  },
+  "host_binding": {
+    "kind": null,
+    "version": null,
+    "adapter_revision": null,
+    "profile_reference": null,
+    "credentials_included": false
+  },
+  "working_state": {
+    "system": "cpt_when_installed",
+    "task_reference": null,
+    "checkpoint_reference": null,
+    "new_parallel_task_registry": false
+  },
+  "retrieval_policy": {
+    "startup": "minimal_identity_source_map_and_active_task",
+    "method_loading": "on_demand",
+    "history_loading": "when_temporally_relevant",
+    "return_source_revision_and_status": true,
+    "derived_indexes_are_authoritative": false,
+    "context_budget_tokens": null
+  },
+  "verification_report": null
+}

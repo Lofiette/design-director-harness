@@ -1,0 +1,4362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Design Intelligence System — generic data contract v0.3.0",
+  "description": "Предлагаемый контракт пакета данных, а не набор фактических данных. Формальная JSON Schema проверяет структуру; смысловые проверки x-semantic-checks должны быть реализованы в pipeline перед публикацией.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "0.3.0"
+    },
+    "source_batches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source_batch"
+      },
+      "minItems": 0
+    },
+    "measurement_populations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/measurement_population"
+      },
+      "minItems": 0
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/product"
+      },
+      "minItems": 0
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/team"
+      },
+      "minItems": 0
+    },
+    "initiatives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/initiative"
+      },
+      "minItems": 0
+    },
+    "initiative_links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/initiative_link"
+      },
+      "minItems": 0
+    },
+    "calendars": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/calendar"
+      },
+      "minItems": 0
+    },
+    "work_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/work_item"
+      },
+      "minItems": 0
+    },
+    "work_events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/work_event"
+      },
+      "minItems": 0
+    },
+    "commitments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/commitment"
+      },
+      "minItems": 0
+    },
+    "time_entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/time_entry"
+      },
+      "minItems": 0
+    },
+    "capacity_periods": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capacity_period"
+      },
+      "minItems": 0
+    },
+    "research_attempts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/research_attempt"
+      },
+      "minItems": 0
+    },
+    "research_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/research_question"
+      },
+      "minItems": 0
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      },
+      "minItems": 0
+    },
+    "survey_responses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/survey_response"
+      },
+      "minItems": 0
+    },
+    "audits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/audit_record"
+      },
+      "minItems": 0
+    },
+    "library_implementations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/library_implementation"
+      },
+      "minItems": 0
+    },
+    "component_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component_version"
+      },
+      "minItems": 0
+    },
+    "component_mappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component_mapping"
+      },
+      "minItems": 0
+    },
+    "pattern_catalog_entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pattern_catalog_entry"
+      },
+      "minItems": 0
+    },
+    "ds_usage_snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ds_usage_snapshot"
+      },
+      "minItems": 0
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      },
+      "minItems": 0
+    },
+    "product_events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/product_event"
+      },
+      "minItems": 0
+    },
+    "local_scenario_aggregates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/local_scenario_aggregate"
+      },
+      "minItems": 0
+    },
+    "reuse_operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reuse_operation"
+      },
+      "minItems": 0
+    },
+    "hour_rates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/hour_rate"
+      },
+      "minItems": 0
+    },
+    "cost_entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cost_entry"
+      },
+      "minItems": 0
+    },
+    "cost_allocations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cost_allocation"
+      },
+      "minItems": 0
+    },
+    "benefit_entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/benefit_entry"
+      },
+      "minItems": 0
+    },
+    "effect_protocols": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/effect_protocol"
+      },
+      "minItems": 0
+    },
+    "report_runs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/report_run"
+      },
+      "minItems": 0
+    },
+    "metric_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/metric_result"
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "contract_version",
+    "source_batches",
+    "measurement_populations",
+    "report_runs",
+    "metric_results"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Непустой стабильный ID; не переиспользуется для другой сущности."
+    },
+    "iso_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "(?:Z|[+-][0-9]{2}:[0-9]{2})$",
+      "description": "ISO 8601/RFC 3339 с часовым поясом; исходное смещение сохраняется, нормализованное хранение UTC."
+    },
+    "iso_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "decimal_amount": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$",
+      "description": "Десятичная сумма без двоичного округления; отрицательные изменения и корректировки разрешены."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Код валюты задаётся источником; значение по умолчанию отсутствует."
+    },
+    "data_kind": {
+      "type": "string",
+      "enum": [
+        "actual",
+        "estimate",
+        "scenario"
+      ]
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_batch_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "source_record_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "source_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_schema_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "ingested_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "transform_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "source_batch_ids",
+        "source_record_ids",
+        "source_revision",
+        "source_schema_version",
+        "observed_at",
+        "ingested_at",
+        "transform_version",
+        "evidence_refs"
+      ],
+      "description": "Lineage обязателен для каждого факта. Ссылки указывают на разрешённые владельцу источники; секреты и credentials не записываются."
+    },
+    "period": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "end_exclusive": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "report_timezone": {
+          "type": "string",
+          "minLength": 1,
+          "description": "IANA time-zone identifier экземпляра измерений; обязательная настройка без значения по умолчанию. Валидность и совпадение с instance config проверяются семантически.",
+          "x-semantic-format": "iana-time-zone"
+        }
+      },
+      "required": [
+        "start",
+        "end_exclusive",
+        "report_timezone"
+      ],
+      "description": "Период полуоткрыт: start включён, end_exclusive исключён."
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lower": {
+          "type": "number"
+        },
+        "upper": {
+          "type": "number"
+        },
+        "level": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "exclusiveMaximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "meaning": {
+          "type": "string",
+          "enum": [
+            "confidence_interval",
+            "credible_interval",
+            "scenario_range",
+            "sensitivity_range"
+          ]
+        }
+      },
+      "required": [
+        "lower",
+        "upper",
+        "level",
+        "method",
+        "meaning"
+      ],
+      "description": "Статистический интервал и сценарный диапазон различаются. Уровень для сценарного диапазона может отсутствовать."
+    },
+    "data_quality_state": {
+      "type": "string",
+      "enum": [
+        "not_checked",
+        "pass",
+        "fail",
+        "partial"
+      ]
+    },
+    "measurement_population": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "population_id": {
+          "$ref": "#/$defs/id"
+        },
+        "population_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population_type": {
+          "type": "string",
+          "enum": [
+            "research_cohort",
+            "audit_scope",
+            "work_cohort",
+            "commitment_cohort",
+            "operating_cohort",
+            "pattern_catalog",
+            "financial_boundary"
+          ]
+        },
+        "period": {
+          "$ref": "#/$defs/period"
+        },
+        "inclusion_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exclusion_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selection_method": {
+          "type": "string",
+          "enum": [
+            "documented_census",
+            "probability_sample",
+            "purposeful_sample",
+            "unknown"
+          ]
+        },
+        "member_set_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "member_key_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "denominator_definition_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "known_denominator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "denominator_unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "denominator_source_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "known_complete",
+            "known_partial",
+            "unknown"
+          ]
+        },
+        "coverage_limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "population_id",
+        "population_version",
+        "population_type",
+        "period",
+        "inclusion_rule",
+        "exclusion_rule",
+        "selection_method",
+        "member_set_ref",
+        "member_key_type",
+        "denominator_definition_version",
+        "known_denominator",
+        "denominator_unit",
+        "denominator_source_ref",
+        "coverage_status",
+        "coverage_limitations",
+        "lineage"
+      ],
+      "description": "Явный паспорт знаменателя и охвата. Независимый полный перечень должен иметь собственное основание; текущая неполная выгрузка не подтверждает полный denominator."
+    },
+    "source_batch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_batch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_system_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_kind": {
+          "type": "string",
+          "enum": [
+            "tracker",
+            "time_tracking",
+            "research",
+            "design_file",
+            "code_build",
+            "qa_audit",
+            "finance",
+            "hr_calendar",
+            "local_product_export",
+            "product_events",
+            "decision_register",
+            "economic_ledger",
+            "other"
+          ]
+        },
+        "source_locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_schema_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extracted_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "coverage_period": {
+          "$ref": "#/$defs/period"
+        },
+        "coverage_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "content_checksum": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inventory_status": {
+          "type": "string",
+          "enum": [
+            "declared_yes",
+            "declared_partial",
+            "declared_no",
+            "unknown",
+            "proposed"
+          ]
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "artifact_only",
+            "schema_checked",
+            "values_checked",
+            "not_checked"
+          ]
+        },
+        "access_scope": {
+          "type": "string",
+          "enum": [
+            "internal_restricted",
+            "internal_aggregate",
+            "public_source"
+          ]
+        }
+      },
+      "required": [
+        "source_batch_id",
+        "source_system_id",
+        "source_kind",
+        "source_locator",
+        "source_revision",
+        "source_schema_version",
+        "extracted_at",
+        "coverage_period",
+        "coverage_description",
+        "row_count",
+        "content_checksum",
+        "inventory_status",
+        "verification_status",
+        "access_scope"
+      ],
+      "description": "Наличие репозитория или README даёт artifact_only, а не готовность фактического KPI."
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "product_id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "portfolio_id": {
+          "$ref": "#/$defs/id"
+        },
+        "scope_status": {
+          "type": "string",
+          "enum": [
+            "candidate",
+            "confirmed",
+            "excluded"
+          ]
+        },
+        "owner_role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "valid_from": {
+          "$ref": "#/$defs/iso_date"
+        },
+        "valid_to_exclusive": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deployment_modes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "saas",
+              "on_premise",
+              "hybrid",
+              "unknown"
+            ]
+          },
+          "minItems": 1
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "product_id",
+        "name",
+        "portfolio_id",
+        "scope_status",
+        "owner_role",
+        "valid_from",
+        "valid_to_exclusive",
+        "deployment_modes",
+        "lineage"
+      ],
+      "description": "Публичное присутствие в экосистеме не означает подтверждённый периметр дизайн-департамента."
+    },
+    "team": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "team_id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "discipline": {
+          "type": "string",
+          "enum": [
+            "product_design",
+            "research",
+            "graphic_design",
+            "presentation_design",
+            "web_design",
+            "design_system",
+            "leadership",
+            "cross_functional"
+          ]
+        },
+        "valid_from": {
+          "$ref": "#/$defs/iso_date"
+        },
+        "valid_to_exclusive": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "owner_role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "team_id",
+        "name",
+        "discipline",
+        "valid_from",
+        "valid_to_exclusive",
+        "owner_role",
+        "lineage"
+      ]
+    },
+    "initiative": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "initiative_id": {
+          "$ref": "#/$defs/id"
+        },
+        "problem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hypothesis": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "owner_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "active",
+            "completed",
+            "cancelled",
+            "deferred"
+          ]
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "initiative_id",
+        "problem",
+        "hypothesis",
+        "owner_role",
+        "status",
+        "started_at",
+        "completed_at",
+        "decision_ids",
+        "lineage"
+      ]
+    },
+    "initiative_link": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "link_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_type": {
+          "type": "string",
+          "enum": [
+            "product",
+            "team",
+            "tool_family"
+          ]
+        },
+        "target_id": {
+          "$ref": "#/$defs/id"
+        },
+        "valid_from": {
+          "$ref": "#/$defs/iso_date"
+        },
+        "valid_to_exclusive": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allocation_kind": {
+          "type": "string",
+          "enum": [
+            "none",
+            "effort",
+            "cost"
+          ]
+        },
+        "allocation_weight": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allocation_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "link_id",
+        "initiative_id",
+        "target_type",
+        "target_id",
+        "valid_from",
+        "valid_to_exclusive",
+        "allocation_kind",
+        "allocation_weight",
+        "allocation_version",
+        "lineage"
+      ],
+      "description": "Связь участия не задаёт причинный вклад. Произвольное распределение эффекта по участникам запрещено."
+    },
+    "calendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "calendar_id": {
+          "$ref": "#/$defs/id"
+        },
+        "calendar_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effective_period": {
+          "$ref": "#/$defs/period"
+        },
+        "business_intervals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "start": {
+                "$ref": "#/$defs/iso_datetime"
+              },
+              "end_exclusive": {
+                "$ref": "#/$defs/iso_datetime"
+              }
+            },
+            "required": [
+              "start",
+              "end_exclusive"
+            ]
+          },
+          "minItems": 0
+        },
+        "standard_day_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "calendar_id",
+        "calendar_version",
+        "timezone",
+        "effective_period",
+        "business_intervals",
+        "standard_day_hours",
+        "lineage"
+      ],
+      "description": "Норма 8 часов не предполагается. Отсутствия конкретной когорты отражаются в capacity_period."
+    },
+    "work_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "work_item_id": {
+          "$ref": "#/$defs/id"
+        },
+        "parent_work_item_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "initiative_id": {
+          "$ref": "#/$defs/id"
+        },
+        "product_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "team_id": {
+          "$ref": "#/$defs/id"
+        },
+        "work_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "complexity_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "complexity_class": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dod_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accepted_request_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "final_accepted_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelled_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "current_state": {
+          "type": "string",
+          "enum": [
+            "queued",
+            "active",
+            "blocked",
+            "review",
+            "accepted",
+            "cancelled"
+          ]
+        },
+        "calendar_id": {
+          "$ref": "#/$defs/id"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "work_item_id",
+        "parent_work_item_id",
+        "initiative_id",
+        "product_id",
+        "team_id",
+        "work_class",
+        "complexity_rule",
+        "complexity_class",
+        "dod_version",
+        "accepted_request_at",
+        "started_at",
+        "final_accepted_at",
+        "cancelled_at",
+        "current_state",
+        "calendar_id",
+        "lineage"
+      ],
+      "description": "Единица результата, а не произвольная подзадача или экспорт. При reopen ID сохраняется; final acceptance определяется полной историей."
+    },
+    "work_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "work_event_id": {
+          "$ref": "#/$defs/id"
+        },
+        "work_item_id": {
+          "$ref": "#/$defs/id"
+        },
+        "occurred_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "created",
+            "started",
+            "state_changed",
+            "blocked",
+            "unblocked",
+            "accepted",
+            "reopened",
+            "cancelled",
+            "scope_changed"
+          ]
+        },
+        "from_state": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "to_state": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "work_event_id",
+        "work_item_id",
+        "occurred_at",
+        "event_type",
+        "from_state",
+        "to_state",
+        "reason",
+        "lineage"
+      ]
+    },
+    "commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commitment_id": {
+          "$ref": "#/$defs/id"
+        },
+        "work_item_id": {
+          "$ref": "#/$defs/id"
+        },
+        "baseline_snapshot_id": {
+          "$ref": "#/$defs/id"
+        },
+        "baseline_frozen_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "original_due_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "original_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "original_dod_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "final_accepted_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "current_due_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "change_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelled_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "commitment_id",
+        "work_item_id",
+        "baseline_snapshot_id",
+        "baseline_frozen_at",
+        "original_due_at",
+        "original_scope",
+        "original_dod_version",
+        "final_accepted_at",
+        "current_due_at",
+        "change_reason",
+        "cancelled_at",
+        "lineage"
+      ],
+      "description": "Исходный срок и объём неизменяемы. Обоснованная отмена раскрывается отдельным исходом и не исчезает из исходной когорты."
+    },
+    "time_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "time_entry_id": {
+          "$ref": "#/$defs/id"
+        },
+        "work_item_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "initiative_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "team_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measured_cohort_id": {
+          "$ref": "#/$defs/id"
+        },
+        "work_date": {
+          "$ref": "#/$defs/iso_date"
+        },
+        "hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "time_basis": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "overtime"
+          ]
+        },
+        "activity_category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_method": {
+          "type": "string",
+          "enum": [
+            "recorded_time",
+            "structured_estimate",
+            "retrospective_estimate"
+          ]
+        },
+        "planning_baseline_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "is_unplanned": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "is_avoidable_rework": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rework_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "avoidability_review_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "migration_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "time_entry_id",
+        "work_item_id",
+        "initiative_id",
+        "team_id",
+        "role_group",
+        "measured_cohort_id",
+        "work_date",
+        "hours",
+        "time_basis",
+        "activity_category",
+        "measurement_method",
+        "planning_baseline_id",
+        "is_unplanned",
+        "is_avoidable_rework",
+        "rework_reason",
+        "avoidability_review_ref",
+        "migration_id",
+        "lineage"
+      ],
+      "description": "Часы не копируются при many-to-many join. Исследовательская итерация не объявляется переделкой автоматически."
+    },
+    "capacity_period": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "capacity_record_id": {
+          "$ref": "#/$defs/id"
+        },
+        "measured_cohort_id": {
+          "$ref": "#/$defs/id"
+        },
+        "team_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "period": {
+          "$ref": "#/$defs/period"
+        },
+        "calendar_id": {
+          "$ref": "#/$defs/id"
+        },
+        "employment_fte": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nominal_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "absence_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "net_normative_available_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classified_normal_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unclassified_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "documented_overtime_hours": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "capacity_record_id",
+        "measured_cohort_id",
+        "team_id",
+        "role_group",
+        "period",
+        "calendar_id",
+        "employment_fte",
+        "nominal_hours",
+        "absence_hours",
+        "net_normative_available_hours",
+        "classified_normal_hours",
+        "unclassified_hours",
+        "documented_overtime_hours",
+        "lineage"
+      ],
+      "description": "Headcount не подставляется в FTE. Встречи и управление являются работой, а не отсутствием. Неизвестный знаменатель блокирует часовые доли."
+    },
+    "research_attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "attempt_id": {
+          "$ref": "#/$defs/id"
+        },
+        "study_id": {
+          "$ref": "#/$defs/id"
+        },
+        "participant_pseudonym_id": {
+          "$ref": "#/$defs/id"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_segment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant_id": {
+          "$ref": "#/$defs/id"
+        },
+        "artifact_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protocol_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attempt_order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "started_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pause_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "success": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "assisted": {
+          "type": "boolean"
+        },
+        "abandoned": {
+          "type": "boolean"
+        },
+        "critical_error": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "success_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "error_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valid_attempt": {
+          "type": "boolean"
+        },
+        "invalid_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data_kind": {
+          "const": "actual"
+        },
+        "observation_type": {
+          "const": "observed_user_attempt"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "attempt_id",
+        "study_id",
+        "participant_pseudonym_id",
+        "scenario_id",
+        "role_segment",
+        "variant_id",
+        "artifact_version",
+        "protocol_version",
+        "attempt_order",
+        "started_at",
+        "ended_at",
+        "pause_seconds",
+        "success",
+        "assisted",
+        "abandoned",
+        "critical_error",
+        "success_rule_version",
+        "error_rule_version",
+        "valid_attempt",
+        "invalid_reason",
+        "data_kind",
+        "observation_type",
+        "lineage"
+      ],
+      "description": "Сохраняются все повторные попытки; DP01 фильтрует первую валидную по протоколу. Отказ или помощь не равны технической невалидности.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "valid_attempt": {
+                "const": false
+              }
+            },
+            "required": [
+              "valid_attempt"
+            ]
+          },
+          "then": {
+            "properties": {
+              "invalid_reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "research_question": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "research_question_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_id": {
+          "$ref": "#/$defs/id"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registered_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "evidence_ready_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "original_decision_due_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "owner_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "research_question_id",
+        "initiative_id",
+        "question",
+        "registered_at",
+        "evidence_ready_at",
+        "original_decision_due_at",
+        "owner_role",
+        "evidence_refs",
+        "lineage"
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_id": {
+          "$ref": "#/$defs/id"
+        },
+        "research_question_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "materiality_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "is_material": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "evidence_available_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "decision_type": {
+          "type": "string",
+          "enum": [
+            "implement",
+            "reject",
+            "defer",
+            "reframe"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternatives_considered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "decision_owner_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action_owner_role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revisit_condition": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "decision_id",
+        "initiative_id",
+        "research_question_ids",
+        "materiality_rule_version",
+        "is_material",
+        "evidence_refs",
+        "evidence_available_at",
+        "decision_at",
+        "decision_type",
+        "rationale",
+        "alternatives_considered",
+        "decision_owner_role",
+        "action_owner_role",
+        "revisit_condition",
+        "lineage"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision_type": {
+                "const": "defer"
+              }
+            },
+            "required": [
+              "decision_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "revisit_condition": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "survey_response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "survey_response_id": {
+          "$ref": "#/$defs/id"
+        },
+        "respondent_pseudonym_id": {
+          "$ref": "#/$defs/id"
+        },
+        "product_id": {
+          "$ref": "#/$defs/id"
+        },
+        "wave_id": {
+          "$ref": "#/$defs/id"
+        },
+        "instrument_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "instrument_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_segment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recruitment_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "response_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "q1": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 7
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "q2": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 7
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "survey_response_id",
+        "respondent_pseudonym_id",
+        "product_id",
+        "wave_id",
+        "instrument_id",
+        "instrument_version",
+        "language",
+        "role_segment",
+        "recruitment_rule",
+        "response_at",
+        "q1",
+        "q2",
+        "lineage"
+      ],
+      "description": "Для DP06 допускается только подтверждённая исходная UMUX-Lite шкала и сопоставимый перевод. Произвольная анкета не преобразуется автоматически."
+    },
+    "audit_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "$ref": "#/$defs/id"
+        },
+        "rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "applicable": {
+          "type": "boolean"
+        },
+        "result": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "evidence_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "finding_origin": {
+          "type": "string",
+          "enum": [
+            "human_observation",
+            "automated_deterministic_rule",
+            "model_prediction",
+            "expert_prediction"
+          ]
+        },
+        "human_validation_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "not_checked",
+            "confirmed",
+            "rejected"
+          ]
+        }
+      },
+      "required": [
+        "check_id",
+        "rule_version",
+        "mandatory",
+        "applicable",
+        "result",
+        "evidence_ref",
+        "finding_origin",
+        "human_validation_status"
+      ]
+    },
+    "audit_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "audit_id": {
+          "$ref": "#/$defs/id"
+        },
+        "audit_population_id": {
+          "$ref": "#/$defs/id"
+        },
+        "audit_unit_id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_kind": {
+          "type": "string",
+          "enum": [
+            "product_flow",
+            "graphic_asset_family",
+            "presentation",
+            "web_template",
+            "component_version",
+            "design_frame"
+          ]
+        },
+        "product_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "artifact_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quality_contract_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sample_selection_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "planned_required_check_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/audit_check"
+          },
+          "minItems": 0
+        },
+        "audit_completed_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tool_name": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tool_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_or_rules_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_scope_limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "audit_id",
+        "audit_population_id",
+        "audit_unit_id",
+        "unit_kind",
+        "product_id",
+        "artifact_version",
+        "quality_contract_version",
+        "sample_selection_rule",
+        "scope_description",
+        "planned_required_check_ids",
+        "checks",
+        "audit_completed_at",
+        "tool_name",
+        "tool_version",
+        "model_or_rules_version",
+        "source_scope_limitations",
+        "lineage"
+      ],
+      "description": "Локальные плагины или иные аудиторы могут поставлять результаты. Непроверенные внутренности компонентов, неполный индекс ключей и выборочный охват сохраняются как ограничения; не означают pass."
+    },
+    "library_implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "implementation_id": {
+          "$ref": "#/$defs/id"
+        },
+        "library_family_id": {
+          "$ref": "#/$defs/id"
+        },
+        "package_namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation_stack": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registry_locator": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "token_layer_schema_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "owner_role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "identity_status": {
+          "type": "string",
+          "enum": [
+            "candidate",
+            "verified"
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "implementation_id",
+        "library_family_id",
+        "package_namespace",
+        "implementation_stack",
+        "registry_locator",
+        "token_layer_schema_version",
+        "owner_role",
+        "identity_status",
+        "lineage"
+      ],
+      "description": "Разные package namespace, стеки и реализации хранятся раздельно до подтверждённого mapping. Название бренда или визуальная тематизация не доказывают внедрение дизайн-системы в коде."
+    },
+    "component_version": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "component_version_id": {
+          "$ref": "#/$defs/id"
+        },
+        "implementation_id": {
+          "$ref": "#/$defs/id"
+        },
+        "component_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pattern_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "support_status": {
+          "type": "string",
+          "enum": [
+            "supported",
+            "deprecated",
+            "unsupported",
+            "unknown"
+          ]
+        },
+        "support_from": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "support_to_exclusive": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quality_contract_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "latest_complete_audit_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "component_version_id",
+        "implementation_id",
+        "component_id",
+        "version",
+        "pattern_id",
+        "support_status",
+        "support_from",
+        "support_to_exclusive",
+        "quality_contract_version",
+        "latest_complete_audit_id",
+        "lineage"
+      ]
+    },
+    "component_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mapping_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_implementation_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_component_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_implementation_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_component_id": {
+          "$ref": "#/$defs/id"
+        },
+        "mapping_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantics_contract_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "candidate",
+            "verified",
+            "rejected"
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "mapping_id",
+        "source_implementation_id",
+        "source_component_id",
+        "target_implementation_id",
+        "target_component_id",
+        "mapping_version",
+        "semantics_contract_ref",
+        "status",
+        "lineage"
+      ],
+      "description": "Mapping не выводится по одинаковому имени. Поведение, варианты и token semantics проверяются явно."
+    },
+    "pattern_catalog_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pattern_catalog_entry_id": {
+          "$ref": "#/$defs/id"
+        },
+        "pattern_id": {
+          "$ref": "#/$defs/id"
+        },
+        "catalog_id": {
+          "$ref": "#/$defs/id"
+        },
+        "catalog_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population_id": {
+          "$ref": "#/$defs/id"
+        },
+        "required_behavior": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicability_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicable": {
+          "type": "boolean"
+        },
+        "supported_component_version_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "support_verified": {
+          "type": "boolean"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "pattern_catalog_entry_id",
+        "pattern_id",
+        "catalog_id",
+        "catalog_version",
+        "population_id",
+        "required_behavior",
+        "applicability_rule_version",
+        "applicable",
+        "supported_component_version_ids",
+        "support_verified",
+        "lineage"
+      ],
+      "description": "Каталог потребностей, включая ещё не покрытые библиотекой паттерны. Удаление сложного паттерна требует версии и основания."
+    },
+    "ds_usage_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ds_usage_id": {
+          "$ref": "#/$defs/id"
+        },
+        "snapshot_id": {
+          "$ref": "#/$defs/id"
+        },
+        "product_id": {
+          "$ref": "#/$defs/id"
+        },
+        "build_id": {
+          "$ref": "#/$defs/id"
+        },
+        "deployment_mode": {
+          "type": "string",
+          "enum": [
+            "saas",
+            "on_premise",
+            "hybrid",
+            "unknown"
+          ]
+        },
+        "tenant_cohort_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "screen_or_route_id": {
+          "$ref": "#/$defs/id"
+        },
+        "state_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_segment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ui_opportunity_id": {
+          "$ref": "#/$defs/id"
+        },
+        "applicability_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicable": {
+          "type": "boolean"
+        },
+        "implementation_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "component_version_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runtime_verified": {
+          "type": "boolean"
+        },
+        "design_file_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "design_file_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "design_instance_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parity_audit_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "audit_population_id": {
+          "$ref": "#/$defs/id"
+        },
+        "as_of": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "ds_usage_id",
+        "snapshot_id",
+        "product_id",
+        "build_id",
+        "deployment_mode",
+        "tenant_cohort_id",
+        "screen_or_route_id",
+        "state_id",
+        "role_segment",
+        "ui_opportunity_id",
+        "applicability_rule_version",
+        "applicable",
+        "implementation_id",
+        "component_version_id",
+        "runtime_verified",
+        "design_file_id",
+        "design_file_version",
+        "design_instance_id",
+        "parity_audit_id",
+        "audit_population_id",
+        "as_of",
+        "lineage"
+      ],
+      "description": "Считается функциональная UI-возможность в проверенном состоянии, не число рендеров или imports. Наличие пакета не устанавливает runtime_verified=true."
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "product_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "component_version_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "affected_artifact_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "finding_kind": {
+          "type": "string",
+          "enum": [
+            "observed_user_error",
+            "predicted_user_risk",
+            "deterministic_rule_violation",
+            "expert_review_issue"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "human_validation_status": {
+          "type": "string",
+          "enum": [
+            "not_checked",
+            "confirmed",
+            "rejected"
+          ]
+        },
+        "model_or_rules_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "discovered_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "resolved",
+            "rejected",
+            "duplicate"
+          ]
+        },
+        "duplicate_of": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "finding_id",
+        "initiative_id",
+        "product_id",
+        "component_version_id",
+        "affected_artifact_version",
+        "finding_kind",
+        "severity",
+        "severity_rule_version",
+        "human_validation_status",
+        "model_or_rules_version",
+        "discovered_at",
+        "resolved_at",
+        "status",
+        "duplicate_of",
+        "lineage"
+      ],
+      "description": "AI/SHERPA predictions не входят в счётчик наблюдаемых пользовательских ошибок без отдельного наблюдения."
+    },
+    "product_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/id"
+        },
+        "attempt_id": {
+          "$ref": "#/$defs/id"
+        },
+        "product_id": {
+          "$ref": "#/$defs/id"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "tenant_pseudonym_id": {
+          "$ref": "#/$defs/id"
+        },
+        "user_pseudonym_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "role_segment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "product_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "build_id": {
+          "$ref": "#/$defs/id"
+        },
+        "deployment_mode": {
+          "type": "string",
+          "enum": [
+            "saas",
+            "on_premise",
+            "hybrid"
+          ]
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "scenario_started",
+            "scenario_succeeded",
+            "scenario_abandoned",
+            "critical_error",
+            "technical_invalid"
+          ]
+        },
+        "occurred_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "event_schema_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "success_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation_window_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "data_kind": {
+          "const": "actual"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "event_id",
+        "attempt_id",
+        "product_id",
+        "scenario_id",
+        "tenant_pseudonym_id",
+        "user_pseudonym_id",
+        "role_segment",
+        "product_version",
+        "build_id",
+        "deployment_mode",
+        "event_type",
+        "occurred_at",
+        "event_schema_version",
+        "success_rule_version",
+        "observation_window_seconds",
+        "data_kind",
+        "lineage"
+      ],
+      "description": "Контракт минимального наблюдения, а не утверждение о наличии внедрённой телеметрии. События могут оставаться в инфраструктуре заказчика."
+    },
+    "local_scenario_aggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "aggregate_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_tenant_cohort_id": {
+          "$ref": "#/$defs/id"
+        },
+        "product_id": {
+          "$ref": "#/$defs/id"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_segment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "product_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "deployment_mode": {
+          "type": "string",
+          "enum": [
+            "saas",
+            "on_premise",
+            "hybrid"
+          ]
+        },
+        "start_cohort_period": {
+          "$ref": "#/$defs/period"
+        },
+        "observation_window_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "observed_through_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "cohort_mature": {
+          "type": "boolean"
+        },
+        "eligible_started_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successful_same_cohort_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "invalid_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "success_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "deduplication_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aggregation_query_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage_limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "data_kind": {
+          "const": "actual"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "aggregate_id",
+        "source_tenant_cohort_id",
+        "product_id",
+        "scenario_id",
+        "role_segment",
+        "product_version",
+        "deployment_mode",
+        "start_cohort_period",
+        "observation_window_seconds",
+        "observed_through_at",
+        "cohort_mature",
+        "eligible_started_attempts",
+        "successful_same_cohort_attempts",
+        "invalid_attempts",
+        "success_rule_version",
+        "deduplication_rule_version",
+        "aggregation_query_version",
+        "coverage_limitations",
+        "data_kind",
+        "lineage"
+      ],
+      "description": "Разрешённый локальный on-premise экспорт. Числитель относится к тем же стартовым попыткам и созревшему окну; несвязанные месячные starts/completions не делятся."
+    },
+    "reuse_operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reuse_operation_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "work_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "complexity_rule_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation_period": {
+          "$ref": "#/$defs/period"
+        },
+        "actual_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "baseline_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "baseline_evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comparison_method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signed_saved_hours": {
+          "type": "number"
+        },
+        "data_kind": {
+          "$ref": "#/$defs/data_kind"
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/interval"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "overlap_group": {
+          "$ref": "#/$defs/id"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "reuse_operation_id",
+        "initiative_id",
+        "role_group",
+        "work_class",
+        "complexity_rule_version",
+        "operation_period",
+        "actual_hours",
+        "baseline_hours",
+        "baseline_evidence_ref",
+        "comparison_method",
+        "signed_saved_hours",
+        "data_kind",
+        "interval",
+        "overlap_group",
+        "lineage"
+      ],
+      "description": "База и факт относятся к сопоставимой операции. Отрицательное signed_saved_hours допустимо. UI-инстансы не подставляются как независимые операции труда."
+    },
+    "hour_rate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rate_id": {
+          "$ref": "#/$defs/id"
+        },
+        "role_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rate_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effective_period": {
+          "$ref": "#/$defs/period"
+        },
+        "amount_per_hour": {
+          "$ref": "#/$defs/decimal_amount"
+        },
+        "currency": {
+          "$ref": "#/$defs/currency"
+        },
+        "rate_basis": {
+          "type": "string",
+          "enum": [
+            "fully_loaded_resource",
+            "incremental_cash"
+          ]
+        },
+        "approved_by_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "rate_id",
+        "role_group",
+        "rate_version",
+        "effective_period",
+        "amount_per_hour",
+        "currency",
+        "rate_basis",
+        "approved_by_role",
+        "approved_at",
+        "lineage"
+      ]
+    },
+    "cost_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cost_entry_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_document_id": {
+          "$ref": "#/$defs/id"
+        },
+        "accounting_period": {
+          "$ref": "#/$defs/period"
+        },
+        "amount": {
+          "$ref": "#/$defs/decimal_amount"
+        },
+        "currency": {
+          "$ref": "#/$defs/currency"
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "cash",
+            "accrual",
+            "resource_equivalent"
+          ]
+        },
+        "cost_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cost_boundary_id": {
+          "$ref": "#/$defs/id"
+        },
+        "is_incremental_for_initiative": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "initiative_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "correction_of_cost_entry_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data_kind": {
+          "$ref": "#/$defs/data_kind"
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "cost_entry_id",
+        "source_document_id",
+        "accounting_period",
+        "amount",
+        "currency",
+        "basis",
+        "cost_type",
+        "cost_boundary_id",
+        "is_incremental_for_initiative",
+        "initiative_id",
+        "correction_of_cost_entry_id",
+        "data_kind",
+        "lineage"
+      ],
+      "description": "Атомарная запись затрат. Отрицательные корректировки разрешены и связаны с исправляемой записью."
+    },
+    "cost_allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "$ref": "#/$defs/id"
+        },
+        "cost_entry_id": {
+          "$ref": "#/$defs/id"
+        },
+        "dimension": {
+          "type": "string",
+          "enum": [
+            "team",
+            "product",
+            "initiative",
+            "discipline"
+          ]
+        },
+        "target_id": {
+          "$ref": "#/$defs/id"
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "allocation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "allocation_id",
+        "cost_entry_id",
+        "dimension",
+        "target_id",
+        "weight",
+        "allocation_version",
+        "rule_ref",
+        "lineage"
+      ],
+      "description": "Внутри одной dimension/версии сумма весов одной записи не превышает 1. Разные измерения — представления одной стоимости, не дополнительные расходы."
+    },
+    "benefit_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "benefit_instance_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "economic_boundary_id": {
+          "$ref": "#/$defs/id"
+        },
+        "benefit_channel": {
+          "type": "string",
+          "enum": [
+            "vendor_cash_expense_change",
+            "vendor_incremental_margin",
+            "vendor_capacity_equivalent",
+            "customer_value",
+            "avoided_risk"
+          ]
+        },
+        "recognition_status": {
+          "type": "string",
+          "enum": [
+            "forecast",
+            "capacity_equivalent",
+            "causal_estimate",
+            "realized_cash"
+          ]
+        },
+        "period": {
+          "$ref": "#/$defs/period"
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/decimal_amount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/currency"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signed_hours": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data_kind": {
+          "$ref": "#/$defs/data_kind"
+        },
+        "counterfactual_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "causal_status": {
+          "type": "string",
+          "enum": [
+            "not_claimed",
+            "descriptive",
+            "model_only",
+            "quasi_experimental_checked",
+            "randomized_checked"
+          ]
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/interval"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "overlap_group": {
+          "$ref": "#/$defs/id"
+        },
+        "overlap_resolution": {
+          "type": "string",
+          "enum": [
+            "unresolved",
+            "unique",
+            "excluded_duplicate",
+            "decomposed_with_evidence"
+          ]
+        },
+        "related_cost_entry_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "approved_by_role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approved_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/iso_datetime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "benefit_instance_id",
+        "initiative_ids",
+        "economic_boundary_id",
+        "benefit_channel",
+        "recognition_status",
+        "period",
+        "amount",
+        "currency",
+        "signed_hours",
+        "data_kind",
+        "counterfactual_ref",
+        "causal_status",
+        "model_version",
+        "interval",
+        "overlap_group",
+        "overlap_resolution",
+        "related_cost_entry_ids",
+        "approved_by_role",
+        "approved_at",
+        "lineage"
+      ],
+      "description": "Реализация, модель и причинность отдельны. Одна выгода показывается в нескольких контурах, но не становится несколькими строками признания."
+    },
+    "effect_protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "effect_protocol_id": {
+          "$ref": "#/$defs/id"
+        },
+        "initiative_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "protocol_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registered_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "randomized",
+            "difference_in_differences",
+            "interrupted_time_series",
+            "other_quasi_experimental",
+            "descriptive",
+            "scenario_model"
+          ]
+        },
+        "hypothesis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_metric_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "guardrail_metric_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "estimand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assignment_or_intervention_unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "analysis_unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "observation_horizon": {
+          "$ref": "#/$defs/period"
+        },
+        "counterfactual_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "validity_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "check_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "not_checked",
+                  "pass",
+                  "fail",
+                  "not_applicable"
+                ]
+              },
+              "evidence_ref": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "check_name",
+              "status",
+              "evidence_ref"
+            ]
+          },
+          "minItems": 0
+        },
+        "multiplicity_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "analysis_code_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineage": {
+          "$ref": "#/$defs/lineage"
+        }
+      },
+      "required": [
+        "effect_protocol_id",
+        "initiative_ids",
+        "protocol_version",
+        "registered_at",
+        "method",
+        "hypothesis",
+        "primary_metric_id",
+        "guardrail_metric_ids",
+        "estimand",
+        "assignment_or_intervention_unit",
+        "analysis_unit",
+        "population_ids",
+        "observation_horizon",
+        "counterfactual_description",
+        "assumptions",
+        "validity_checks",
+        "multiplicity_rule",
+        "analysis_code_version",
+        "lineage"
+      ],
+      "description": "Определяет, что именно оценивается и при каких предпосылках. Наличие протокола не означает прохождение проверок или достижение мощности."
+    },
+    "report_run": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "report_run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "report_period": {
+          "$ref": "#/$defs/period"
+        },
+        "report_kind": {
+          "type": "string",
+          "enum": [
+            "month",
+            "quarter",
+            "initiative_horizon"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "frozen",
+            "restated"
+          ]
+        },
+        "freeze_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "source_batch_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "metric_catalog_version": {
+          "const": "0.2"
+        },
+        "calculation_code_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_contract_version": {
+          "const": "0.2"
+        },
+        "supersedes_run_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "restatement_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approved_by_role": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "report_run_id",
+        "report_period",
+        "report_kind",
+        "status",
+        "freeze_at",
+        "source_batch_ids",
+        "metric_catalog_version",
+        "calculation_code_version",
+        "data_contract_version",
+        "supersedes_run_id",
+        "restatement_reason",
+        "approved_by_role"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "restated"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "supersedes_run_id": {
+                "$ref": "#/$defs/id"
+              },
+              "restatement_reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "metric_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "metric_result_id": {
+          "$ref": "#/$defs/id"
+        },
+        "report_run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "metric_id": {
+          "type": "string",
+          "pattern": "^(DP|DS|DO|DQ|EC)[0-9]{2}$"
+        },
+        "definition_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "period": {
+          "$ref": "#/$defs/period"
+        },
+        "as_of": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "product_scope_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "team_scope_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "work_class_or_scenario": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population_id": {
+          "$ref": "#/$defs/id"
+        },
+        "aggregation_kind": {
+          "type": "string",
+          "enum": [
+            "ratio",
+            "sum",
+            "quantile",
+            "stock",
+            "causal_estimate"
+          ]
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "denominator_definition_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sample_units_n": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sample_participants_n": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data_kind": {
+          "$ref": "#/$defs/data_kind"
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/interval"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_batch_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "source_record_set_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "calculation_code_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "calculated_at": {
+          "$ref": "#/$defs/iso_datetime"
+        },
+        "quality_gate_status": {
+          "$ref": "#/$defs/data_quality_state"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "known_complete",
+            "known_partial",
+            "unknown"
+          ]
+        },
+        "coverage_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comparability_status": {
+          "type": "string",
+          "enum": [
+            "not_requested",
+            "eligible",
+            "blocked"
+          ]
+        },
+        "comparability_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "causal_claim_status": {
+          "type": "string",
+          "enum": [
+            "not_claimed",
+            "eligible",
+            "blocked"
+          ]
+        },
+        "causal_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "effect_protocol_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "guardrail_status": {
+          "type": "string",
+          "enum": [
+            "not_applicable",
+            "not_checked",
+            "pass",
+            "breached",
+            "uncertain"
+          ]
+        },
+        "publication_status": {
+          "type": "string",
+          "enum": [
+            "blocked",
+            "provisional",
+            "published"
+          ]
+        },
+        "block_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "metric_result_id",
+        "report_run_id",
+        "metric_id",
+        "definition_version",
+        "period",
+        "as_of",
+        "product_scope_ids",
+        "team_scope_ids",
+        "work_class_or_scenario",
+        "population_id",
+        "aggregation_kind",
+        "numerator",
+        "denominator",
+        "denominator_definition_version",
+        "value",
+        "unit",
+        "sample_units_n",
+        "sample_participants_n",
+        "data_kind",
+        "interval",
+        "source_batch_ids",
+        "source_record_set_ref",
+        "calculation_code_version",
+        "calculated_at",
+        "quality_gate_status",
+        "coverage_status",
+        "coverage_description",
+        "comparability_status",
+        "comparability_reasons",
+        "causal_claim_status",
+        "causal_reasons",
+        "effect_protocol_id",
+        "guardrail_status",
+        "publication_status",
+        "block_reasons"
+      ],
+      "description": "N/A хранится как value=null плюс причина; не строкой 0. Проверки causal, comparison, guardrail и quality независимы.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "publication_status": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "publication_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "block_reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "publication_status": {
+                "const": "published"
+              }
+            },
+            "required": [
+              "publication_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "quality_gate_status": {
+                "const": "pass"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "aggregation_kind": {
+                "const": "ratio"
+              },
+              "publication_status": {
+                "enum": [
+                  "published",
+                  "provisional"
+                ]
+              }
+            },
+            "required": [
+              "aggregation_kind",
+              "publication_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "numerator": {
+                "type": "number"
+              },
+              "denominator": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "denominator_definition_version": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "comparability_status": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "comparability_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "comparability_reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "causal_claim_status": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "causal_claim_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "causal_reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "causal_claim_status": {
+                "const": "eligible"
+              }
+            },
+            "required": [
+              "causal_claim_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "effect_protocol_id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "x-entity-primary-keys": {
+    "source_batches": "source_batch_id",
+    "measurement_populations": "population_id",
+    "products": "product_id",
+    "teams": "team_id",
+    "initiatives": "initiative_id",
+    "initiative_links": "link_id",
+    "calendars": "calendar_id",
+    "work_items": "work_item_id",
+    "work_events": "work_event_id",
+    "commitments": "commitment_id",
+    "time_entries": "time_entry_id",
+    "capacity_periods": "capacity_record_id",
+    "research_attempts": "attempt_id",
+    "research_questions": "research_question_id",
+    "decisions": "decision_id",
+    "survey_responses": "survey_response_id",
+    "audits": "audit_id",
+    "library_implementations": "implementation_id",
+    "component_versions": "component_version_id",
+    "component_mappings": "mapping_id",
+    "pattern_catalog_entries": "pattern_catalog_entry_id",
+    "ds_usage_snapshots": "ds_usage_id",
+    "findings": "finding_id",
+    "product_events": "event_id",
+    "local_scenario_aggregates": "aggregate_id",
+    "reuse_operations": "reuse_operation_id",
+    "hour_rates": "rate_id",
+    "cost_entries": "cost_entry_id",
+    "cost_allocations": "allocation_id",
+    "benefit_entries": "benefit_instance_id",
+    "effect_protocols": "effect_protocol_id",
+    "report_runs": "report_run_id",
+    "metric_results": "metric_result_id"
+  },
+  "x-module-required-entities": {
+    "all_results": [
+      "source_batches",
+      "measurement_populations",
+      "report_runs",
+      "metric_results"
+    ],
+    "design_performance_research": [
+      "products",
+      "research_attempts"
+    ],
+    "research_decisions": [
+      "research_questions",
+      "decisions"
+    ],
+    "quality_acceptance": [
+      "audits"
+    ],
+    "design_system": [
+      "library_implementations",
+      "component_versions",
+      "ds_usage_snapshots",
+      "audits"
+    ],
+    "design_ops_flow": [
+      "teams",
+      "work_items",
+      "work_events",
+      "calendars",
+      "commitments"
+    ],
+    "design_ops_effort": [
+      "time_entries",
+      "capacity_periods"
+    ],
+    "production_scenarios_alternative_1": [
+      "product_events"
+    ],
+    "production_scenarios_alternative_2": [
+      "local_scenario_aggregates"
+    ],
+    "economics": [
+      "cost_entries",
+      "benefit_entries"
+    ],
+    "causal_outcomes": [
+      "effect_protocols"
+    ],
+    "design_system_coverage": [
+      "pattern_catalog_entries"
+    ]
+  },
+  "x-semantic-checks": [
+    {
+      "id": "KEY-01",
+      "severity": "block",
+      "rule": "Первичные ключи уникальны в источнике и после дедупликации; одинаковая запись не размножается после join."
+    },
+    {
+      "id": "FK-01",
+      "severity": "block",
+      "rule": "Все обязательные foreign keys и source_batch_ids разрешаются; many-to-many соединяется через bridge с сохранённым grain."
+    },
+    {
+      "id": "TIME-01",
+      "severity": "block",
+      "rule": "start < end_exclusive, события и приёмка упорядочены с учётом reopen; периоды отчёта вычислены в валидном IANA report_timezone экземпляра, одинаковом для сравниваемых периодов либо с явным пересчётом границ."
+    },
+    {
+      "id": "FREEZE-01",
+      "severity": "block",
+      "rule": "Результат замороженного отчёта использует только зафиксированные source batches и версии расчёта. Поздние данные создают новую ревизию."
+    },
+    {
+      "id": "DENOM-01",
+      "severity": "block",
+      "rule": "Числитель и знаменатель принадлежат одной популяции, версии определения и зрелому окну. Неизвестный или нулевой знаменатель даёт value=null."
+    },
+    {
+      "id": "RESEARCH-01",
+      "severity": "block",
+      "rule": "DP01 выбирает первые валидные попытки по протоколу; помощь и отказ не исключаются как техническая ошибка. Повторы сохраняются и не считаются независимыми участниками."
+    },
+    {
+      "id": "RESEARCH-02",
+      "severity": "block",
+      "rule": "AI/SHERPA predicted_risk не включается в observed_user_error. Statistical comparison учитывает кластеризацию/повторы участников."
+    },
+    {
+      "id": "AUDIT-01",
+      "severity": "block",
+      "rule": "Pass возможен только при всех применимых обязательных проверках pass. Неизвестные проверки и неполный охват раскрываются; sample не выдаётся за census."
+    },
+    {
+      "id": "DS-01",
+      "severity": "block",
+      "rule": "Package namespace, stack, component-version и build сохранены. Import или design instance не являются runtime evidence."
+    },
+    {
+      "id": "DS-02",
+      "severity": "block",
+      "rule": "Cross-stack mapping и схемы token layers не выводятся только из общего названия бренда, совпавшего имени компонента или визуальной тематизации локального UI-kit."
+    },
+    {
+      "id": "LOCAL-01",
+      "severity": "block",
+      "rule": "Local aggregates имеют одну стартовую когорту, полностью созревшее окно и совместимый способ дедупликации; successful_same_cohort_attempts <= eligible_started_attempts."
+    },
+    {
+      "id": "EFFORT-01",
+      "severity": "block",
+      "rule": "Доля времени использует совпадающие cohorts/calendars. Headcount не заменяет FTE. Часы сверх нормы не маскируются обычной мощностью."
+    },
+    {
+      "id": "REUSE-01",
+      "severity": "block",
+      "rule": "signed_saved_hours = baseline_hours − actual_hours для сопоставимой операции; отрицательные значения разрешены."
+    },
+    {
+      "id": "ALLOC-01",
+      "severity": "block",
+      "rule": "Сумма cost allocation weights в одной dimension/version для cost_entry <= 1; остаток явно нераспределён. Разные dimensions не суммируются."
+    },
+    {
+      "id": "LEDGER-01",
+      "severity": "block",
+      "rule": "benefit_instance_id уникален; overlap_resolution=unresolved исключает итоговое признание, но не скрывает запись."
+    },
+    {
+      "id": "LEDGER-02",
+      "severity": "block",
+      "rule": "В cash ROI входят только совместимые реализованные денежные потоки и дополнительные денежные затраты. Capacity, customer_value, risk scenarios и нереализованная маржа исключены."
+    },
+    {
+      "id": "COMPARE-01",
+      "severity": "block_comparison",
+      "rule": "Сравнение требует совместимых definition, population, class/scenario, coverage, maturity и периодов; иначе comparison blocked при допустимом показе текущего уровня."
+    },
+    {
+      "id": "CAUSAL-01",
+      "severity": "block_causal_claim",
+      "rule": "Для causal eligible есть протокол, контрфакт, единица воздействия и выполненные предпосылки. Эффект пакета не приписывается автоматически дизайну."
+    },
+    {
+      "id": "GUARD-01",
+      "severity": "block_success_label",
+      "rule": "Нарушение guardrail запрещает безусловную метку успеха; само по себе не стирает валидную оценку основной метрики."
+    },
+    {
+      "id": "AGG-01",
+      "severity": "block",
+      "rule": "Rate пересчитывается из исходных числителей/знаменателей; квантиль из наблюдений; stock не суммируется между месяцами; деньги согласованы по currency/basis/horizon."
+    }
+  ],
+  "x-result-publication-gates": [
+    {
+      "gate": "structure",
+      "required": "JSON Schema проходит валидацию с format checker."
+    },
+    {
+      "gate": "identity_and_lineage",
+      "required": "KEY-01, FK-01, FREEZE-01 проходят; доступны immutable источники и версия формулы."
+    },
+    {
+      "gate": "measurement",
+      "required": "Применимые проверки знаменателя, времени, аудита, DS, трудозатрат и экономики проходят."
+    },
+    {
+      "gate": "coverage",
+      "required": "Неполный охват явно описан и отображение ограничено наблюдаемой популяцией; неизвестный охват запрещает экстраполяцию."
+    },
+    {
+      "gate": "comparison",
+      "required": "Сравнение показывается только при comparability_status=eligible."
+    },
+    {
+      "gate": "causal_label",
+      "required": "Причинная формулировка только при causal_claim_status=eligible; иначе описательное изменение/сценарий."
+    },
+    {
+      "gate": "financial_recognition",
+      "required": "Нет неразрешённых дублей; известны граница, валюта, basis, horizon и документальное признание."
+    }
+  ],
+  "x-privacy-and-scope": "Псевдонимы вместо контактов/имён участников; агрегаты вместо персональных зарплат на дашборде. Контракт не даёт разрешение на вынос корпоративных данных или централизованную телеметрию.",
+  "x-instance-configuration": "report_timezone, scope, bindings и фактическая готовность задаются отдельно для каждого экземпляра. Обобщённый контракт не задаёт headcount, систему-источник, baseline или цель."
+}
