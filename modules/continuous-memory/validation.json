@@ -1,0 +1,53 @@
+{
+  "module": "continuous-memory",
+  "version": "0.1.0",
+  "tested_on": {
+    "python": "3.12.14",
+    "platform": "Linux"
+  },
+  "test_command": "python3 -m unittest discover -s modules/continuous-memory/tests -v",
+  "exit_code": 0,
+  "test_count": 33,
+  "result": "pass",
+  "output": "test_empty_registry_does_not_claim_empty_active_catalog (test_memory.FingerprintTests.test_empty_registry_does_not_claim_empty_active_catalog) ... ok\ntest_hidden_model_revision_remains_unknown (test_memory.FingerprintTests.test_hidden_model_revision_remains_unknown) ... ok\ntest_host_change_not_called_model_update (test_memory.FingerprintTests.test_host_change_not_called_model_update) ... ok\ntest_model_change_proposes_revalidation_not_deletion (test_memory.FingerprintTests.test_model_change_proposes_revalidation_not_deletion) ... ok\ntest_newly_observed_revision_not_claimed_upgrade (test_memory.FingerprintTests.test_newly_observed_revision_not_claimed_upgrade) ... ok\ntest_changed_raw_bytes_same_id_rejected (test_memory.MemoryTests.test_changed_raw_bytes_same_id_rejected) ... ok\ntest_conflicting_facts_are_not_last_write_wins (test_memory.MemoryTests.test_conflicting_facts_are_not_last_write_wins) ... ok\ntest_conflicting_run_reports_do_not_become_skill_evidence (test_memory.MemoryTests.test_conflicting_run_reports_do_not_become_skill_evidence) ... ok\ntest_correction_preserves_old_record (test_memory.MemoryTests.test_correction_preserves_old_record) ... ok\ntest_correction_wrong_fact_rejected (test_memory.MemoryTests.test_correction_wrong_fact_rejected) ... ok\ntest_correction_wrong_owner_rejected (test_memory.MemoryTests.test_correction_wrong_owner_rejected) ... ok\ntest_daily_boundary_and_late_arrival (test_memory.MemoryTests.test_daily_boundary_and_late_arrival) ... ok\ntest_duplicate_workflow_uses_existing_skill (test_memory.MemoryTests.test_duplicate_workflow_uses_existing_skill) ... ok\ntest_exact_bytes_and_idempotency (test_memory.MemoryTests.test_exact_bytes_and_idempotency) ... ok\ntest_imported_cycle_rejected (test_memory.MemoryTests.test_imported_cycle_rejected) ... ok\ntest_lookup_starts_from_high_abstraction_and_keeps_source_links (test_memory.MemoryTests.test_lookup_starts_from_high_abstraction_and_keeps_source_links) ... ok\ntest_missing_raw_is_rejected (test_memory.MemoryTests.test_missing_raw_is_rejected) ... ok\ntest_missing_source_is_rejected (test_memory.MemoryTests.test_missing_source_is_rejected) ... ok\ntest_missing_store_is_not_a_verified_empty_day (test_memory.MemoryTests.test_missing_store_is_not_a_verified_empty_day) ... ok\ntest_no_candidates_from_synthetic_or_self_report (test_memory.MemoryTests.test_no_candidates_from_synthetic_or_self_report) ... ok\ntest_no_implicit_publication (test_memory.MemoryTests.test_no_implicit_publication) ... ok\ntest_observed_fixture_branch_counts_runs_not_emissions (test_memory.MemoryTests.test_observed_fixture_branch_counts_runs_not_emissions) ... ok\ntest_raw_integrity_failure_is_visible (test_memory.MemoryTests.test_raw_integrity_failure_is_visible) ... ok\ntest_same_id_cannot_overwrite (test_memory.MemoryTests.test_same_id_cannot_overwrite) ... ok\ntest_summary_can_drill_down_without_deleting_source (test_memory.MemoryTests.test_summary_can_drill_down_without_deleting_source) ... ok\ntest_summary_cannot_become_factual_source (test_memory.MemoryTests.test_summary_cannot_become_factual_source) ... ok\ntest_summary_cannot_own_fact (test_memory.MemoryTests.test_summary_cannot_own_fact) ... ok\ntest_supersession_cannot_bypass_source_visibility (test_memory.MemoryTests.test_supersession_cannot_bypass_source_visibility) ... ok\ntest_synthetic_correction_cannot_displace_observed_fact (test_memory.MemoryTests.test_synthetic_correction_cannot_displace_observed_fact) ... ok\ntest_synthetic_evidence_cannot_support_observed_fact (test_memory.MemoryTests.test_synthetic_evidence_cannot_support_observed_fact) ... ok\ntest_tampered_record_fails_digest (test_memory.MemoryTests.test_tampered_record_fails_digest) ... ok\ntest_unknown_timezone_and_naive_datetime_fail (test_memory.MemoryTests.test_unknown_timezone_and_naive_datetime_fail) ... ok\ntest_writer_lock_fails_closed (test_memory.MemoryTests.test_writer_lock_fails_closed) ... ok\n\n----------------------------------------------------------------------\nRan 33 tests in 0.041s\n\nOK\n",
+  "json_schema_draft": "2020-12",
+  "schemas_checked": [
+    "memory-event.schema.json",
+    "environment-fingerprint.schema.json",
+    "skill-registry.schema.json"
+  ],
+  "live_host_tests": "not_run",
+  "behavioral_skill_lift": "not_measured",
+  "automatic_capture": "not_implemented",
+  "publication": "not_implemented",
+  "raw_capture_scope": "only explicitly ingested material",
+  "synthetic_fixtures": true,
+  "cli_smoke": [
+    {
+      "command": "ingest",
+      "exit_code": 0,
+      "output_parsed": true
+    },
+    {
+      "command": "verify",
+      "exit_code": 0,
+      "output_parsed": true
+    },
+    {
+      "command": "daily",
+      "exit_code": 0,
+      "output_parsed": true
+    },
+    {
+      "command": "skill-candidates",
+      "exit_code": 0,
+      "output_parsed": true
+    }
+  ],
+  "review_fixes": [
+    "Synthetic correction cannot supersede observed or derived records",
+    "Supersession cannot bypass source visibility",
+    "Missing store cannot be reported as a verified empty archive",
+    "Provided registry is explicitly distinct from unknown active host catalogue"
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ddh:memory-event:1",
+  "title": "DDH immutable memory event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "owner",
+    "kind",
+    "level",
+    "captured_at",
+    "occurred_at",
+    "title",
+    "statement",
+    "visibility",
+    "basis",
+    "sources",
+    "raw_refs",
+    "supersedes",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ddh-memory-event/1"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+    },
+    "owner": {
+      "enum": [
+        "profile",
+        "toolkit",
+        "identity"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "source",
+        "observation",
+        "decision",
+        "correction",
+        "workflow_result",
+        "summary"
+      ]
+    },
+    "level": {
+      "enum": [
+        "source",
+        "episode",
+        "day",
+        "project",
+        "overview"
+      ]
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "occurred_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "valid_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "valid_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visibility": {
+      "enum": [
+        "public",
+        "internal",
+        "private"
+      ]
+    },
+    "basis": {
+      "enum": [
+        "observed",
+        "derived",
+        "synthetic"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+      }
+    },
+    "raw_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sha256",
+          "bytes"
+        ],
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "fact_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "limitations"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "captured_sources_only",
+            "partial",
+            "unknown"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "source_locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "run_id",
+        "context_key",
+        "acceptance",
+        "verifier",
+        "candidate_owner"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+        },
+        "context_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,180}$"
+        },
+        "acceptance": {
+          "enum": [
+            "pass",
+            "fail",
+            "blocked",
+            "unknown"
+          ]
+        },
+        "verifier": {
+          "enum": [
+            "human",
+            "deterministic",
+            "independent_agent",
+            "self_report"
+          ]
+        },
+        "candidate_owner": {
+          "enum": [
+            "profile",
+            "toolkit",
+            "identity"
+          ]
+        }
+      }
+    }
+  },
+  "$comment": "JSON Schema checks shape; ddh_memory.py additionally checks evidence, owner, privacy, archived hashes, graph integrity, chronology and fact/summary boundaries.",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "source"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "level": {
+            "const": "source"
+          },
+          "basis": {
+            "enum": [
+              "observed",
+              "synthetic"
+            ]
+          },
+          "sources": {
+            "maxItems": 0
+          },
+          "supersedes": {
+            "maxItems": 0
+          },
+          "raw_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "summary"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "level": {
+            "enum": [
+              "day",
+              "project",
+              "overview"
+            ]
+          },
+          "basis": {
+            "enum": [
+              "derived",
+              "synthetic"
+            ]
+          },
+          "sources": {
+            "minItems": 1
+          }
+        },
+        "not": {
+          "required": [
+            "fact_key"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "correction"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "fact_key"
+        ],
+        "properties": {
+          "level": {
+            "const": "episode"
+          },
+          "supersedes": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "workflow_result"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "workflow"
+        ],
+        "properties": {
+          "level": {
+            "const": "episode"
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "required": [
+            "workflow"
+          ]
+        }
+      }
+    }
+  ]
+}

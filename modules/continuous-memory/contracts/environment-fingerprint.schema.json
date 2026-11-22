@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ddh:environment-fingerprint:1",
+  "title": "Observed environment, not inferred hidden provider version",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observed_at",
+    "evidence",
+    "provider",
+    "model_id",
+    "model_revision",
+    "host_id",
+    "host_version",
+    "toolset_digest",
+    "context_policy_revision",
+    "skills_catalog_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ddh-environment-fingerprint/1"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "model_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "model_revision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "host_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "host_version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "toolset_digest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "context_policy_revision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "skills_catalog_digest": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    }
+  }
+}

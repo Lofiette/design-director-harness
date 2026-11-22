@@ -123,3 +123,8 @@ node tools/ddh.mjs resume --workspace "C:/path/to/project" --input handoff.json 
 
 [Design Intelligence System](modules/design-intelligence-system/README.md) — обобщённый модуль спецификаций v0.3.0: 43 определения метрик, правила экономики, сопоставления и контракт данных. Реальная конфигурация, источники и значения хранятся у пользователя инструмента. Модуль пока читается из репозитория; он не зарегистрирован как исполняемый pack и не добавлен в опубликованные ZIP-релизы. Калькуляторы, ETL и дашборды требуют отдельной реализации.
 
+
+
+## Continuous memory and skill review
+
+`modules/continuous-memory/` contains an experimental, host-neutral Python kernel for source-preserving memory, hierarchical lookup, daily source selection and evidence-based skill candidates. See [the module guide](modules/continuous-memory/README.md), [continuous skills](docs/CONTINUOUS-SKILLS.md) and [host continuity contract](docs/HOST-CONTINUITY-ADAPTER.md). The existing installer and released packs are unchanged; this module is invoked directly. It does not automatically capture all host conversations, install skills, publish a website or detect hidden provider model changes.

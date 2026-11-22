@@ -1,0 +1,18 @@
+{
+  "module_id": "continuous-memory",
+  "version": "0.1.0",
+  "implementation": "stdlib Python CLI",
+  "status": "experimental_local_kernel",
+  "host_neutral": true,
+  "minimum_python": "3.10",
+  "runtime_registration": "not_added_to_ddh_installer",
+  "automatic_host_capture": false,
+  "automatic_publication": false,
+  "automatic_skill_installation": false,
+  "automatic_hidden_model_change_detection": false,
+  "contracts": [
+    "contracts/memory-event.schema.json",
+    "contracts/environment-fingerprint.schema.json",
+    "contracts/skill-registry.schema.json"
+  ]
+}
