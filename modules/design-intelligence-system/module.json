@@ -19,7 +19,8 @@
     "specification": "DIS_v0.3.md",
     "catalog": "metric_catalog.json",
     "dictionary": "metric_dictionary.md",
-    "data_contract": "data_contract.json"
+    "data_contract": "data_contract.json",
+    "intake": "intake/README.md"
   },
   "data_location": "external_instance_repository",
   "contains_client_inventory": false,
@@ -31,5 +32,6 @@
     "actuals and targets move to instance",
     "report_timezone becomes required instance parameter",
     "future role becomes source_dependent"
-  ]
+  ],
+  "intake_status": "optional_preflight_no_etl_or_kpi_calculation"
 }

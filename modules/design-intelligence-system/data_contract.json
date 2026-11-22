@@ -3627,14 +3627,14 @@
           "minItems": 1
         },
         "metric_catalog_version": {
-          "const": "0.2"
+          "const": "0.3.0"
         },
         "calculation_code_version": {
           "type": "string",
           "minLength": 1
         },
         "data_contract_version": {
-          "const": "0.2"
+          "const": "0.3.0"
         },
         "supersedes_run_id": {
           "anyOf": [
