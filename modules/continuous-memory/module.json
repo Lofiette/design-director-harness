@@ -14,5 +14,15 @@
     "contracts/memory-event.schema.json",
     "contracts/environment-fingerprint.schema.json",
     "contracts/skill-registry.schema.json"
-  ]
+  ],
+  "entrypoints": {
+    "memory_kernel": "ddh_memory.py",
+    "session_context": "context_pack.py"
+  },
+  "session_context": {
+    "version": "0.1.0",
+    "scope": "explicit_pinned_source_pack",
+    "documentation": "README.context-pack.md",
+    "native_host_installation": false
+  }
 }
