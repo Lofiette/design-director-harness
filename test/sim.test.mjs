@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
   existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync,
@@ -238,4 +239,13 @@ test("a failed recheck retires the same rule in its environment and keeps its or
   assert.deepEqual(history.attempts.map(row => row.attempt_id), ["original-pass"]);
   const full = success(sim(project, "evidence", "--problem", problem.id, "--attempt", "original-pass"));
   assert.deepEqual(full.record, original);
+});
+
+test("the distributed SIM-001 fixture and scorer match the measured source bytes", () => {
+  const evaluation = new URL("../evaluation/sim-001/", import.meta.url);
+  const report = JSON.parse(readFileSync(new URL("measured/report.json", evaluation), "utf8"));
+  for (const [name, expected] of [["case.json", report.case_sha256], ["rehearse.py", report.runner_sha256]]) {
+    const bytes = readFileSync(new URL(name, evaluation));
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), expected, name);
+  }
 });
