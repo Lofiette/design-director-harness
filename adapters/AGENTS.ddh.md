@@ -1,4 +1,4 @@
-# Design Director Harness 5.0
+# Design Director Harness 6.0
 
 For a new substantive product, design or engineering request, load ddh-direct and run its intake check at the start, even when the user did not ask for an interview. Use the same skill when the user responds to a pending DDH question. Start work directly when the required inputs are clear.
 

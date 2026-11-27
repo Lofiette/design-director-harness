@@ -1,1 +1,3 @@
 * text=auto eol=lf
+# This measured fixture is addressed by its original byte digest.
+/evaluation/sim-001/case.json -text whitespace=cr-at-eol

@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   closeSync, lstatSync, mkdirSync, openSync, readFileSync, readdirSync, realpathSync,
@@ -8,7 +9,7 @@ import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { installProject } from "./project-install.mjs";
 import { productOSPackNames } from "./product-os-install.mjs";
-import { repairInstallation } from "./install-transaction.mjs";
+import { inspectPath, repairInstallation, simDirectory, simPaths } from "./install-transaction.mjs";
 
 const home = fileURLToPath(new URL("../", import.meta.url));
 const productOSSource = join(home, "product-os");
@@ -275,6 +276,33 @@ function options(args, keys, optional = []) {
   return values;
 }
 
+function runSim(args) {
+  // The installed Python module owns the operation and its arguments.
+  const { tokens } = parseArgs({ args, tokens: true, allowPositionals: true, strict: false,
+    options: { project: { type: "string" }, python: { type: "string" } } });
+  const operation = tokens.find(token => token.kind === "positional");
+  requireThat(operation, "Usage: ddh.mjs sim --project PATH [--python EXECUTABLE] OPERATION [arguments]");
+  const { project, python } = options(args.slice(0, operation.index), ["project"], ["python"]);
+  const root = realpathSync(project);
+  const bytes = inspectPath(root, ".agents/ddh-install.json");
+  const receipt = bytes && JSON.parse(bytes.toString("utf8"));
+  requireThat(receipt?.schema === "ddh-install-v1" && Array.isArray(receipt.modules) &&
+    receipt.modules.length === 1 && receipt.modules[0] === "sim", "SIM is disabled. Install or update with --modules sim.");
+  for (const path of simPaths) {
+    const contents = inspectPath(root, path);
+    requireThat(contents && hash(contents) === receipt.files?.[path], "Installed SIM file differs from receipt: " + path);
+  }
+  const forwarded = args.slice(operation.index);
+  if (!forwarded.some(value => value === "--store" || value.startsWith("--store="))) {
+    forwarded.push("--store", join(root, ".cpt", "continuous-memory"));
+  }
+  const child = spawnSync(python ?? "python", ["-B", "-X", "utf8", join(root, simDirectory, "sim.py"), ...forwarded],
+    { stdio: "inherit", windowsHide: true });
+  if (child.error) throw child.error;
+  requireThat(child.status !== null, "SIM stopped before returning an exit status");
+  process.exitCode = child.status;
+}
+
 try {
   const [command, ...args] = process.argv.slice(2);
   let result;
@@ -284,7 +312,7 @@ try {
       const { manifest, skills, sources, integrations } = inspect();
       result = { version: manifest.version, hosts: manifest.hosts, skills: [...skills.keys()],
         runtime: { id: "cpt", upstreamVersion: readFileSync(fileBelow(productOSSource, "VERSION"), "utf8").trim() },
-        optionalPacks: productOSPackNames, sources: sources.entries.length,
+        optionalPacks: productOSPackNames, optionalModules: ["sim"], sources: sources.entries.length,
         optionalIntegrations: [...integrations.keys()] };
       break;
     }
@@ -297,17 +325,21 @@ try {
     case "update":
     case "install-full":
     case "update-full": {
-      const { project, python, packs } = options(args, ["project"], ["python", "packs"]);
+      const { project, python, packs, modules } = options(args, ["project"], ["python", "packs", "modules"]);
       const { manifest, skills } = inspect();
       const bootstrap = readFileSync(join(home, "adapters/AGENTS.ddh.md"), "utf8");
       const productOS = {
         source: productOSSource,
+        modules: modules === undefined ? undefined : modules === "" || modules === "none" ? [] : [modules],
         python: python ?? "python",
         packs: packs === undefined ? undefined : packs === "" ? [] : packs.split(",").map(pack => pack.trim()),
       };
       result = installProject(project, manifest, skills, bootstrap, command.startsWith("update"), productOS);
       break;
     }
+    case "sim":
+      runSim(args);
+      break;
     case "checkpoint": {
       const { workspace, input, out } = options(args, ["workspace", "input", "out"]);
       result = checkpoint(workspace, input, out);
@@ -324,9 +356,9 @@ try {
       break;
     }
     default:
-      throw new Error("Usage: ddh.mjs doctor | pack | install | update | repair-install | checkpoint | resume");
+      throw new Error("Usage: ddh.mjs doctor | pack | install | update | repair-install | sim | checkpoint | resume");
   }
-  process.stdout.write(json(result));
+  if (result !== undefined) process.stdout.write(json(result));
 } catch (error) {
   process.stderr.write("DDH: " + error.message + "\n");
   process.exitCode = 1;

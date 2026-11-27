@@ -1,0 +1,159 @@
+{
+  "kind": "native_work_reply_readback",
+  "fixture": {
+    "id": "holdout-kite",
+    "tasks": [
+      "L-18",
+      "L-04"
+    ],
+    "target": "L-04",
+    "initial_source": "p7",
+    "source": "m4",
+    "event_date": "2033-06-09",
+    "record_date": "2033-06-16"
+  },
+  "provenance": {
+    "captured_at": "2026-11-27T05:52:31Z",
+    "time_basis": "supplied_capture_time",
+    "input_sha256": "c05191fc0885075545938670591cc1b647cf7c9cb009adeacd372e0407a50dc1",
+    "scorer_sha256": "6e879c068d3b6e4f6963c95f98791e432e463b7021316bed18f19cc84898be08",
+    "python": "3.12.14",
+    "platform": "Windows",
+    "environment": {
+      "model": "gpt-6.2-astra",
+      "harness": "Codex Work",
+      "version": "5.0.1",
+      "project": "synthetic-continuity"
+    }
+  },
+  "runs": [
+    {
+      "arm": "lark",
+      "attempt_id": "work-91d0d33e447c1c6230db5476",
+      "record_file": "arm-1.json",
+      "rule_sha256": "90106bb2d91299fd1ee5e4fc681de7ebe99cbe4993abe1a686bebfaf8a21808f",
+      "reply_sha256": "aa1acbd99ba2c1d1748c44a99020a47cdf93a9fe9a2dfde963a6d2c4be5a70f0",
+      "measurement": {
+        "status": "pass",
+        "failed_checks": [],
+        "checks": {
+          "reply_has_required_lists": true,
+          "one_write_to_target_only": true,
+          "target_cancelled": true,
+          "target_direct_source": true,
+          "target_event_date": true,
+          "target_record_date": true,
+          "neighbor_persisted_unchanged": true,
+          "one_handoff_row_per_task": true,
+          "target_handoff_previous_and_current": true,
+          "neighbor_handoff_previous_awaiting_current_unknown": true,
+          "no_reminders_created": true
+        },
+        "applied_task_writes": [
+          "L-04"
+        ],
+        "rejected_task_writes": [],
+        "changed_task_ids": [
+          "L-04"
+        ],
+        "before": {
+          "L-18": {
+            "task_id": "L-18",
+            "state": "awaiting_reply",
+            "source": "p7",
+            "event_date": null,
+            "record_date": null
+          },
+          "L-04": {
+            "task_id": "L-04",
+            "state": "awaiting_reply",
+            "source": "p7",
+            "event_date": null,
+            "record_date": null
+          }
+        },
+        "readback": {
+          "L-18": {
+            "task_id": "L-18",
+            "state": "awaiting_reply",
+            "source": "p7",
+            "event_date": null,
+            "record_date": null
+          },
+          "L-04": {
+            "task_id": "L-04",
+            "state": "cancelled",
+            "source": "m4",
+            "event_date": "2033-06-09",
+            "record_date": "2033-06-16"
+          }
+        },
+        "reminders_read_back": []
+      }
+    },
+    {
+      "arm": "tern",
+      "attempt_id": "work-e7c9c2d945d6aa5068fce13f",
+      "record_file": "arm-2.json",
+      "rule_sha256": "689a99a5d33ec61e4f8fc003b022208c59b4873b079cb0074cbe88f9d34bcce7",
+      "reply_sha256": "8efa9c90255dcd9a10553442fbf9c9804237898d6a44b4eee75cc54eb69bbd1b",
+      "measurement": {
+        "status": "pass",
+        "failed_checks": [],
+        "checks": {
+          "reply_has_required_lists": true,
+          "one_write_to_target_only": true,
+          "target_cancelled": true,
+          "target_direct_source": true,
+          "target_event_date": true,
+          "target_record_date": true,
+          "neighbor_persisted_unchanged": true,
+          "one_handoff_row_per_task": true,
+          "target_handoff_previous_and_current": true,
+          "neighbor_handoff_previous_awaiting_current_unknown": true,
+          "no_reminders_created": true
+        },
+        "applied_task_writes": [
+          "L-04"
+        ],
+        "rejected_task_writes": [],
+        "changed_task_ids": [
+          "L-04"
+        ],
+        "before": {
+          "L-18": {
+            "task_id": "L-18",
+            "state": "awaiting_reply",
+            "source": "p7",
+            "event_date": null,
+            "record_date": null
+          },
+          "L-04": {
+            "task_id": "L-04",
+            "state": "awaiting_reply",
+            "source": "p7",
+            "event_date": null,
+            "record_date": null
+          }
+        },
+        "readback": {
+          "L-18": {
+            "task_id": "L-18",
+            "state": "awaiting_reply",
+            "source": "p7",
+            "event_date": null,
+            "record_date": null
+          },
+          "L-04": {
+            "task_id": "L-04",
+            "state": "cancelled",
+            "source": "m4",
+            "event_date": "2033-06-09",
+            "record_date": "2033-06-16"
+          }
+        },
+        "reminders_read_back": []
+      }
+    }
+  ]
+}

@@ -17,6 +17,7 @@ import sys
 import tempfile
 from contextlib import contextmanager
 from datetime import datetime, date, time, timedelta
+from itertools import chain
 from zoneinfo import ZoneInfo
 
 VERSION = "0.1.0"
@@ -253,12 +254,12 @@ class Store:
             done.add(node)
         visit(event["event_id"], set(), set())
 
-    def ingest(self, original, raw_files=()):
+    def ingest(self, original, raw_files=(), *, raw_bytes=(), validate_records=None):
         event = copy.deepcopy(original)
         raw = []
         existing_refs = {ref["sha256"]: ref for ref in event.get("raw_refs", [])}
-        for filename in raw_files:
-            data = Path(filename).read_bytes()
+        file_bytes = (Path(filename).read_bytes() for filename in raw_files)
+        for data in chain(file_bytes, raw_bytes):
             ref = {"sha256": digest(data), "bytes": len(data)}
             if ref["sha256"] in existing_refs:
                 require(existing_refs[ref["sha256"]] == ref, "raw size mismatch")
@@ -272,6 +273,9 @@ class Store:
                 require(canonical(records[event["event_id"]]) == canonical(event), "idempotency conflict: same event_id, different content")
                 self.verify()  # Repetition must not hide later corruption.
                 return {"status": "duplicate", "event_id": event["event_id"]}
+            if validate_records is not None:
+                # Check adapter-specific invariants while competing writers are excluded.
+                validate_records(records)
             self._relations(event, records)
             supplied = {ref["sha256"] for ref, _ in raw}
             for ref in event["raw_refs"]:

@@ -1,9 +1,9 @@
 import { createHash } from "node:crypto";
 import { lstatSync, realpathSync } from "node:fs";
-import { join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { prepareProductOS, readProductOSPacks } from "./product-os-install.mjs";
 import {
-  check, inspectPath, installTransaction, managedSkillPath, runtimeRequirementsPath, same,
+  check, inspectPath, installTransaction, managedSkillPath, runtimeRequirementsPath, same, simPaths,
 } from "./install-transaction.mjs";
 
 const receiptPath = ".agents/ddh-install.json";
@@ -52,7 +52,25 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
     check(productOS || !old?.productOS, "Use the DDH CLI to update this installation");
     const packs = productOS ? productOS.packs ?? old?.productOS?.packs ?? [] : [];
     const domainSkills = productOS ? readProductOSPacks(productOS.source, packs) : new Map();
+    const previousModules = old?.modules ?? [];
+    check(Array.isArray(previousModules) && (previousModules.length === 0 ||
+      previousModules.length === 1 && previousModules[0] === "sim"), "Invalid module selection in DDH receipt");
+    for (const path of simPaths) {
+      check(Object.hasOwn(old?.files ?? {}, path) === previousModules.includes("sim"),
+        "Module files disagree with DDH receipt: " + path);
+    }
+    const modules = productOS?.modules ?? previousModules;
+    check(Array.isArray(modules) && (modules.length === 0 || modules.length === 1 && modules[0] === "sim"),
+      "Choose --modules sim or --modules none");
     const next = new Map();
+    if (modules.includes("sim")) {
+      const source = join(dirname(productOS.source), "modules", "continuous-memory");
+      for (const path of simPaths) {
+        const file = inspectPath(source, basename(path));
+        check(file, "Bundled SIM module file is missing: " + basename(path));
+        next.set(path, file);
+      }
+    }
     for (const [id, bundle] of [...skills, ...domainSkills]) {
       for (const [path, data] of bundle) next.set(".agents/skills/" + id + "/" + path, Buffer.from(data));
     }
@@ -64,8 +82,9 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
     const paths = new Set([...next.keys(), ...Object.keys(old?.files ?? {})]);
     const changes = [];
     for (const path of paths) {
-      const label = path === runtimeRequirementsPath ? "Runtime requirements" : "Skill";
-      check(path === runtimeRequirementsPath || managedSkillPath.test(path), "Invalid managed path: " + path);
+      const label = simPaths.has(path) ? "Module file" : path === runtimeRequirementsPath ? "Runtime requirements" : "Skill";
+      check(path === runtimeRequirementsPath || managedSkillPath.test(path) || simPaths.has(path),
+        "Invalid managed path: " + path);
       const before = inspectPath(root, path);
       const expected = old?.files[path];
       if (expected === undefined) {
@@ -89,6 +108,7 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
     const receipt = {
       schema: "ddh-install-v1", version: manifest.version, blockHash,
       ...(cpt ? { productOS: { packs } } : {}),
+      ...(modules.length ? { modules } : {}),
       files: Object.fromEntries([...next].map(([path, data]) => [path, digest(data)])),
     };
     const receiptBytes = Buffer.from(JSON.stringify(receipt, null, 2) + "\n");
@@ -97,6 +117,7 @@ export function installProject(project, manifest, skills, bootstrap, updateOnly,
     return {changes, result: {
       project: root, version: manifest.version, skills: skills.size + domainSkills.size,
       ...(cpt ? { productOS: cpt.status, packs } : {}),
+      ...(modules.length ? { modules } : {}),
       status: changes.every(change => same(change.before, change.after)) ? "unchanged" :
         old || updateOnly ? "updated" : "installed",
     }};

@@ -1,0 +1,37 @@
+{
+  "schema_version": "ddh-sim-attempt/1",
+  "problem": {
+    "id": "SIM-001",
+    "stage": "context_handoff",
+    "failure_type": "state_update_scope",
+    "symptom": "A cancellation may incorrectly close another pending task.",
+    "criterion_key": "task-scoped-handoff",
+    "criterion": "Apply only the explicit task change with its direct source and both dates; preserve the neighbor's last known state and avoid duplicate reminders.",
+    "related": []
+  },
+  "attempt_id": "work-91d0d33e447c1c6230db5476",
+  "captured_at": "2026-11-27T05:52:31Z",
+  "source": "synthetic:work-7e363f14bad6bc84",
+  "environment": {
+    "model": "gpt-6.2-astra",
+    "harness": "Codex Work",
+    "version": "5.0.1",
+    "project": "synthetic-continuity"
+  },
+  "rule_version": "sha256-90106bb2d91299fd1ee5e4fc681de7ebe99cbe4993abe1a686bebfaf8a21808f",
+  "change": "On resumption, verify the record and its evidence against the current workspace. Apply a change only to the task its direct source names, within existing permissions. Distinguish when the change occurred from when it was recorded. For an unmentioned task, preserve its record and report its previous state as historical, with current outcome unknown. Return to waiting if a question remains open. Proceed when prerequisites are met. Never schedule a reminder for a cancelled task.",
+  "rationale": "Evaluate this frozen rule on the same synthetic input.",
+  "prediction": "No separate arm-specific prediction was supplied to the scorer.",
+  "result": {
+    "status": "pass",
+    "observed": "Native Work reply scored pass. Applied writes ['L-04']; failed checks []."
+  },
+  "decision": "Retain this observation for this model, rule and fixture. Review any rule promotion separately.",
+  "evidence": [
+    {
+      "id": "native-readback",
+      "source": "synthetic:work-7e363f14bad6bc84",
+      "content": "{\"arm\": \"lark\", \"basis\": \"native Work reply replayed into isolated synthetic JSON files by the offline scorer\", \"case\": {\"event_date\": \"2033-06-09\", \"id\": \"holdout-kite\", \"initial_source\": \"p7\", \"record_date\": \"2033-06-16\", \"source\": \"m4\", \"target\": \"L-04\", \"tasks\": [\"L-18\", \"L-04\"]}, \"measurement\": {\"applied_task_writes\": [\"L-04\"], \"before\": {\"L-04\": {\"event_date\": null, \"record_date\": null, \"source\": \"p7\", \"state\": \"awaiting_reply\", \"task_id\": \"L-04\"}, \"L-18\": {\"event_date\": null, \"record_date\": null, \"source\": \"p7\", \"state\": \"awaiting_reply\", \"task_id\": \"L-18\"}}, \"changed_task_ids\": [\"L-04\"], \"checks\": {\"neighbor_handoff_previous_awaiting_current_unknown\": true, \"neighbor_persisted_unchanged\": true, \"no_reminders_created\": true, \"one_handoff_row_per_task\": true, \"one_write_to_target_only\": true, \"reply_has_required_lists\": true, \"target_cancelled\": true, \"target_direct_source\": true, \"target_event_date\": true, \"target_handoff_previous_and_current\": true, \"target_record_date\": true}, \"failed_checks\": [], \"readback\": {\"L-04\": {\"event_date\": \"2033-06-09\", \"record_date\": \"2033-06-16\", \"source\": \"m4\", \"state\": \"cancelled\", \"task_id\": \"L-04\"}, \"L-18\": {\"event_date\": null, \"record_date\": null, \"source\": \"p7\", \"state\": \"awaiting_reply\", \"task_id\": \"L-18\"}}, \"rejected_task_writes\": [], \"reminders_read_back\": [], \"status\": \"pass\"}, \"provenance\": {\"captured_at\": \"2026-11-27T05:52:31Z\", \"environment\": {\"harness\": \"Codex Work\", \"model\": \"gpt-6.2-astra\", \"project\": \"synthetic-continuity\", \"version\": \"5.0.1\"}, \"input_sha256\": \"c05191fc0885075545938670591cc1b647cf7c9cb009adeacd372e0407a50dc1\", \"platform\": \"Windows\", \"python\": \"3.12.14\", \"scorer_sha256\": \"6e879c068d3b6e4f6963c95f98791e432e463b7021316bed18f19cc84898be08\", \"time_basis\": \"supplied_capture_time\"}, \"reply\": {\"handoff\": [{\"current_outcome\": \"cancelled\", \"previous_state\": \"awaiting_reply\", \"source\": \"m4\", \"task_id\": \"L-04\"}, {\"current_outcome\": \"unknown\", \"previous_state\": \"awaiting_reply\", \"source\": \"p7\", \"task_id\": \"L-18\"}], \"reminders_to_create\": [], \"writes\": [{\"event_date\": \"2033-06-09\", \"record_date\": \"2033-06-16\", \"source\": \"m4\", \"state\": \"cancelled\", \"task_id\": \"L-04\"}]}}"
+    }
+  ]
+}
