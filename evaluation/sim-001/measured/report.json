@@ -1,0 +1,158 @@
+{
+  "run_id": "6a27706893d2",
+  "captured_at": "2026-11-27T05:46:01Z",
+  "kind": "deterministic_code_rehearsal",
+  "case_id": "SIM-001-pair-v1",
+  "case_sha256": "e4395736cdfb8a9d819ec7e29f0458554199b09d7a83cd8bf9acff5430762f16",
+  "runner_sha256": "3a364e743ce2d3f2004c1962b02bbbf8931dd4b51b828e057c901cb06129e4ef",
+  "platform": "Windows",
+  "python": "3.12.14",
+  "environment": {
+    "model": "not_run",
+    "harness": "DDH",
+    "project": "synthetic-continuity",
+    "version": "5.0.1"
+  },
+  "rules": {
+    "baseline": [
+      "Reconcile a direct update against the pending task with a unique matching title.",
+      "An evidence-based recovery keeps pending decisions open until settled. Title matching is an illustrative implementation for this code rehearsal."
+    ],
+    "candidate": [
+      "Apply a direct update only to a task whose stable ID and title match the source.",
+      "An explicit identity check binds the cancellation to its named task."
+    ]
+  },
+  "code_results": {
+    "baseline": {
+      "status": "pass",
+      "checks": {
+        "one_persisted_change_to_A": true,
+        "A_cancelled": true,
+        "direct_source": true,
+        "event_date": true,
+        "capture_date": true,
+        "B_still_waiting_outcome_unknown": true,
+        "no_new_reminder_for_A": true
+      },
+      "task_writes": [
+        "A"
+      ],
+      "changed_task_ids": [
+        "A"
+      ],
+      "before": {
+        "A": {
+          "task_id": "A",
+          "title": "Confirm the mock label",
+          "last_known_status": "awaiting_reply",
+          "current_outcome": null,
+          "source": "synthetic:intake-01",
+          "occurred_at": "2026-10-01T08:00:00Z",
+          "captured_at": "2026-10-01T09:00:00Z",
+          "reminders": []
+        },
+        "B": {
+          "task_id": "B",
+          "title": "Review the mock icon",
+          "last_known_status": "awaiting_reply",
+          "current_outcome": null,
+          "source": "synthetic:intake-01",
+          "occurred_at": "2026-10-01T08:00:00Z",
+          "captured_at": "2026-10-01T09:00:00Z",
+          "reminders": []
+        }
+      },
+      "readback": {
+        "A": {
+          "task_id": "A",
+          "title": "Confirm the mock label",
+          "last_known_status": "cancelled",
+          "current_outcome": "cancelled",
+          "source": "synthetic:notice-02",
+          "occurred_at": "2026-10-03T14:00:00Z",
+          "captured_at": "2026-10-05T10:00:00Z",
+          "reminders": []
+        },
+        "B": {
+          "task_id": "B",
+          "title": "Review the mock icon",
+          "last_known_status": "awaiting_reply",
+          "current_outcome": null,
+          "source": "synthetic:intake-01",
+          "occurred_at": "2026-10-01T08:00:00Z",
+          "captured_at": "2026-10-01T09:00:00Z",
+          "reminders": []
+        }
+      }
+    },
+    "candidate": {
+      "status": "pass",
+      "checks": {
+        "one_persisted_change_to_A": true,
+        "A_cancelled": true,
+        "direct_source": true,
+        "event_date": true,
+        "capture_date": true,
+        "B_still_waiting_outcome_unknown": true,
+        "no_new_reminder_for_A": true
+      },
+      "task_writes": [
+        "A"
+      ],
+      "changed_task_ids": [
+        "A"
+      ],
+      "before": {
+        "A": {
+          "task_id": "A",
+          "title": "Confirm the mock label",
+          "last_known_status": "awaiting_reply",
+          "current_outcome": null,
+          "source": "synthetic:intake-01",
+          "occurred_at": "2026-10-01T08:00:00Z",
+          "captured_at": "2026-10-01T09:00:00Z",
+          "reminders": []
+        },
+        "B": {
+          "task_id": "B",
+          "title": "Review the mock icon",
+          "last_known_status": "awaiting_reply",
+          "current_outcome": null,
+          "source": "synthetic:intake-01",
+          "occurred_at": "2026-10-01T08:00:00Z",
+          "captured_at": "2026-10-01T09:00:00Z",
+          "reminders": []
+        }
+      },
+      "readback": {
+        "A": {
+          "task_id": "A",
+          "title": "Confirm the mock label",
+          "last_known_status": "cancelled",
+          "current_outcome": "cancelled",
+          "source": "synthetic:notice-02",
+          "occurred_at": "2026-10-03T14:00:00Z",
+          "captured_at": "2026-10-05T10:00:00Z",
+          "reminders": []
+        },
+        "B": {
+          "task_id": "B",
+          "title": "Review the mock icon",
+          "last_known_status": "awaiting_reply",
+          "current_outcome": null,
+          "source": "synthetic:intake-01",
+          "occurred_at": "2026-10-01T08:00:00Z",
+          "captured_at": "2026-10-01T09:00:00Z",
+          "reminders": []
+        }
+      }
+    }
+  },
+  "model_tests": {
+    "baseline_vs_candidate": "not_run",
+    "adaptation_with_vs_without_measured_log": "not_run",
+    "blinded_held_out_evaluation": "not_run",
+    "reason": "This runner only executes deterministic Python policies on synthetic data."
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "model": "gpt-6.2-astra",
+  "harness": "Codex Work",
+  "version": "5.0.1",
+  "reasoning_effort": "ultra",
+  "protocol": "Independent native Work contexts, no tool access requested, no external model API. Same instructions, one call per arm, cap 220 words.",
+  "prompt_prefix": "Independent synthetic continuity task in the current Work session. Do not call tools, consult outside material, send messages or use files. Return one JSON object only. Budget: a single response, at most 220 words. Workspace rule: ",
+  "prompt_suffix": "Snapshot: tasks Q-14 and Q-29 each have stored status awaiting_reply. Source s-1 records both awaiting a reply. Source s-2 says “Q-14 was cancelled on 2031-02-03”, recorded 2031-02-07. No other sources. Prepare the handoff and any necessary mutations. Output keys: writes (array of {task_id,state,source,event_date,record_date}), handoff (array of {task_id,previous_state,current_outcome,source}), reminders_to_create (array of task IDs). Use ISO date strings, states awaiting_reply/cancelled/unknown, and source IDs. Emit the intended mutations once. The isolated executor applies them and reopens the fixture.",
+  "fixture": {
+    "id": "source-pair",
+    "tasks": [
+      "Q-14",
+      "Q-29"
+    ],
+    "target": "Q-14",
+    "initial_source": "s-1",
+    "source": "s-2",
+    "event_date": "2031-02-03",
+    "record_date": "2031-02-07"
+  },
+  "runs": [
+    {
+      "id": "source-ash",
+      "rule": "On resumption, verify the record and evidence against the current workspace. If a saved question is still open, return to the waiting step. Continue at the next operation only when its prerequisites are settled.",
+      "reply": {
+        "writes": [
+          {
+            "task_id": "Q-14",
+            "state": "cancelled",
+            "source": "s-2",
+            "event_date": "2031-02-03",
+            "record_date": "2031-02-07"
+          }
+        ],
+        "handoff": [
+          {
+            "task_id": "Q-14",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "cancelled",
+            "source": "s-2"
+          },
+          {
+            "task_id": "Q-29",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "awaiting_reply",
+            "source": "s-1"
+          }
+        ],
+        "reminders_to_create": []
+      }
+    },
+    {
+      "id": "source-oak",
+      "rule": "On resumption, verify the record and evidence against the current workspace. If a saved question is still open, return to the waiting step. Continue at the next operation only when its prerequisites are settled. Bind a change to the explicitly named task and direct source. Silence about a neighbor leaves its earlier state and its current outcome distinct. Keep event and recording dates separate. Do not create a reminder for a cancelled task.",
+      "reply": {
+        "writes": [
+          {
+            "task_id": "Q-14",
+            "state": "cancelled",
+            "source": "s-2",
+            "event_date": "2031-02-03",
+            "record_date": "2031-02-07"
+          }
+        ],
+        "handoff": [
+          {
+            "task_id": "Q-14",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "cancelled",
+            "source": "s-2"
+          },
+          {
+            "task_id": "Q-29",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "unknown",
+            "source": "s-1"
+          }
+        ],
+        "reminders_to_create": []
+      }
+    }
+  ]
+}

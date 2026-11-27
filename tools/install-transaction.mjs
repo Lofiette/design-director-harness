@@ -9,6 +9,8 @@ const lockPath = ".ddh-install.lock";
 const journalPath = ".ddh-install.transaction.json";
 const recoveryPath = ".ddh-install.recovery.lock";
 const uuid = /^[a-f0-9-]{36}$/;
+export const simDirectory = ".agents/ddh-modules/sim";
+export const simPaths = new Set(["ddh_memory.py", "sim.py", "sim_projection.py"].map(name => simDirectory + "/" + name));
 export const runtimeRequirementsPath = ".agents/ddh-runtime-requirements.txt";
 export const managedSkillPath = /^\.agents\/skills\/(?:ddh-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|references\/[a-z0-9-]+\.md)|cpt-[a-z]+(?:-[a-z]+)*\/(?:SKILL\.md|agents\/openai\.yaml|references\/(?:adapters\/)?[A-Za-z0-9_-]+\.(?:md|yaml|json)|scripts\/[a-z0-9_-]+\.mjs))$/;
 export const cptSeedPaths = new Set([
@@ -18,7 +20,7 @@ export const cptSeedPaths = new Set([
 ]);
 const allowedPath = path => path === "AGENTS.md" || path === ".gitignore" ||
   path === ".agents/ddh-install.json" || path === runtimeRequirementsPath ||
-  managedSkillPath.test(path) || cptSeedPaths.has(path);
+  managedSkillPath.test(path) || simPaths.has(path) || cptSeedPaths.has(path);
 const allowed = entry => allowedPath(entry.path) &&
   (!cptSeedPaths.has(entry.path) || entry.before === null && entry.after !== null);
 

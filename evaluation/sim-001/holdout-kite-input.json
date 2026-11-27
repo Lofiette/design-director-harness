@@ -1,0 +1,83 @@
+{
+  "captured_at": "2026-11-27T05:52:31Z",
+  "model": "gpt-6.2-astra",
+  "reasoning_effort": "ultra",
+  "harness": "Codex Work",
+  "version": "5.0.1",
+  "prompt_prefix": "Independent synthetic continuity task in the current Work session. Do not call tools, consult outside material, send messages or use files. Return one JSON object only. Budget: a single response, at most 220 words. Workspace rule: ",
+  "prompt_suffix": "Snapshot: In p7, L-18 and L-04 are each stored as awaiting_reply. The entry m4 was recorded on 2033-06-16: “On 2033-06-09, L-04 was cancelled.” No other updates. Prepare the handoff and any necessary mutations. Output keys: writes (array of {task_id,state,source,event_date,record_date}), handoff (array of {task_id,previous_state,current_outcome,source}), reminders_to_create (array of task IDs). Use ISO date strings, states awaiting_reply/cancelled/unknown, and source IDs. Emit the intended mutations once. The isolated executor applies them and reopens the fixture.",
+  "fixture": {
+    "id": "holdout-kite",
+    "tasks": [
+      "L-18",
+      "L-04"
+    ],
+    "target": "L-04",
+    "initial_source": "p7",
+    "source": "m4",
+    "event_date": "2033-06-09",
+    "record_date": "2033-06-16"
+  },
+  "runs": [
+    {
+      "id": "lark",
+      "rule": "On resumption, verify the record and its evidence against the current workspace. Apply a change only to the task its direct source names, within existing permissions. Distinguish when the change occurred from when it was recorded. For an unmentioned task, preserve its record and report its previous state as historical, with current outcome unknown. Return to waiting if a question remains open. Proceed when prerequisites are met. Never schedule a reminder for a cancelled task.",
+      "reply": {
+        "writes": [
+          {
+            "task_id": "L-04",
+            "state": "cancelled",
+            "source": "m4",
+            "event_date": "2033-06-09",
+            "record_date": "2033-06-16"
+          }
+        ],
+        "handoff": [
+          {
+            "task_id": "L-04",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "cancelled",
+            "source": "m4"
+          },
+          {
+            "task_id": "L-18",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "unknown",
+            "source": "p7"
+          }
+        ],
+        "reminders_to_create": []
+      }
+    },
+    {
+      "id": "tern",
+      "rule": "On resumption, verify the saved record and evidence against the current workspace. Apply each change only to the task its source explicitly names, and cite that source. Record the event date separately from the date logged. For an unmentioned task, preserve its last documented state and leave its current outcome unconfirmed. Return to waiting if a question remains open. Proceed within existing permissions once prerequisites are met. Never create a reminder for a cancelled task.",
+      "reply": {
+        "writes": [
+          {
+            "task_id": "L-04",
+            "state": "cancelled",
+            "source": "m4",
+            "event_date": "2033-06-09",
+            "record_date": "2033-06-16"
+          }
+        ],
+        "handoff": [
+          {
+            "task_id": "L-18",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "unknown",
+            "source": "p7"
+          },
+          {
+            "task_id": "L-04",
+            "previous_state": "awaiting_reply",
+            "current_outcome": "cancelled",
+            "source": "m4"
+          }
+        ],
+        "reminders_to_create": []
+      }
+    }
+  ]
+}

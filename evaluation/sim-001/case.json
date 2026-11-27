@@ -1,0 +1,32 @@
+{
+  "case_id": "SIM-001-pair-v1",
+  "sources": [
+    {
+      "id": "synthetic:intake-01",
+      "occurred_at": "2026-10-01T08:00:00Z",
+      "captured_at": "2026-10-01T09:00:00Z",
+      "pending": [
+        {
+          "task_id": "A",
+          "title": "Confirm the mock label"
+        },
+        {
+          "task_id": "B",
+          "title": "Review the mock icon"
+        }
+      ]
+    },
+    {
+      "id": "synthetic:notice-02",
+      "occurred_at": "2026-10-03T14:00:00Z",
+      "captured_at": "2026-10-05T10:00:00Z",
+      "changes": [
+        {
+          "task_id": "A",
+          "title": "Confirm the mock label",
+          "outcome": "cancelled"
+        }
+      ]
+    }
+  ]
+}

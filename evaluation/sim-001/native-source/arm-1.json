@@ -1,0 +1,37 @@
+{
+  "schema_version": "ddh-sim-attempt/1",
+  "problem": {
+    "id": "SIM-001",
+    "stage": "context_handoff",
+    "failure_type": "state_update_scope",
+    "symptom": "A cancellation may incorrectly close another pending task.",
+    "criterion_key": "task-scoped-handoff",
+    "criterion": "Apply only the explicit task change with its direct source and both dates; preserve the neighbor's last known state and avoid duplicate reminders.",
+    "related": []
+  },
+  "attempt_id": "work-0a6061ff2fbf7e009e640487",
+  "captured_at": "2026-11-27T05:47:42+00:00",
+  "source": "synthetic:work-a4595a7c0bce2331",
+  "environment": {
+    "model": "gpt-6.2-astra",
+    "harness": "Codex Work",
+    "version": "5.0.1",
+    "project": "synthetic-continuity"
+  },
+  "rule_version": "sha256-84d88163f6882e3ea0ada8527f5fe1cb8e3d254f87d4f5a076082c5abaa889ab",
+  "change": "On resumption, verify the record and evidence against the current workspace. If a saved question is still open, return to the waiting step. Continue at the next operation only when its prerequisites are settled.",
+  "rationale": "Evaluate this frozen rule on the same synthetic input.",
+  "prediction": "No separate arm-specific prediction was supplied to the scorer.",
+  "result": {
+    "status": "fail",
+    "observed": "Native Work reply scored fail. Applied writes ['Q-14']; failed checks ['neighbor_handoff_previous_awaiting_current_unknown']."
+  },
+  "decision": "Retain this observation for this model, rule and fixture. Review any rule promotion separately.",
+  "evidence": [
+    {
+      "id": "native-readback",
+      "source": "synthetic:work-a4595a7c0bce2331",
+      "content": "{\"arm\": \"source-ash\", \"basis\": \"native Work reply replayed into isolated synthetic JSON files by the offline scorer\", \"case\": {\"event_date\": \"2031-02-03\", \"id\": \"source-pair\", \"initial_source\": \"s-1\", \"record_date\": \"2031-02-07\", \"source\": \"s-2\", \"target\": \"Q-14\", \"tasks\": [\"Q-14\", \"Q-29\"]}, \"measurement\": {\"applied_task_writes\": [\"Q-14\"], \"before\": {\"Q-14\": {\"event_date\": null, \"record_date\": null, \"source\": \"s-1\", \"state\": \"awaiting_reply\", \"task_id\": \"Q-14\"}, \"Q-29\": {\"event_date\": null, \"record_date\": null, \"source\": \"s-1\", \"state\": \"awaiting_reply\", \"task_id\": \"Q-29\"}}, \"changed_task_ids\": [\"Q-14\"], \"checks\": {\"neighbor_handoff_previous_awaiting_current_unknown\": false, \"neighbor_persisted_unchanged\": true, \"no_reminders_created\": true, \"one_handoff_row_per_task\": true, \"one_write_to_target_only\": true, \"reply_has_required_lists\": true, \"target_cancelled\": true, \"target_direct_source\": true, \"target_event_date\": true, \"target_handoff_previous_and_current\": true, \"target_record_date\": true}, \"failed_checks\": [\"neighbor_handoff_previous_awaiting_current_unknown\"], \"readback\": {\"Q-14\": {\"event_date\": \"2031-02-03\", \"record_date\": \"2031-02-07\", \"source\": \"s-2\", \"state\": \"cancelled\", \"task_id\": \"Q-14\"}, \"Q-29\": {\"event_date\": null, \"record_date\": null, \"source\": \"s-1\", \"state\": \"awaiting_reply\", \"task_id\": \"Q-29\"}}, \"rejected_task_writes\": [], \"reminders_read_back\": [], \"status\": \"fail\"}, \"provenance\": {\"captured_at\": \"2026-11-27T05:47:42+00:00\", \"environment\": {\"harness\": \"Codex Work\", \"model\": \"gpt-6.2-astra\", \"project\": \"synthetic-continuity\", \"version\": \"5.0.1\"}, \"input_sha256\": \"38fc5db65976d432c74ed5ce2955180b8541c1410e6aa2fca05ea5137a4af556\", \"platform\": \"Windows\", \"python\": \"3.12.14\", \"scorer_sha256\": \"6e879c068d3b6e4f6963c95f98791e432e463b7021316bed18f19cc84898be08\", \"time_basis\": \"input_file_modification_time\"}, \"reply\": {\"handoff\": [{\"current_outcome\": \"cancelled\", \"previous_state\": \"awaiting_reply\", \"source\": \"s-2\", \"task_id\": \"Q-14\"}, {\"current_outcome\": \"awaiting_reply\", \"previous_state\": \"awaiting_reply\", \"source\": \"s-1\", \"task_id\": \"Q-29\"}], \"reminders_to_create\": [], \"writes\": [{\"event_date\": \"2031-02-03\", \"record_date\": \"2031-02-07\", \"source\": \"s-2\", \"state\": \"cancelled\", \"task_id\": \"Q-14\"}]}}"
+    }
+  ]
+}

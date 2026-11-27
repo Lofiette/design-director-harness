@@ -1,0 +1,37 @@
+{
+  "schema_version": "ddh-sim-attempt/1",
+  "problem": {
+    "id": "SIM-001",
+    "stage": "context_handoff",
+    "failure_type": "state_update_scope",
+    "symptom": "A cancellation may incorrectly close another pending task.",
+    "criterion_key": "task-scoped-handoff",
+    "criterion": "Apply only the explicit task change with its direct source and both dates; preserve the neighbor's last known state and avoid duplicate reminders.",
+    "related": []
+  },
+  "attempt_id": "baseline-6a27706893d2",
+  "captured_at": "2026-11-27T05:46:01Z",
+  "source": "synthetic:SIM-001-pair-v1",
+  "environment": {
+    "model": "not_run",
+    "harness": "DDH",
+    "project": "synthetic-continuity",
+    "version": "5.0.1"
+  },
+  "rule_version": "baseline-proxy-v1",
+  "change": "Reconcile a direct update against the pending task with a unique matching title.",
+  "rationale": "An evidence-based recovery keeps pending decisions open until settled. Title matching is an illustrative implementation for this code rehearsal.",
+  "prediction": "The directly named task alone will change; the neighbor's current outcome stays unknown.",
+  "result": {
+    "status": "pass",
+    "observed": "Code rehearsal pass. Wrote ['A']; reopened state differed for ['A']. Passed 7/7 checks."
+  },
+  "decision": "Retain this synthetic measurement for review. Model evaluation is pending.",
+  "evidence": [
+    {
+      "id": "baseline-readback-6a27706893d2",
+      "source": "synthetic:SIM-001-pair-v1",
+      "content": "{\"measurement\": {\"before\": {\"A\": {\"captured_at\": \"2026-10-01T09:00:00Z\", \"current_outcome\": null, \"last_known_status\": \"awaiting_reply\", \"occurred_at\": \"2026-10-01T08:00:00Z\", \"reminders\": [], \"source\": \"synthetic:intake-01\", \"task_id\": \"A\", \"title\": \"Confirm the mock label\"}, \"B\": {\"captured_at\": \"2026-10-01T09:00:00Z\", \"current_outcome\": null, \"last_known_status\": \"awaiting_reply\", \"occurred_at\": \"2026-10-01T08:00:00Z\", \"reminders\": [], \"source\": \"synthetic:intake-01\", \"task_id\": \"B\", \"title\": \"Review the mock icon\"}}, \"changed_task_ids\": [\"A\"], \"checks\": {\"A_cancelled\": true, \"B_still_waiting_outcome_unknown\": true, \"capture_date\": true, \"direct_source\": true, \"event_date\": true, \"no_new_reminder_for_A\": true, \"one_persisted_change_to_A\": true}, \"readback\": {\"A\": {\"captured_at\": \"2026-10-05T10:00:00Z\", \"current_outcome\": \"cancelled\", \"last_known_status\": \"cancelled\", \"occurred_at\": \"2026-10-03T14:00:00Z\", \"reminders\": [], \"source\": \"synthetic:notice-02\", \"task_id\": \"A\", \"title\": \"Confirm the mock label\"}, \"B\": {\"captured_at\": \"2026-10-01T09:00:00Z\", \"current_outcome\": null, \"last_known_status\": \"awaiting_reply\", \"occurred_at\": \"2026-10-01T08:00:00Z\", \"reminders\": [], \"source\": \"synthetic:intake-01\", \"task_id\": \"B\", \"title\": \"Review the mock icon\"}}, \"status\": \"pass\", \"task_writes\": [\"A\"]}, \"provenance\": {\"captured_at\": \"2026-11-27T05:46:01Z\", \"case_id\": \"SIM-001-pair-v1\", \"case_sha256\": \"e4395736cdfb8a9d819ec7e29f0458554199b09d7a83cd8bf9acff5430762f16\", \"environment\": {\"harness\": \"DDH\", \"model\": \"not_run\", \"project\": \"synthetic-continuity\", \"version\": \"5.0.1\"}, \"kind\": \"deterministic_code_rehearsal\", \"platform\": \"Windows\", \"python\": \"3.12.14\", \"run_id\": \"6a27706893d2\", \"runner_sha256\": \"3a364e743ce2d3f2004c1962b02bbbf8931dd4b51b828e057c901cb06129e4ef\"}}"
+    }
+  ]
+}

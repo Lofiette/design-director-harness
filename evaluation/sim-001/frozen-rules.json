@@ -1,0 +1,26 @@
+{
+  "model": "gpt-6.2-astra",
+  "reasoning_effort": "ultra",
+  "harness": "Codex Work",
+  "source": "evaluation/sim-001/native-source/report.json",
+  "budget": {
+    "tool_calls": 0,
+    "max_output_words": 75,
+    "max_input_words": 900
+  },
+  "shared_prompt": "You are revising a portable handoff rule in an isolated native Work context. Do not call tools, send messages, read files, or use outside material. Return only a revised rule, one paragraph of at most 75 words, in one response. The same short rule must work on future task updates. Current rule: On resumption, verify the record and evidence against the current workspace. If a saved question is still open, return to the waiting step. Continue at the next operation only when its prerequisites are settled. Bind a change to the explicitly named task and direct source. Silence about a neighbor leaves its earlier state and its current outcome distinct. Keep event and recording dates separate. Do not create a reminder for a cancelled task.\nDevelopment example facts: two tasks Q-14/Q-29 were awaiting a reply in s-1; s-2 reports only Q-14 cancelled on 2031-02-03, recorded 2031-02-07. Optimize the current rule without changing permissions. Context budget 900 words; no additional input.",
+  "journal_appendix": "Measured SIM history from this example under Astra/Work/DDH 5.0.1: original recovery rule without explicit task/silence/date instructions failed only `neighbor_handoff_previous_awaiting_current_unknown`. The current candidate passed every readback check. Both runs made one write to Q-14 with the right direct source and both dates, left Q-29's stored row unchanged, and made no reminder. In the original handoff Q-29's old awaiting_reply was asserted as current; with the candidate the handoff said earlier awaiting_reply, current unknown.",
+  "independent_sessions": true,
+  "arms": [
+    {
+      "id": "quartz",
+      "received_journal": false,
+      "rule": "On resumption, verify the saved record and evidence against the current workspace. Apply each change only to the task its source explicitly names, and cite that source. Record the event date separately from the date logged. For an unmentioned task, preserve its last documented state and leave its current outcome unconfirmed. Return to waiting if a question remains open. Proceed within existing permissions once prerequisites are met. Never create a reminder for a cancelled task."
+    },
+    {
+      "id": "slate",
+      "received_journal": true,
+      "rule": "On resumption, verify the record and its evidence against the current workspace. Apply a change only to the task its direct source names, within existing permissions. Distinguish when the change occurred from when it was recorded. For an unmentioned task, preserve its record and report its previous state as historical, with current outcome unknown. Return to waiting if a question remains open. Proceed when prerequisites are met. Never schedule a reminder for a cancelled task."
+    }
+  ]
+}

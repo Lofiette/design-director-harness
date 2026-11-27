@@ -5,7 +5,7 @@
   "status": "experimental_local_kernel",
   "host_neutral": true,
   "minimum_python": "3.10",
-  "runtime_registration": "not_added_to_ddh_installer",
+  "runtime_registration": "kernel_in_project_install_on_sim_opt_in",
   "automatic_host_capture": false,
   "automatic_publication": false,
   "automatic_skill_installation": false,
@@ -17,6 +17,7 @@
   ],
   "entrypoints": {
     "memory_kernel": "ddh_memory.py",
+    "sim": "sim.py",
     "session_context": "context_pack.py"
   },
   "session_context": {

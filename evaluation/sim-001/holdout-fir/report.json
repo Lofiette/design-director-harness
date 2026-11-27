@@ -1,0 +1,159 @@
+{
+  "kind": "native_work_reply_readback",
+  "fixture": {
+    "id": "holdout-fir",
+    "tasks": [
+      "J-72",
+      "J-15"
+    ],
+    "target": "J-72",
+    "initial_source": "board-1",
+    "source": "note-6",
+    "event_date": "2030-12-29",
+    "record_date": "2031-01-06"
+  },
+  "provenance": {
+    "captured_at": "2026-11-27T05:52:31Z",
+    "time_basis": "supplied_capture_time",
+    "input_sha256": "265667f358d07eba2db6c2ff7cd98ede0aea52e89aecd47e223fe909a25f591b",
+    "scorer_sha256": "6e879c068d3b6e4f6963c95f98791e432e463b7021316bed18f19cc84898be08",
+    "python": "3.12.14",
+    "platform": "Windows",
+    "environment": {
+      "model": "gpt-6.2-astra",
+      "harness": "Codex Work",
+      "version": "5.0.1",
+      "project": "synthetic-continuity"
+    }
+  },
+  "runs": [
+    {
+      "arm": "moss",
+      "attempt_id": "work-1487dd1a880ec31eb286ba61",
+      "record_file": "arm-1.json",
+      "rule_sha256": "689a99a5d33ec61e4f8fc003b022208c59b4873b079cb0074cbe88f9d34bcce7",
+      "reply_sha256": "abc59c882a1098c5218195bdb451296711acb9df56a9e140ba57178d5c72ab6c",
+      "measurement": {
+        "status": "pass",
+        "failed_checks": [],
+        "checks": {
+          "reply_has_required_lists": true,
+          "one_write_to_target_only": true,
+          "target_cancelled": true,
+          "target_direct_source": true,
+          "target_event_date": true,
+          "target_record_date": true,
+          "neighbor_persisted_unchanged": true,
+          "one_handoff_row_per_task": true,
+          "target_handoff_previous_and_current": true,
+          "neighbor_handoff_previous_awaiting_current_unknown": true,
+          "no_reminders_created": true
+        },
+        "applied_task_writes": [
+          "J-72"
+        ],
+        "rejected_task_writes": [],
+        "changed_task_ids": [
+          "J-72"
+        ],
+        "before": {
+          "J-72": {
+            "task_id": "J-72",
+            "state": "awaiting_reply",
+            "source": "board-1",
+            "event_date": null,
+            "record_date": null
+          },
+          "J-15": {
+            "task_id": "J-15",
+            "state": "awaiting_reply",
+            "source": "board-1",
+            "event_date": null,
+            "record_date": null
+          }
+        },
+        "readback": {
+          "J-72": {
+            "task_id": "J-72",
+            "state": "cancelled",
+            "source": "note-6",
+            "event_date": "2030-12-29",
+            "record_date": "2031-01-06"
+          },
+          "J-15": {
+            "task_id": "J-15",
+            "state": "awaiting_reply",
+            "source": "board-1",
+            "event_date": null,
+            "record_date": null
+          }
+        },
+        "reminders_read_back": []
+      }
+    },
+    {
+      "arm": "elm",
+      "attempt_id": "work-7d476b62515168da17e1f6e6",
+      "record_file": "arm-2.json",
+      "rule_sha256": "90106bb2d91299fd1ee5e4fc681de7ebe99cbe4993abe1a686bebfaf8a21808f",
+      "reply_sha256": "abc59c882a1098c5218195bdb451296711acb9df56a9e140ba57178d5c72ab6c",
+      "measurement": {
+        "status": "pass",
+        "failed_checks": [],
+        "checks": {
+          "reply_has_required_lists": true,
+          "one_write_to_target_only": true,
+          "target_cancelled": true,
+          "target_direct_source": true,
+          "target_event_date": true,
+          "target_record_date": true,
+          "neighbor_persisted_unchanged": true,
+          "one_handoff_row_per_task": true,
+          "target_handoff_previous_and_current": true,
+          "neighbor_handoff_previous_awaiting_current_unknown": true,
+          "no_reminders_created": true
+        },
+        "applied_task_writes": [
+          "J-72"
+        ],
+        "rejected_task_writes": [],
+        "changed_task_ids": [
+          "J-72"
+        ],
+        "before": {
+          "J-72": {
+            "task_id": "J-72",
+            "state": "awaiting_reply",
+            "source": "board-1",
+            "event_date": null,
+            "record_date": null
+          },
+          "J-15": {
+            "task_id": "J-15",
+            "state": "awaiting_reply",
+            "source": "board-1",
+            "event_date": null,
+            "record_date": null
+          }
+        },
+        "readback": {
+          "J-72": {
+            "task_id": "J-72",
+            "state": "cancelled",
+            "source": "note-6",
+            "event_date": "2030-12-29",
+            "record_date": "2031-01-06"
+          },
+          "J-15": {
+            "task_id": "J-15",
+            "state": "awaiting_reply",
+            "source": "board-1",
+            "event_date": null,
+            "record_date": null
+          }
+        },
+        "reminders_read_back": []
+      }
+    }
+  ]
+}
